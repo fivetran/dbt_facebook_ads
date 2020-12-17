@@ -12,5 +12,13 @@ snapshot-paths: ["snapshots"]
 
 models:
   facebook_ads:
-      example:
-          materialized: view
+    materialized: table
+
+vars:
+  facebook_ads:
+    account_history: "{{ ref('stg_facebook_ads__account_history') }}"
+    ad_history: "{{ ref('stg_facebook_ads__ad_history') }}"
+    ad_set_history: "{{ ref('stg_facebook_ads__ad_set_history') }}"
+    basic_ad: "{{ ref('stg_facebook_ads__basic_ad') }}"
+    campaign_history: "{{ ref('stg_facebook_ads__campaign_history') }}"
+    creative_history: "{{ ref('stg_facebook_ads__creative_history') }}"
