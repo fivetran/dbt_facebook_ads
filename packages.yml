@@ -2,4 +2,4 @@ packages:
   # - local: ../dbt_facebook_ads_source
 
   - git: "https://github.com/fivetran/dbt_facebook_ads_source.git"
-    revision: main
+    revision: master
