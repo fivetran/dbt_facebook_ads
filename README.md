@@ -32,7 +32,7 @@ vars:
     facebook_ads_database: your_database_name 
 ```
 
-For additional configurations for the source models, visit the [Facebook Ads source package](https://github.com/fivetran/dbt_facebook_source).
+For additional configurations for the source models, visit the [Facebook Ads source package](https://github.com/fivetran/dbt_facebook_ads_source).
 
 ## Contributions
 
