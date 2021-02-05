@@ -1,5 +1,5 @@
 packages:
-  # - local: ../dbt_facebook_ads_source
+  - local: ../dbt_facebook_ads_source
 
-  - git: "https://github.com/fivetran/dbt_facebook_ads_source.git"
-    revision: master
+  # - git: "https://github.com/fivetran/dbt_facebook_ads_source.git"
+  #   revision: master
