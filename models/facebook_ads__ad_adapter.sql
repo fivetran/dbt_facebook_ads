@@ -12,21 +12,25 @@ with report as (
 
     select *
     from {{ var('account_history') }}
+    where is_most_recent_record = true
 
 ), ads as (
 
     select *
     from {{ var('ad_history') }}
+    where is_most_recent_record = true
 
 ), ad_sets as (
 
     select *
     from {{ var('ad_set_history') }}
+    where is_most_recent_record = true
 
 ), campaigns as (
 
     select *
     from {{ var('campaign_history') }}
+    where is_most_recent_record = true
 
 ), joined as (
 
