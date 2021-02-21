@@ -20,6 +20,7 @@ seeds:
         template_page_link: "{{ 'string' if target.name == 'bigquery' else 'varchar' }}"
         id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
         account_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: "timestamp"
     facebook_ads_account_history_data:
       +column_types:
         id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
@@ -43,3 +44,6 @@ seeds:
       +column_types:
         ad_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
         account_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+
+models:
+  +materialized: table
