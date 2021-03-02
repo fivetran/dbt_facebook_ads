@@ -16,9 +16,11 @@ This package contains transformation models, designed to work simultaneously wit
 | facebook_ads__ad_set_report    | Each record represents the daily ad performance of each ad set.                                                        |
 
 ## Installation Instructions
+
 Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions, or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 
 ## Configuration
+
 By default, this package will look for your Facebook Ads data in the `facebook_ads` schema of your [target database](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile). If this is not where your Facebook Ads data is, please add the following configuration to your `dbt_project.yml` file:
 
 ```yml
