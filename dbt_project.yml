@@ -1,15 +1,16 @@
 
 name: 'facebook_ads'
-version: '1.0.0'
+version: '0.2.0'
 config-version: 2
 
 require-dbt-version: [">=0.18.0", "<0.20.0"]
 
 models:
   facebook_ads:
-    materialized: table
+    +schema: facebook_ads
+    +materialized: table
     intermediate:
-      materialized: view
+      +materialized: view
 
 vars:
   facebook_ads:
