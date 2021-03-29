@@ -37,7 +37,7 @@ vars:
 For additional configurations for the source models, visit the [Facebook Ads source package](https://github.com/fivetran/dbt_facebook_ads_source).
 
 ### Changing the Build Schema
-By default this package will build the Facebook Ads staging models within a schema titled (<target_schema> + `_stg_facebook_ads`), the Facebook Creative History models within a schema titled (<target_schema> + `_facebook_creative_history`), and the final Facebook Ads models within a schema titled (<target_schema> + `_facebook_ads`) in your target database. If this is not where you would like your modeled Facebook data to be written to, add the following configuration to your `dbt_project.yml` file:
+By default this package will build the Facebook Ads staging models within a schema titled (<target_schema> + `_stg_facebook_ads`), the Facebook Creative History models within a schema titled (<target_schema> + `_facebook_ads_creative_history`), and the final Facebook Ads models within a schema titled (<target_schema> + `_facebook_ads`) in your target database. If this is not where you would like your modeled Facebook data to be written to, add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 # dbt_project.yml
@@ -46,7 +46,7 @@ By default this package will build the Facebook Ads staging models within a sche
 models:
     facebook_ads:
         +schema: my_new_schema_name # leave blank for just the target_schema
-    facebook_creative_history:
+    facebook_ads_creative_history:
         +schema: my_new_schema_name # leave blank for just the target_schema
     facebook_ads_source:
         +schema: my_new_schema_name # leave blank for just the target_schema
