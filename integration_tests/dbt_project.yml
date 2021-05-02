@@ -16,8 +16,8 @@ seeds:
   facebook_ads_integration_tests:
     facebook_ads_creative_history_data:
       +column_types:
-        page_link: "{{ 'string' if target.name == 'bigquery' else 'varchar' }}"
-        template_page_link: "{{ 'string' if target.name == 'bigquery' else 'varchar' }}"
+        page_link: "{{ 'string' if target.name in ['bigquery','spark'] else 'varchar' }}"
+        template_page_link: "{{ 'string' if target.name in ['bigquery','spark'] else 'varchar' }}"
         id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
         account_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
         _fivetran_synced: "timestamp"
