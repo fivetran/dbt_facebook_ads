@@ -44,6 +44,3 @@ seeds:
       +column_types:
         ad_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
         account_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-
-models:
-  +materialized: table
