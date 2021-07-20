@@ -1,9 +1,9 @@
 
 name: 'facebook_ads'
-version: '0.2.0'
+version: '0.3.0'
 config-version: 2
 
-require-dbt-version: [">=0.18.0", "<0.20.0"]
+require-dbt-version: ">=0.20.0"
 
 models:
   facebook_ads:
@@ -21,5 +21,4 @@ vars:
     campaign_history: "{{ ref('stg_facebook_ads__campaign_history') }}"
     creative_history: "{{ ref('stg_facebook_ads__creative_history') }}"
     url_tag: "{{ ref('stg_facebook_ads__url_tag') }}"
-  dbt_utils_dispatch_list: ['spark_utils', 'fivetran_utils']
-  fivetran_utils_dispatch_list: ['spark_utils']
+
