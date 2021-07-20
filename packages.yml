@@ -1,3 +1,5 @@
 packages:
-  - package: fivetran/facebook_ads_creative_history
-    version: [">=0.2.0","<0.3.0"] 
+  # - package: fivetran/facebook_ads_creative_history
+  #   version: [">=0.2.0","<0.3.0"] 
+  - git: https://github.com/fivetran/dbt_facebook_ads_creative_history.git
+    warn-unpinned: false
