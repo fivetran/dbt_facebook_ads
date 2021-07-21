@@ -51,6 +51,9 @@ models:
     facebook_ads_source:
         +schema: my_new_schema_name # leave blank for just the target_schema
 ```
+## Database Support
+
+This package has been tested on BigQuery, Snowflake, Redshift, Postgres, and Databricks.
 
 ## Contributions
 
