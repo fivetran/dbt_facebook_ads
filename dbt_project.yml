@@ -1,17 +1,13 @@
-
 name: 'facebook_ads'
-version: '0.2.2'
+version: '0.3.0'
 config-version: 2
-
-require-dbt-version: [">=0.18.0", "<0.20.0"]
-
+require-dbt-version: [">=0.20.0"]
 models:
   facebook_ads:
     +schema: facebook_ads
     +materialized: table
     intermediate:
       +materialized: view
-
 vars:
   facebook_ads:
     account_history: "{{ ref('stg_facebook_ads__account_history') }}"
