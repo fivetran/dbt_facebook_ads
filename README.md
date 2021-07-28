@@ -71,7 +71,8 @@ dbt `v0.20.0` introduced a new project-level dispatch configuration that enables
 
 dispatch:
   - macro_namespace: dbt_utils
-    se
+    search_order: ['spark_utils', 'dbt_utils']
+```
 
 ## Contributions
 
