@@ -38,7 +38,7 @@ integration_tests:
     spark:
       type: spark
       method: http
-      schema: facebook_ads_integration_tests
+      schema: facebook_ads_integration_tests_2
       host: "{{ env_var('CI_SPARK_DBT_HOST') }}"
       organization: "{{ env_var('CI_SPARK_DBT_ORGANIZATION') }}"
       token: "{{ env_var('CI_SPARK_DBT_TOKEN') }}"

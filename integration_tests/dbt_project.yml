@@ -1,5 +1,5 @@
 name: 'facebook_ads_integration_tests'
-version: '0.2.2'
+version: '0.3.0'
 profile: 'integration_tests'
 config-version: 2
 
@@ -47,3 +47,7 @@ seeds:
 
 models:
   +materialized: table
+  
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']
