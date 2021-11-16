@@ -16,13 +16,14 @@ with base as (
     select 
         _fivetran_id,
         creative_id,
+        source_relation,
         min(case when key = 'utm_source' then value end) as utm_source,
         min(case when key = 'utm_medium' then value end) as utm_medium,
         min(case when key = 'utm_campaign' then value end) as utm_campaign,
         min(case when key = 'utm_content' then value end) as utm_content,
         min(case when key = 'utm_term' then value end) as utm_term
     from url_tags
-    group by 1,2
+    {{ dbt_utils.group_by(3) }}
 
 ), fields as (
 
@@ -31,6 +32,7 @@ with base as (
         creative_id,
         account_id,
         creative_name,
+        source_relation,
         {{ url_field }} as url,
         {{ dbt_utils.split_part(url_field, "'?'", 1) }} as base_url,
         {{ dbt_utils.get_url_host(url_field) }} as url_host,
@@ -42,7 +44,7 @@ with base as (
         coalesce(url_tags_pivoted.utm_term, {{ dbt_utils.get_url_parameter(url_field, 'utm_term') }}) as utm_term
     from base
     left join url_tags_pivoted
-        using (_fivetran_id, creative_id)
+        using (_fivetran_id, creative_id, source_relation)
 
 )
 
