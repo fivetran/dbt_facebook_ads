@@ -1,3 +1,8 @@
+# dbt_facebook_ads v0.4.1
+
+### Updates
+- Adding in `Required Report(s)` section to be consistent with `dbt_facebook_ads_source` package.
+
 # dbt_facebook_ads v0.4.0
 🎉 dbt v1.0.0 Compatibility 🎉
 ## 🚨 Breaking Changes 🚨
