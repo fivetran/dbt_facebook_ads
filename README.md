@@ -30,6 +30,19 @@ packages:
 
 ## Configuration
 
+### Required Report(s)
+
+To use this package, you will need to configure your Facebook Ads connector to pull the `BASIC_AD` pre-built report. Follow the below steps in the Fivetran UI to do so:
+1. Navigate to the connector setup form (**Setup** -> **Edit connection details** for pre-existing connectors)
+2. Click **Add table** 
+3. Select **Pre-built Report**
+4. Set the table name to `basic_ad`
+5. Select `BASIC_AD` as the corresponding pre-built report
+6. Select a daily aggregation period
+7. Click **Ok** and **Save & test**!
+
+### Source Data Location
+
 By default, this package will look for your Facebook Ads data in the `facebook_ads` schema of your [target database](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile). If this is not where your Facebook Ads data is, please add the following configuration to your `dbt_project.yml` file:
 
 ```yml
