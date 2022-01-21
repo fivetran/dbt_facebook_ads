@@ -54,7 +54,7 @@ integration_tests:
       password: "{{ env_var('CI_POSTGRES_DBT_PASS') }}"
       port: 5432
       dbname: "{{ env_var('CI_POSTGRES_DBT_DATABASE') }}"
-      schema: facebook_ads_integration_tests
+      schema: facebook_ads_integrations_test
       threads: 8
       keepalives_idle: 0
       sslmode: prefer
