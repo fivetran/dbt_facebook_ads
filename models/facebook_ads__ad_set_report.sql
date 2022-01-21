@@ -13,11 +13,12 @@ with adapter as (
         campaign_name,
         ad_set_id,
         ad_set_name,
+        source_relation,
         sum(clicks) as clicks,
         sum(impressions) as impressions,
         sum(spend) as spend
     from adapter
-    {{ dbt_utils.group_by(7) }}
+    {{ dbt_utils.group_by(8) }}
 
 )
 

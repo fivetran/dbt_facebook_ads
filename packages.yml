@@ -1,3 +1,7 @@
 packages:
-- package: fivetran/facebook_ads_creative_history
-  version: [">=0.4.0", "<0.5.0"]
+  # TODO: Swap local to DBT Hub once the Creative History is published
+  # - package: fivetran/facebook_ads_creative_history
+  #   version: [">=0.4.0", "<0.5.0"]
+    - git: https://github.com/fivetran/dbt_facebook_ads_creative_history.git
+    revision: feature/union-ability
+    warn-unpinned: false

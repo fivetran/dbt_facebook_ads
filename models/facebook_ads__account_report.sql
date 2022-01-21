@@ -9,11 +9,12 @@ with adapter as (
         date_day,
         account_id,
         account_name,
+        source_relation,
         sum(clicks) as clicks,
         sum(impressions) as impressions,
         sum(spend) as spend
     from adapter
-    {{ dbt_utils.group_by(3) }}
+    {{ dbt_utils.group_by(4) }}
 
 )
 
