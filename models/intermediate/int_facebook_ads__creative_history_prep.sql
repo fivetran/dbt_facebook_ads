@@ -9,7 +9,7 @@ with base as (
 ), url_tags as (
 
     select *
-    from {{ var('url_tag') }}
+    from {{ ref('int_facebook_ads__url_tags') }}
 
 ), url_tags_pivoted as (
 
