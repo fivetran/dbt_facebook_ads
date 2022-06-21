@@ -6,7 +6,7 @@ with report as (
 ), creatives as (
 
     select *
-    from {{ ref('facebook_ads__creative_history_prep') }}
+    from {{ ref('int_facebook_ads__creative_history_prep') }}
 
 ), accounts as (
 
@@ -69,7 +69,6 @@ with report as (
     left join accounts
         on cast(report.account_id as {{ dbt_utils.type_bigint() }}) = cast(accounts.account_id as {{ dbt_utils.type_bigint() }})
     {{ dbt_utils.group_by(19) }}
-
 
 )
 

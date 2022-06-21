@@ -1,23 +1,44 @@
-with adapter as (
+with report as (
 
     select *
-    from {{ ref('facebook_ads__ad_adapter') }}
+    from {{ var('basic_ad') }}
 
-), aggregated as (
+), 
 
-    select
-        date_day,
-        account_id,
-        account_name,
-        campaign_id,
-        campaign_name,
-        sum(clicks) as clicks,
-        sum(impressions) as impressions,
-        sum(spend) as spend
-    from adapter
+accounts as (
+
+    select *
+    from {{ var('account_history') }}
+    where is_most_recent_record = true
+
+),
+
+campaigns as (
+
+    select *
+    from {{ var('campaign_history') }}
+    where is_most_recent_record = true
+
+),
+
+joined as (
+
+    select 
+        report.date_day,
+        accounts.account_id,
+        accounts.account_name,
+        campaigns.campaign_id,
+        campaigns.campaign_name,
+        sum(report.clicks) as clicks,
+        sum(report.impressions) as impressions,
+        sum(report.spend) as spend
+    from report 
+    left join accounts
+        on cast(report.account_id as {{ dbt_utils.type_bigint() }}) = cast(accounts.account_id as {{ dbt_utils.type_bigint() }})
+    left join campaigns
+        on cast(ads.campaign_id as {{ dbt_utils.type_bigint() }}) = cast(campaigns.campaign_id as {{ dbt_utils.type_bigint() }})
     {{ dbt_utils.group_by(5) }}
-
 )
 
 select *
-from aggregated
+from joined
