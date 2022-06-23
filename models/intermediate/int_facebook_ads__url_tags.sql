@@ -2,8 +2,8 @@
 with base as (
 
     select *
-    from {{ ref('int_facebook_ads__creative_history') }}
-    where first_creative_record = true
+    from {{ var('creative_history') }}
+    where is_most_recent_record = true
 ), 
 
 required_fields as (
@@ -13,6 +13,7 @@ required_fields as (
         creative_id,
         url_tags
     from base
+    where url_tags is not null
 ), 
 
 {{ get_url_tags_query() }} 

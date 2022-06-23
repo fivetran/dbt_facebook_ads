@@ -1,33 +1,55 @@
-with creatives as (
+{% set url_field = "coalesce(page_link,template_page_link)" %}
+
+with base as (
 
     select *
     from {{ var('creative_history') }}
-    where is_most_recent_valid_utm_record = true
+    where is_most_recent_record = true
+
 ), 
 
-ads as (
+url_tags as (
 
     select *
-    from {{ var('ad_history') }}
-    where is_most_recent_record = true
-),
+    from {{ ref('int_facebook_ads__url_tags') }}
+), 
 
-joined as (
+url_tags_pivoted as (
+
+    select 
+        _fivetran_id,
+        creative_id,
+        min(case when key = 'utm_source' then value end) as utm_source,
+        min(case when key = 'utm_medium' then value end) as utm_medium,
+        min(case when key = 'utm_campaign' then value end) as utm_campaign,
+        min(case when key = 'utm_content' then value end) as utm_content,
+        min(case when key = 'utm_term' then value end) as utm_term
+    from url_tags
+    group by 1,2
+
+), 
+
+fields as (
 
     select
-        creatives._fivetran_id,
-        creatives.account_id,
-        ads.ad_id,
-        creatives.creative_id,
-        creatives.creative_name,
-        creatives.page_link,
-        creatives.template_page_link,
-        creatives.url_tags,
-        row_number() over (partition by ads.ad_id order by ads.creative_id) = 1 as first_creative_record
-    from ads
-    join creatives
-        on ads.creative_id = creatives.creative_id
+        base._fivetran_id,
+        base.creative_id,
+        base.account_id,
+        base.creative_name,
+        {{ url_field }} as url,
+        {{ dbt_utils.split_part(url_field, "'?'", 1) }} as base_url,
+        {{ dbt_utils.get_url_host(url_field) }} as url_host,
+        '/' || {{ dbt_utils.get_url_path(url_field) }} as url_path,
+        coalesce(url_tags_pivoted.utm_source, {{ dbt_utils.get_url_parameter(url_field, 'utm_source') }}) as utm_source,
+        coalesce(url_tags_pivoted.utm_medium, {{ dbt_utils.get_url_parameter(url_field, 'utm_medium') }}) as utm_medium,
+        coalesce(url_tags_pivoted.utm_campaign, {{ dbt_utils.get_url_parameter(url_field, 'utm_campaign') }}) as utm_campaign,
+        coalesce(url_tags_pivoted.utm_content, {{ dbt_utils.get_url_parameter(url_field, 'utm_content') }}) as utm_content,
+        coalesce(url_tags_pivoted.utm_term, {{ dbt_utils.get_url_parameter(url_field, 'utm_term') }}) as utm_term
+    from base
+    left join url_tags_pivoted
+        on base._fivetran_id = url_tags_pivoted._fivetran_id
+        and base.creative_id = url_tags_pivoted.creative_id
 )
 
 select *
-from joined
+from fields

@@ -3,36 +3,48 @@ with report as (
     select *
     from {{ var('basic_ad') }}
 
-), creatives as (
+), 
+
+creatives as (
 
     select *
-    from {{ ref('int_facebook_ads__utm_fields') }}
+    from {{ ref('int_facebook_ads__creative_history') }}
 
-), accounts as (
+), 
+
+accounts as (
 
     select *
     from {{ var('account_history') }}
     where is_most_recent_record = true
 
-), ads as (
+), 
+
+ads as (
 
     select *
     from {{ var('ad_history') }}
     where is_most_recent_record = true
 
-), ad_sets as (
+), 
+
+ad_sets as (
 
     select *
     from {{ var('ad_set_history') }}
     where is_most_recent_record = true
 
-), campaigns as (
+), 
+
+campaigns as (
 
     select *
     from {{ var('campaign_history') }}
     where is_most_recent_record = true
 
-), joined as (
+), 
+
+joined as (
 
     select
         report.date_day,
@@ -67,10 +79,21 @@ with report as (
     left join campaigns
         on cast(ads.campaign_id as {{ dbt_utils.type_bigint() }}) = cast(campaigns.campaign_id as {{ dbt_utils.type_bigint() }})
     left join accounts
-        on cast(report.account_id as {{ dbt_utils.type_bigint() }}) = cast(accounts.account_id as {{ dbt_utils.type_bigint() }})
+        on cast(report.account_id as {{ dbt_utils.type_bigint() }}) = cast(accounts.account_id as {{ dbt_utils.type_bigint() }})    
     {{ dbt_utils.group_by(19) }}
 
+),
+
+filtered_join as (
+
+    select * 
+    from joined
+    where utm_source is not null 
+        or utm_medium is not null
+        or utm_campaign is not null 
+        or utm_content is not null
+        or utm_term is not null
 )
 
 select *
-from joined
+from filtered_join
