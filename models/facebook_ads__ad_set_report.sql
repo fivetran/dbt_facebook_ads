@@ -29,6 +29,14 @@ ad_sets as (
 
 ),
 
+ads as (
+
+    select *
+    from {{ var('ad_history') }}
+    where is_most_recent_record = true
+
+),
+
 joined as (
 
     select 
@@ -45,6 +53,8 @@ joined as (
     from report 
     left join accounts
         on cast(report.account_id as {{ dbt_utils.type_bigint() }}) = cast(accounts.account_id as {{ dbt_utils.type_bigint() }})
+    left join ads 
+        on cast(report.ad_id as {{ dbt_utils.type_bigint() }}) = cast(ads.ad_id as {{ dbt_utils.type_bigint() }})
     left join campaigns
         on cast(ads.campaign_id as {{ dbt_utils.type_bigint() }}) = cast(campaigns.campaign_id as {{ dbt_utils.type_bigint() }})
     left join ad_sets

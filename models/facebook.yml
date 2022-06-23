@@ -1,8 +1,16 @@
 version: 2
 
 models:
-  - name: facebook_ads__ad_adapter
+  - name: facebook_ads__utm_report
     description: Each record represents the daily performance of a Facebook ad at the URL level.
+    tests:     
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date_day
+            - account_id
+            - campaign_id
+            - ad_set_id
+            - ad_id
     columns:
       - name: date_day
         description: The date of the performance.
@@ -49,8 +57,51 @@ models:
       - name: spend
         description: The spend on the ad in the given day.
 
+  - name: facebook_ads__ad_report
+    description: Each record represents the daily performance of a Facebook ad.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date_day
+            - account_id
+            - campaign_id
+            - ad_set_id
+            - ad_id
+    columns:
+      - name: date_day
+        description: The date of the performance.
+      - name: account_id
+        description: The ID of the related account.
+      - name: account_name
+        description: The name of the related account.
+      - name: campaign_id
+        description: The ID of the related campaign.
+      - name: campaign_name
+        description: The name of the related campaign.
+      - name: ad_set_id
+        description: The ID of the related ad set.
+      - name: ad_set_name
+        description: The name of the related ad set.
+      - name: ad_id
+        description: The ID of the related ad.
+      - name: ad_name
+        description: The name of the related ad.
+      - name: clicks
+        description: The number of clicks the ad had on the given day.
+      - name: impressions
+        description: The number of impressions the ad had on the given day.
+      - name: spend
+        description: The spend on the ad in the given day.
+
   - name: facebook_ads__ad_set_report
     description: Each record represents the daily performance of a Facebook ad set.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date_day
+            - account_id
+            - campaign_id
+            - ad_set_id
     columns:
       - name: date_day
         description: The date of the performance.
@@ -75,6 +126,12 @@ models:
 
   - name: facebook_ads__campaign_report
     description: Each record represents the daily performance of a Facebook campaign.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date_day
+            - account_id
+            - campaign_id
     columns:
       - name: date_day
         description: The date of the performance.
@@ -95,6 +152,11 @@ models:
 
   - name: facebook_ads__account_report
     description: Each record represents the daily performance of a Facebook account.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date_day
+            - account_id
     columns:
       - name: date_day
         description: The date of the performance.

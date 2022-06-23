@@ -1,3 +1,5 @@
 packages:
-- package: fivetran/facebook_ads_creative_history
-  version: [">=0.4.0", "<0.5.0"]
+  # - git: https://github.com/fivetran/dbt_facebook_ads_source.git
+  #   revision: update/ad-reporting-v2
+  #   warn-unpinned: false 
+  - local: ../dbt_facebook_ads_source

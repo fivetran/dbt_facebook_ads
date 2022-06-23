@@ -6,7 +6,7 @@ with report as (
 ), creatives as (
 
     select *
-    from {{ ref('int_facebook_ads__creative_history_prep') }}
+    from {{ ref('int_facebook_ads__utm_fields') }}
 
 ), accounts as (
 
