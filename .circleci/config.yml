@@ -23,6 +23,26 @@ jobs:
             mkdir -p ~/.dbt
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
       - run:
+          name: "Run Tests - Postgres"
+          command: |
+            . venv/bin/activate
+            echo `pwd`
+            cd integration_tests
+            dbt deps
+            dbt seed --target postgres --full-refresh
+            dbt run --target postgres --full-refresh
+            dbt test --target postgres
+      - run:
+          name: "Run Tests - Spark"
+          command: |
+            . venv/bin/activate
+            echo `pwd`
+            cd integration_tests
+            dbt deps
+            dbt seed --target spark --full-refresh
+            dbt run --target spark --full-refresh
+            dbt test --target spark
+      - run:
           name: "Run Tests - Redshift"
           command: |
             . venv/bin/activate
@@ -55,24 +75,3 @@ jobs:
             dbt seed --target bigquery --full-refresh
             dbt run --target bigquery --full-refresh
             dbt test --target bigquery
-      - run:
-          name: "Run Tests - Postgres"
-          command: |
-            . venv/bin/activate
-            echo `pwd`
-            cd integration_tests
-            dbt deps
-            dbt seed --target postgres --full-refresh
-            dbt run --target postgres --full-refresh
-            dbt test --target postgres
-      - run:
-          name: "Run Tests - Spark"
-          command: |
-            . venv/bin/activate
-            echo `pwd`
-            cd integration_tests
-            dbt deps
-            dbt seed --target spark --full-refresh
-            dbt run --target spark --full-refresh
-            dbt test --target spark
-            
