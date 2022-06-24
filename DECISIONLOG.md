@@ -13,3 +13,6 @@ Currently, your UTM report will only include:
 
 ## Most Recent Record Logic for History Tables
 For source history tables that provide a `updated_at` field, the most recent record in the respective history tables are calculated using `updated_at`; otherwise, we use `_fivetran_synced` as a proxy field to calculate the most recent record. 
+
+### Passing Through Metrics Not Available
+Please note that additional pass through metrics are only available for the source model as additional metrics such as `cpc`, `cpm` and `ctr` are already aggregated metrics that should not be rolled up into higher levels of reporting.
