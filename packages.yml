@@ -1,5 +1,5 @@
 packages:
-  # - git: https://github.com/fivetran/dbt_facebook_ads_source.git
-  #   revision: update/ad-reporting-v2
-  #   warn-unpinned: false 
-  - local: ../dbt_facebook_ads_source
+## UPDATE ON RELEASE
+  - git: https://github.com/fivetran/dbt_facebook_ads_source.git
+    revision: update/ad-reporting-v2
+    warn-unpinned: false 
