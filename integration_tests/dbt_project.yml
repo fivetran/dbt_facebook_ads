@@ -25,6 +25,7 @@ seeds:
       page_link: "{{ 'string' if target.name in ['bigquery','spark'] else 'varchar' }}"
       template_page_link: "{{ 'string' if target.name in ['bigquery','spark'] else 'varchar' }}"
       _fivetran_synced: "timestamp"
+      updated_time: "timestamp"
 
 models:
   +materialized: table
