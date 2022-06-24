@@ -144,7 +144,7 @@
           url_tags.key as key,
           url_tags.value as value,
           url_tags.type as type
-      from required_fields
+      from cleaned_fields
   )
 
 {% endmacro %}
