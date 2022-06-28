@@ -47,19 +47,24 @@ joined as (
         campaigns.campaign_name,
         ad_sets.ad_set_id,
         ad_sets.ad_set_name,
+        ad_sets.start_time,
+        ad_sets.end_time,
+        ad_sets.bid_strategy,
+        ad_sets.daily_budget,
+        ad_sets.budget_remaining,
         sum(report.clicks) as clicks,
         sum(report.impressions) as impressions,
         sum(report.spend) as spend
     from report 
     left join accounts
-        on cast(report.account_id as {{ dbt_utils.type_bigint() }}) = cast(accounts.account_id as {{ dbt_utils.type_bigint() }})
+        on report.account_id = accounts.account_id
     left join ads 
-        on cast(report.ad_id as {{ dbt_utils.type_bigint() }}) = cast(ads.ad_id as {{ dbt_utils.type_bigint() }})
+        on report.ad_id = ads.ad_id
     left join campaigns
-        on cast(ads.campaign_id as {{ dbt_utils.type_bigint() }}) = cast(campaigns.campaign_id as {{ dbt_utils.type_bigint() }})
+        on ads.campaign_id = campaigns.campaign_id
     left join ad_sets
-        on cast(ads.ad_set_id as {{ dbt_utils.type_bigint() }}) = cast(ad_sets.ad_set_id as {{ dbt_utils.type_bigint() }})
-    {{ dbt_utils.group_by(7) }}
+        on ads.ad_set_id = ad_sets.ad_set_id
+    {{ dbt_utils.group_by(12) }}
 )
 
 select *

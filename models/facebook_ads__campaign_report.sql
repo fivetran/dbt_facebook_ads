@@ -37,17 +37,23 @@ joined as (
         accounts.account_name,
         campaigns.campaign_id,
         campaigns.campaign_name,
+        campaigns.start_time,
+        campaigns.end_time,
+        campaigns.status,
+        campaigns.daily_budget,
+        campaigns.lifetime_budget,
+        campaigns.budget_remaining,
         sum(report.clicks) as clicks,
         sum(report.impressions) as impressions,
         sum(report.spend) as spend
     from report 
     left join accounts
-        on cast(report.account_id as {{ dbt_utils.type_bigint() }}) = cast(accounts.account_id as {{ dbt_utils.type_bigint() }})
+        on report.account_id = accounts.account_id
     left join ads 
-        on cast(report.ad_id as {{ dbt_utils.type_bigint() }}) = cast(ads.ad_id as {{ dbt_utils.type_bigint() }})
+        on report.ad_id = ads.ad_id
     left join campaigns
-        on cast(ads.campaign_id as {{ dbt_utils.type_bigint() }}) = cast(campaigns.campaign_id as {{ dbt_utils.type_bigint() }})
-    {{ dbt_utils.group_by(5) }}
+        on ads.campaign_id = campaigns.campaign_id
+    {{ dbt_utils.group_by(11) }}
 )
 
 select *

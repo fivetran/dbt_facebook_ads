@@ -71,15 +71,15 @@ joined as (
         sum(report.spend) as spend
     from report
     left join ads 
-        on cast(report.ad_id as {{ dbt_utils.type_bigint() }}) = cast(ads.ad_id as {{ dbt_utils.type_bigint() }})
+        on report.ad_id = ads.ad_id
     left join creatives
-        on cast(ads.creative_id as {{ dbt_utils.type_bigint() }}) = cast(creatives.creative_id as {{ dbt_utils.type_bigint() }})
+        on ads.creative_id = creatives.creative_id
     left join ad_sets
-        on cast(ads.ad_set_id as {{ dbt_utils.type_bigint() }}) = cast(ad_sets.ad_set_id as {{ dbt_utils.type_bigint() }})
+        on ads.ad_set_id = ad_sets.ad_set_id
     left join campaigns
-        on cast(ads.campaign_id as {{ dbt_utils.type_bigint() }}) = cast(campaigns.campaign_id as {{ dbt_utils.type_bigint() }})
+        on ads.campaign_id = campaigns.campaign_id
     left join accounts
-        on cast(report.account_id as {{ dbt_utils.type_bigint() }}) = cast(accounts.account_id as {{ dbt_utils.type_bigint() }})    
+        on report.account_id = accounts.account_id    
     {{ dbt_utils.group_by(19) }}
 
 ),

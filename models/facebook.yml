@@ -170,3 +170,23 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
+
+  - name: facebook_ads__url_tags
+    description: Each record is a unique combination of creative_id and corresponding key, value, type contained in the url_tags field
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - _fivetran_id
+            - key
+            - type
+    columns:
+      - name: _fivetran_id
+        description: The unique fivetran ID for this record.
+      - name: creative_id
+        description: The associated creative_id for this record.
+      - name: key
+        description: The url tag object name e.g. utm_source associated with this record.
+      - name: value
+        description: The value assigned to the url tag object associated with this record.
+      - name: type
+        description: The type assigned to the url tag object e.g. 'AD_VIDEO'.

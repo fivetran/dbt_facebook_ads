@@ -11,7 +11,7 @@ with base as (
 url_tags as (
 
     select *
-    from {{ ref('int_facebook_ads__url_tags') }}
+    from {{ ref('facebook_ads__url_tags') }}
 ), 
 
 url_tags_pivoted as (

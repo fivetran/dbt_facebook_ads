@@ -15,7 +15,10 @@
 
   unnested as (
 
-      select _fivetran_id, creative_id, url_tag_element
+      select 
+        _fivetran_id, 
+        creative_id, 
+        url_tag_element
       from cleaned_json
       left join unnest(cleaned_url_tags) as url_tag_element
       where cleaned_url_tags is not null
@@ -47,7 +50,10 @@
 
   unnested as (
 
-      select _fivetran_id, creative_id, url_tag_element
+      select 
+        _fivetran_id, 
+        creative_id, 
+        url_tag_element
       from cleaned_json
       left join lateral json_array_elements(cleaned_url_tags) as url_tag_element on True
       where cleaned_url_tags is not null

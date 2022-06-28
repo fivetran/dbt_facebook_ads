@@ -1,4 +1,3 @@
-
 with base as (
 
     select *

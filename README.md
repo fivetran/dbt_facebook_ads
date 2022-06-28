@@ -63,7 +63,7 @@ packages:
 
 ```
 ## Step 3: Define database and schema variables
-By default, this package runs using your destination and the `facebook_ads` schema. If this is not where your Facebook Ads data is (for example, if your Facebook Ads schema is named `Facebook_ads_fivetran`), add the following configuration to your root `dbt_project.yml` file:
+By default, this package runs using your destination and the `facebook_ads` schema. If this is not where your Facebook Ads data is (for example, if your Facebook Ads schema is named `facebook_ads_fivetran`), add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
 vars:
@@ -74,7 +74,7 @@ vars:
 ## (Optional) Step 4: Additional configurations
 
 ### Change the build schema
-By default, this package builds the Facebook Ads staging models within a schema titled (`<target_schema>` + `_stg_facebook_ads`) and your Facebook Ads modeling models within a schema titled (`<target_schema>` + `_facebook_ads`) in your destination. If this is not where you would like your Facebook Ads data to be written to, add the following configuration to your root `dbt_project.yml` file:
+By default, this package builds the Facebook Ads staging models within a schema titled (`<target_schema>` + `_facebook_ads_source`) and your Facebook Ads modeling models within a schema titled (`<target_schema>` + `_facebook_ads`) in your destination. If this is not where you would like your Facebook Ads data to be written to, add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
 models:
@@ -105,7 +105,7 @@ This dbt package is dependent on the following dbt packages. Please be aware tha
 ```yml
 packages:
     - package: fivetran/facebook_ads_source
-      version: [">=0.8.0", "<0.9.0"]
+      version: [">=0.5.0", "<0.6.0"]
 
     - package: fivetran/fivetran_utils
       version: [">=0.3.0", "<0.4.0"]
@@ -115,7 +115,7 @@ packages:
 ```
 # 🙌 How is this package maintained and can I contribute?
 ## Package Maintenance
-The Fivetran team maintaining this package _only_ maintains the latest version of the package. We highly recommend you stay consistent with the [latest version](https://hub.getdbt.com/fivetran/facebook_ads/latest/) of the package and refer to the [CHANGELOG](https://github.com/fivetran/dbt_facebook_ads/blob/main/CHANGELOG.md) and release notes for more information on changes across versions.
+The Fivetran team maintaining this package _only_ maintains the latest version of the package. We highly recommend you stay consistent with the [latest version](https://hub.getdbt.com/fivetran/facebook_ads/latest/) of the package and refer to the [CHANGELOG](https://github.com/fivetran/dbt_facebook_ads/blob/main/CHANGELOG.md), [DECISIONLOG](https://github.com/fivetran/dbt_facebook_ads/blob/main/DECISIONLOG.md) and release notes for more information on changes across versions.
 
 ## Contributions
 A small team of analytics engineers at Fivetran develops these dbt packages. However, the packages are made better by community contributions! 
