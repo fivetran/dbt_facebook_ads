@@ -80,20 +80,9 @@ joined as (
         on ads.campaign_id = campaigns.campaign_id
     left join accounts
         on report.account_id = accounts.account_id    
+    where creatives.url is not null
     {{ dbt_utils.group_by(19) }}
-
-),
-
-filtered_join as (
-
-    select * 
-    from joined
-    where utm_source is not null 
-        or utm_medium is not null
-        or utm_campaign is not null 
-        or utm_content is not null
-        or utm_term is not null
 )
 
 select *
-from filtered_join
+from joined

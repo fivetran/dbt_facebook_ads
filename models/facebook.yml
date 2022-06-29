@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: facebook_ads__utm_report
+  - name: facebook_ads__url_report
     description: Each record represents the daily performance of a Facebook ad at the URL level.
     tests:     
       - dbt_utils.unique_combination_of_columns:
