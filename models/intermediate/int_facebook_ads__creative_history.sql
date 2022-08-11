@@ -1,3 +1,5 @@
+{{ config(enabled=var('ad_reporting__facebook_ads_enabled', True)) }}
+
 {% set url_field = "coalesce(page_link,template_page_link)" %}
 
 with base as (

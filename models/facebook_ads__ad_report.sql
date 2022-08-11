@@ -1,3 +1,5 @@
+{{ config(enabled=var('ad_reporting__facebook_ads_enabled', True)) }}
+
 with report as (
 
     select *
@@ -52,6 +54,8 @@ joined as (
         sum(report.clicks) as clicks,
         sum(report.impressions) as impressions,
         sum(report.spend) as spend
+
+        {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_passthrough_metrics', transform = 'sum') }}
     from report 
     left join accounts
         on report.account_id = accounts.account_id

@@ -1,3 +1,5 @@
+{{ config(enabled=var('ad_reporting__facebook_ads_enabled', True)) }}
+
 with base as (
 
     select *

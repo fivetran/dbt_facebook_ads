@@ -1,3 +1,5 @@
+{{ config(enabled=var('ad_reporting__facebook_ads_enabled', True)) }}
+
 with report as (
 
     select *
@@ -47,14 +49,16 @@ joined as (
         campaigns.campaign_name,
         ad_sets.ad_set_id,
         ad_sets.ad_set_name,
-        ad_sets.start_time,
-        ad_sets.end_time,
+        ad_sets.start_at,
+        ad_sets.end_at,
         ad_sets.bid_strategy,
         ad_sets.daily_budget,
         ad_sets.budget_remaining,
         sum(report.clicks) as clicks,
         sum(report.impressions) as impressions,
         sum(report.spend) as spend
+
+        {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_passthrough_metrics', transform = 'sum') }}
     from report 
     left join accounts
         on report.account_id = accounts.account_id
