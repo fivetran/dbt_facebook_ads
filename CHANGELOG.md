@@ -8,6 +8,13 @@ PR [https://github.com/fivetran/dbt_facebook_ads/pull/21] includes the following
 - Addition of new `facebook_ads__ad_report` that reports `spend`, `clicks` and `impressions` at the ad level.
 - `README` updates for easier navigation and use of the package.
 - Migrates `dbt_facebook_ads_creative_history.stg_facebook_ads__url_tag` model directly into this package as a final model named `facebook_ads__url_tags`. 
+- Added passthrough functionality for `BASIC_AD` pre-built report using `facebook_ads__basic_ad_metrics` variable.`facebook_ads__basic_ad_metrics` example.
+```yml
+vars:
+  facebook_ads__basic_ad_metrics:
+    - name: "my_field_to_include" # Required: Name of the field within the source.
+      alias: "field_alias" # Optional: If you wish to alias the field within the staging model.
+```
 # dbt_facebook_ads v0.4.1
 
 ### Updates
