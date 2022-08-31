@@ -36,6 +36,8 @@ models:
         description: The name of the related creative.     
       - name: base_url
         description: The base URL of the ad, extracted from the page_link and template_page_link.
+        tests:
+          - not_null
       - name: url_host
         description: The URL host of the ad, extracted from the page_link and template_page_link.
       - name: url_path
@@ -84,6 +86,8 @@ models:
         description: The name of the related ad set.
       - name: ad_id
         description: The ID of the related ad.
+        tests:
+          - not_null
       - name: ad_name
         description: The name of the related ad.
       - name: clicks
@@ -115,6 +119,8 @@ models:
         description: The name of the related campaign.
       - name: ad_set_id
         description: The ID of the related ad set.
+        tests:
+          - not_null
       - name: ad_set_name
         description: The name of the related ad set.
       - name: clicks
@@ -141,6 +147,8 @@ models:
         description: The name of the related account.
       - name: campaign_id
         description: The ID of the related campaign.
+        tests:
+          - not_null
       - name: campaign_name
         description: The name of the related campaign.
       - name: clicks
@@ -162,6 +170,8 @@ models:
         description: The date of the performance.
       - name: account_id
         description: The ID of the related account.
+        tests:
+          - not_null
       - name: account_name
         description: The name of the related account.
       - name: clicks
@@ -182,6 +192,8 @@ models:
     columns:
       - name: _fivetran_id
         description: The unique fivetran ID for this record.
+        tests:
+          - not_null
       - name: creative_id
         description: The associated creative_id for this record.
       - name: key
