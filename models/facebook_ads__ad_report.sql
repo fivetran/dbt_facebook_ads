@@ -15,17 +15,42 @@ accounts as (
 
 ),
 
+campaigns as (
+
+    select *
+    from {{ var('campaign_history') }}
+    where is_most_recent_record = true
+
+),
+
+ad_sets as (
+
+    select *
+    from {{ var('ad_set_history') }}
+    where is_most_recent_record = true
+
+),
+
+ads as (
+
+    select *
+    from {{ var('ad_history') }}
+    where is_most_recent_record = true
+
+),
+
 joined as (
 
     select 
         report.date_day,
         accounts.account_id,
         accounts.account_name,
-        accounts.account_status,
-        accounts.business_country_code,
-        accounts.created_at,
-        accounts.currency,
-        accounts.timezone_name,
+        campaigns.campaign_id,
+        campaigns.campaign_name,
+        ad_sets.ad_set_id,
+        ad_sets.ad_set_name,
+        ads.ad_id,
+        ads.ad_name,
         sum(report.clicks) as clicks,
         sum(report.impressions) as impressions,
         sum(report.spend) as spend
@@ -34,7 +59,13 @@ joined as (
     from report 
     left join accounts
         on report.account_id = accounts.account_id
-    {{ dbt_utils.group_by(8) }}
+    left join ads 
+        on report.ad_id = ads.ad_id
+    left join campaigns
+        on ads.campaign_id = campaigns.campaign_id
+    left join ad_sets
+        on ads.ad_set_id = ad_sets.ad_set_id
+    {{ dbt_utils.group_by(9) }}
 )
 
 select *

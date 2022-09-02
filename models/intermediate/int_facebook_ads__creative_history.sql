@@ -1,3 +1,5 @@
+{{ config(enabled=var('ad_reporting__facebook_ads_enabled', True)) }}
+
 {% set url_field = "coalesce(page_link,template_page_link)" %}
 
 with base as (
@@ -6,12 +8,15 @@ with base as (
     from {{ var('creative_history') }}
     where is_most_recent_record = true
 
-), url_tags as (
+), 
+
+url_tags as (
 
     select *
-    from {{ var('url_tag') }}
+    from {{ ref('facebook_ads__url_tags') }}
+), 
 
-), url_tags_pivoted as (
+url_tags_pivoted as (
 
     select 
         _fivetran_id,
@@ -24,13 +29,15 @@ with base as (
     from url_tags
     group by 1,2
 
-), fields as (
+), 
+
+fields as (
 
     select
-        _fivetran_id,
-        creative_id,
-        account_id,
-        creative_name,
+        base._fivetran_id,
+        base.creative_id,
+        base.account_id,
+        base.creative_name,
         {{ url_field }} as url,
         {{ dbt_utils.split_part(url_field, "'?'", 1) }} as base_url,
         {{ dbt_utils.get_url_host(url_field) }} as url_host,
@@ -42,8 +49,8 @@ with base as (
         coalesce(url_tags_pivoted.utm_term, {{ dbt_utils.get_url_parameter(url_field, 'utm_term') }}) as utm_term
     from base
     left join url_tags_pivoted
-        using (_fivetran_id, creative_id)
-
+        on base._fivetran_id = url_tags_pivoted._fivetran_id
+        and base.creative_id = url_tags_pivoted.creative_id
 )
 
 select *

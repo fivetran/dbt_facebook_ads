@@ -1,3 +1,20 @@
+# dbt_facebook_ads v0.5.0
+## 🚨 Breaking Changes 🚨
+The following changes come with PR [https://github.com/fivetran/dbt_facebook_ads/pull/21]:
+- Renames `facebook_ads__ad_adapter` model to `facebook_ads__url_report` to more accurately reflect what is included in the report; this report now also filters for only records that have a url value for `creative_history.page_link` or `creative_history.template_page_link`. 
+- Renames `facebook_ads__creative_history_prep` model to `int_facebook_ads__creative_history` to conform with new styling standards.
+## 🎉 Feature Enhancements 🎉
+PR [https://github.com/fivetran/dbt_facebook_ads/pull/21] includes the following enhancements:
+- Addition of new `facebook_ads__ad_report` that reports `spend`, `clicks` and `impressions` at the ad level.
+- `README` updates for easier navigation and use of the package.
+- Migrates `dbt_facebook_ads_creative_history.stg_facebook_ads__url_tag` model directly into this package as a final model named `facebook_ads__url_tags`. 
+- Added passthrough functionality for `BASIC_AD` pre-built report using `facebook_ads__basic_ad_metrics` variable.`facebook_ads__basic_ad_metrics` example.
+```yml
+vars:
+  facebook_ads__basic_ad_metrics:
+    - name: "my_field_to_include" # Required: Name of the field within the source.
+      alias: "field_alias" # Optional: If you wish to alias the field within the staging model.
+```
 # dbt_facebook_ads v0.4.1
 
 ### Updates

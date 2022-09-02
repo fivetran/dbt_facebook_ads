@@ -1,8 +1,16 @@
 version: 2
 
 models:
-  - name: facebook_ads__ad_adapter
+  - name: facebook_ads__url_report
     description: Each record represents the daily performance of a Facebook ad at the URL level.
+    tests:     
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date_day
+            - account_id
+            - campaign_id
+            - ad_set_id
+            - ad_id
     columns:
       - name: date_day
         description: The date of the performance.
@@ -28,6 +36,8 @@ models:
         description: The name of the related creative.     
       - name: base_url
         description: The base URL of the ad, extracted from the page_link and template_page_link.
+        tests:
+          - not_null
       - name: url_host
         description: The URL host of the ad, extracted from the page_link and template_page_link.
       - name: url_path
@@ -49,8 +59,16 @@ models:
       - name: spend
         description: The spend on the ad in the given day.
 
-  - name: facebook_ads__ad_set_report
-    description: Each record represents the daily performance of a Facebook ad set.
+  - name: facebook_ads__ad_report
+    description: Each record represents the daily performance of a Facebook ad.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date_day
+            - account_id
+            - campaign_id
+            - ad_set_id
+            - ad_id
     columns:
       - name: date_day
         description: The date of the performance.
@@ -66,6 +84,12 @@ models:
         description: The ID of the related ad set.
       - name: ad_set_name
         description: The name of the related ad set.
+      - name: ad_id
+        description: The ID of the related ad.
+        tests:
+          - not_null
+      - name: ad_name
+        description: The name of the related ad.
       - name: clicks
         description: The number of clicks the ad had on the given day.
       - name: impressions
@@ -73,8 +97,15 @@ models:
       - name: spend
         description: The spend on the ad in the given day.
 
-  - name: facebook_ads__campaign_report
-    description: Each record represents the daily performance of a Facebook campaign.
+  - name: facebook_ads__ad_set_report
+    description: Each record represents the daily performance of a Facebook ad set.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date_day
+            - account_id
+            - campaign_id
+            - ad_set_id
     columns:
       - name: date_day
         description: The date of the performance.
@@ -86,6 +117,40 @@ models:
         description: The ID of the related campaign.
       - name: campaign_name
         description: The name of the related campaign.
+      - name: ad_set_id
+        description: The ID of the related ad set.
+        tests:
+          - not_null
+      - name: ad_set_name
+        description: The name of the related ad set.
+      - name: clicks
+        description: The number of clicks the ad had on the given day.
+      - name: impressions
+        description: The number of impressions the ad had on the given day.
+      - name: spend
+        description: The spend on the ad in the given day.
+
+  - name: facebook_ads__campaign_report
+    description: Each record represents the daily performance of a Facebook campaign.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date_day
+            - account_id
+            - campaign_id
+    columns:
+      - name: date_day
+        description: The date of the performance.
+      - name: account_id
+        description: The ID of the related account.
+      - name: account_name
+        description: The name of the related account.
+      - name: campaign_id
+        description: The ID of the related campaign.
+        tests:
+          - not_null
+      - name: campaign_name
+        description: The name of the related campaign.
       - name: clicks
         description: The number of clicks the ad had on the given day.
       - name: impressions
@@ -95,11 +160,18 @@ models:
 
   - name: facebook_ads__account_report
     description: Each record represents the daily performance of a Facebook account.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date_day
+            - account_id
     columns:
       - name: date_day
         description: The date of the performance.
       - name: account_id
         description: The ID of the related account.
+        tests:
+          - not_null
       - name: account_name
         description: The name of the related account.
       - name: clicks
@@ -108,3 +180,25 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
+
+  - name: facebook_ads__url_tags
+    description: Each record is a unique combination of creative_id and corresponding key, value, type contained in the url_tags field
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - _fivetran_id
+            - key
+            - type
+    columns:
+      - name: _fivetran_id
+        description: The unique fivetran ID for this record.
+        tests:
+          - not_null
+      - name: creative_id
+        description: The associated creative_id for this record.
+      - name: key
+        description: The url tag object name e.g. utm_source associated with this record.
+      - name: value
+        description: The value assigned to the url tag object associated with this record.
+      - name: type
+        description: The type assigned to the url tag object e.g. 'AD_VIDEO'.
