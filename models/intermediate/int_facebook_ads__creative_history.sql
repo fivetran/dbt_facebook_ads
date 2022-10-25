@@ -39,7 +39,7 @@ fields as (
         base.account_id,
         base.creative_name,
         {{ url_field }} as url,
-        {{ dbt_utils.split_part(url_field, "'?'", 1) }} as base_url,
+        {{ dbt.split_part(url_field, "'?'", 1) }} as base_url,
         {{ dbt_utils.get_url_host(url_field) }} as url_host,
         '/' || {{ dbt_utils.get_url_path(url_field) }} as url_path,
         coalesce(url_tags_pivoted.utm_source, {{ dbt_utils.get_url_parameter(url_field, 'utm_source') }}) as utm_source,

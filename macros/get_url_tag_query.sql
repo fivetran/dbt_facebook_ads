@@ -130,7 +130,7 @@
 
 {% endmacro %}
 
-{% macro !!!!!!! REPLACE 'spark' WITH 'spark','databricks' OR EQUIV !!!!!!!__get_url_tags_query() %}
+{% macro spark__get_url_tags_query() %}
 
   cleaned_fields as (
 
