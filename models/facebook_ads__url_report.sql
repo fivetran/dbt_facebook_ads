@@ -86,7 +86,7 @@ joined as (
         on report.account_id = accounts.account_id  
 
     {% if (var('allow_facebook_ads_null_urls', False)) or
-        (var('allow_ad_reporting_null_urls', False))  %}
+        (var('allow_ad_reporting_null_urls', False)) %}
         -- In this case, skip where clause to include all rows whether or not the url field is populated.
     {% else %}  
     where creatives.url is not null
