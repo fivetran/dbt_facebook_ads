@@ -74,6 +74,15 @@ vars:
 ## (Optional) Step 4: Additional configurations
 <details><summary>Expand for configurations</summary>
 
+## Enable records to have null urls
+The default behavior for the `facebook_ads__url_report` end model is to filter out records having null URL fields, however you are able to turn off this filter if necessary. This is done by setting one of the variables below to `True` in your `dbt_project.yml` file. 
+> Note that using the variable `allow_ad_reporting_null_urls` will allow records with null urls for ALL Fivetran ad packages included in your project.
+
+```yml
+vars:
+  allow_facebook_ads_null_urls: True # Use this variable to allow null urls for dbt_facebook_ads only. Default is False. 
+  allow_ad_reporting_null_urls: True # Use this variable to allow null urls for ALL Fivetran ad packages included in your project. Default is False. 
+```
 ### Passing Through Additional Metrics
 By default, this package will select `clicks`, `impressions`, and `cost` from the source reporting tables to store into the staging models. If you would like to pass through additional metrics to the staging models, add the below configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) if desired, but not required. Use the below format for declaring the respective pass-through variables:
 
