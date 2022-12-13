@@ -6,7 +6,6 @@
 ```yml
 vars:
   ad_reporting__url_report__using_null_filter: False # Use this variable to allow null urls for ALL Fivetran ad packages included in your project. Default is True. 
-```ckages included in your project. Default is False. 
 ```
 - Updated README with this information. 
 ## 🚘 Under the Hood 🚘
