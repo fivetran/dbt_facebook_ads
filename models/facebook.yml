@@ -40,7 +40,7 @@ models:
           - not_null:
               config:
                 # Below is so we don't run this test if the user has allowed urls to have null entries
-                enabled: {% var('ad_reporting__url_report__using_null_filter', True) %}
+                enabled: "{{ var('ad_reporting__url_report__using_null_filter', True) }}"
       - name: url_host
         description: The URL host of the ad, extracted from the page_link and template_page_link.
       - name: url_path
