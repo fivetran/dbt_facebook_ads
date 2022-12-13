@@ -85,7 +85,7 @@ joined as (
     left join accounts
         on report.account_id = accounts.account_id  
 
-    {% if (var('allow_facebook_ads_null_urls', False)==False and var('allow_ad_reporting_null_urls', False)==False) %} 
+    {% if var('ad_reporting__url_report__using_null_filter', True) %}
         where creatives.url is not null
     {% endif %}
     
