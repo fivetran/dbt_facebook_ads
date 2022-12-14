@@ -1,13 +1,7 @@
 # dbt_facebook_ads v0.6.1
 [PR #25](https://github.com/fivetran/dbt_facebook_ads/pull/25) includes the following changes:
 ## 🎉 Features 🎉
-- Added ability for a user to allow records having nulls in url fields to be included in the `facebook_ads__url_report` model. This is done by setting the variable below to `False` in your `dbt_project.yml` file. 
-
-```yml
-vars:
-  ad_reporting__url_report__using_null_filter: False # Use this variable to allow null urls for ALL Fivetran ad packages included in your project. Default is True. 
-```
-- Updated README with this information. 
+- For use in the [dbt_ad_reporting package](https://github.com/fivetran/dbt_ad_reporting), users can now allow records having nulls in url fields to be included in the `ad_reporting__url_report` model. See the [dbt_ad_reporting README](https://github.com/fivetran/dbt_ad_reporting) for more details. 
 ## 🚘 Under the Hood 🚘
 - Disabled the `not_null` test for `facebook_ads__url_report` when null urls are allowed.
 
