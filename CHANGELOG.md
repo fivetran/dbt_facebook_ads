@@ -1,5 +1,10 @@
 # dbt_facebook_ads v0.6.0
 
+## 🎉 Features 🎉
+- For use in the [dbt_ad_reporting package](https://github.com/fivetran/dbt_ad_reporting), users can now allow records having nulls in url fields to be included in the `ad_reporting__url_report` model. See the [dbt_ad_reporting README](https://github.com/fivetran/dbt_ad_reporting) for more details. 
+## 🚘 Under the Hood 🚘
+- Disabled the `not_null` test for `facebook_ads__url_report` when null urls are allowed. [[#25](https://github.com/fivetran/dbt_facebook_ads/pull/25)].
+
 ## 🚨 Breaking Changes 🚨:
 [PR #23](https://github.com/fivetran/dbt_facebook_ads/pull/23) includes the following breaking changes:
 - Dispatch update for dbt-utils to dbt-core cross-db macros migration. Specifically `{{ dbt_utils.<macro> }}` have been updated to `{{ dbt.<macro> }}` for the below macros:
@@ -37,11 +42,6 @@
     - `dbt.current_timestamp_in_utc_backcompat`
 - `packages.yml` has been updated to reflect new default `fivetran/fivetran_utils` version, previously `[">=0.3.0", "<0.4.0"]` now `[">=0.4.0", "<0.5.0"]`.
 
-[PR #25](https://github.com/fivetran/dbt_facebook_ads/pull/25) includes the following changes:
-## 🎉 Features 🎉
-- For use in the [dbt_ad_reporting package](https://github.com/fivetran/dbt_ad_reporting), users can now allow records having nulls in url fields to be included in the `ad_reporting__url_report` model. See the [dbt_ad_reporting README](https://github.com/fivetran/dbt_ad_reporting) for more details. 
-## 🚘 Under the Hood 🚘
-- Disabled the `not_null` test for `facebook_ads__url_report` when null urls are allowed.
 
 # dbt_facebook_ads v0.5.0
 ## 🚨 Breaking Changes 🚨
