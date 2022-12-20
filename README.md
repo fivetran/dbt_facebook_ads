@@ -59,7 +59,7 @@ Include the following facebook_ads package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/facebook_ads
-    version: [">=0.5.0", "<0.6.0"]
+    version: [">=0.6.0", "<0.7.0"]
 
 ```
 ## Step 3: Define database and schema variables
@@ -130,6 +130,9 @@ packages:
 
     - package: dbt-labs/dbt_utils
       version: [">=1.0.0", "<2.0.0"]
+
+    - package: dbt-labs/spark_utils
+      version: [">=0.3.0", "<0.4.0"]
 ```
 # 🙌 How is this package maintained and can I contribute?
 ## Package Maintenance
