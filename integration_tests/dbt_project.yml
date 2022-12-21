@@ -1,5 +1,5 @@
 name: 'facebook_ads_integration_tests'
-version: '0.5.0'
+version: '0.6.0'
 profile: 'integration_tests'
 config-version: 2
 
@@ -15,14 +15,14 @@ vars:
 seeds:
   facebook_ads_integration_tests:
     +column_types:
-      id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-      account_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-      campaign_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-      ad_set_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-      ad_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-      creative_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-      page_link: "{{ 'string' if target.name in ['bigquery','spark'] else 'varchar' }}"
-      template_page_link: "{{ 'string' if target.name in ['bigquery','spark'] else 'varchar' }}"
+      id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+      account_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+      campaign_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+      ad_set_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+      ad_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+      creative_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+      page_link: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
+      template_page_link: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
       _fivetran_synced: "timestamp"
       updated_time: "timestamp"
 

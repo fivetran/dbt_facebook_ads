@@ -11,6 +11,9 @@ models:
             - campaign_id
             - ad_set_id
             - ad_id
+          config:
+            # Below is so we don't run this test if the user has allowed urls to have null entries
+            enabled: "{{ var('ad_reporting__url_report__using_null_filter', True) }}"
     columns:
       - name: date_day
         description: The date of the performance.
@@ -33,11 +36,14 @@ models:
       - name: creative_id
         description: The ID of the related creative.
       - name: creative_name
-        description: The name of the related creative.     
+        description: The name of the related creative.
       - name: base_url
         description: The base URL of the ad, extracted from the page_link and template_page_link.
         tests:
-          - not_null
+          - not_null:
+              config:
+                # Below is so we don't run this test if the user has allowed urls to have null entries
+                enabled: "{{ var('ad_reporting__url_report__using_null_filter', True) }}"
       - name: url_host
         description: The URL host of the ad, extracted from the page_link and template_page_link.
       - name: url_path

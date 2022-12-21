@@ -83,8 +83,12 @@ joined as (
     left join campaigns
         on ads.campaign_id = campaigns.campaign_id
     left join accounts
-        on report.account_id = accounts.account_id    
-    where creatives.url is not null
+        on report.account_id = accounts.account_id  
+
+    {% if var('ad_reporting__url_report__using_null_filter', True) %}
+        where creatives.url is not null
+    {% endif %}
+    
     {{ dbt_utils.group_by(19) }}
 )
 
