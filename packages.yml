@@ -1,3 +1,6 @@
 packages:
 - package: fivetran/facebook_ads_source
   version: [">=0.6.0", "<0.7.0"]
+  
+- package: fivetran/hubspot
+  version: 0.8.0
