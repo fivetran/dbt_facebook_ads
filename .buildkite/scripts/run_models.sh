@@ -21,3 +21,4 @@ dbt run --target "$db" --full-refresh
 dbt test --target "$db"
 dbt run --vars '{ad_reporting__url_report__using_null_filter: false}' --target "$db" --full-refresh
 dbt test --vars '{ad_reporting__url_report__using_null_filter: false}' --target "$db"
+dbt run-operation fivetran_utils.drop_schemas_automation --target "$db"

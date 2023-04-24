@@ -64,9 +64,11 @@ Include the following facebook_ads package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/facebook_ads
-    version: [">=0.6.0", "<0.7.0"]
-
+    version: [">=0.6.0", "<0.7.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
+
+Do NOT include the `facebook_ads_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
+
 ## Step 3: Define database and schema variables
 By default, this package runs using your destination and the `facebook_ads` schema. If this is not where your Facebook Ads data is (for example, if your Facebook Ads schema is named `facebook_ads_fivetran`), add the following configuration to your root `dbt_project.yml` file:
 
