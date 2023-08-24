@@ -1,3 +1,5 @@
+ADD source_relation WHERE NEEDED + CHECK JOINS AND WINDOW FUNCTIONS! (Delete this line when done.)
+
 {{ config(enabled=var('ad_reporting__facebook_ads_enabled', True)) }}
 
 {% set url_field = "coalesce(page_link,template_page_link)" %}
@@ -50,6 +52,7 @@ fields as (
     from base
     left join url_tags_pivoted
         on base._fivetran_id = url_tags_pivoted._fivetran_id
+        and base.source_relation = url_tags_pivoted.source_relation
         and base.creative_id = url_tags_pivoted.creative_id
 )
 
