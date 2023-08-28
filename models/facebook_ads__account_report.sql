@@ -1,3 +1,5 @@
+ADD source_relation WHERE NEEDED + CHECK JOINS AND WINDOW FUNCTIONS! (Delete this line when done.)
+
 {{ config(enabled=var('ad_reporting__facebook_ads_enabled', True)) }}
 
 with report as (
@@ -18,6 +20,7 @@ accounts as (
 joined as (
 
     select 
+        report.source_relation,
         report.date_day,
         accounts.account_id,
         accounts.account_name,
@@ -34,7 +37,8 @@ joined as (
     from report 
     left join accounts
         on report.account_id = accounts.account_id
-    {{ dbt_utils.group_by(8) }}
+        and report.source_relation = accounts.source_relation
+    {{ dbt_utils.group_by(9) }}
 )
 
 select *
