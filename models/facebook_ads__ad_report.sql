@@ -1,5 +1,3 @@
-ADD source_relation WHERE NEEDED + CHECK JOINS AND WINDOW FUNCTIONS! (Delete this line when done.)
-
 {{ config(enabled=var('ad_reporting__facebook_ads_enabled', True)) }}
 
 with report as (
@@ -65,6 +63,7 @@ joined as (
         and report.source_relation = accounts.source_relation
     left join ads 
         on report.ad_id = ads.ad_id
+        and report.source_relation = ads.source_relation
     left join campaigns
         on ads.campaign_id = campaigns.campaign_id
         and ads.source_relation = campaigns.source_relation

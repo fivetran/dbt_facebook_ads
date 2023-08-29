@@ -1,5 +1,3 @@
-ADD source_relation WHERE NEEDED + CHECK JOINS AND WINDOW FUNCTIONS! (Delete this line when done.)
-
 {{ config(enabled=var('ad_reporting__facebook_ads_enabled', True)) }}
 
 with base as (
@@ -12,6 +10,7 @@ with base as (
 required_fields as (
 
     select
+        source_relation,
         _fivetran_id,
         creative_id,
         url_tags

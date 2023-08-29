@@ -9,10 +9,7 @@
 - Updated tests to account for the new `source_relation` column.
     - The `source_relation` column is included in all joins and window function partition clauses in the transform package. 
 
-# dbt_facebook_ads v0.UPDATE.UPDATE
-
- ## Under the Hood:
-
+[PR #27](https://github.com/fivetran/dbt_facebook_ads/pull/27) includes the following updates:
 - Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job.
 - Updated the pull request [templates](/.github).
 # dbt_facebook_ads v0.6.0

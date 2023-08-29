@@ -7,6 +7,7 @@
   cleaned_json as (
 
       select
+          source_relation,
           _fivetran_id,
           creative_id,
           json_extract_array(replace(trim(url_tags, '"'),'\\','')) as cleaned_url_tags
@@ -16,6 +17,7 @@
   unnested as (
 
       select 
+        source_relation,
         _fivetran_id, 
         creative_id, 
         url_tag_element
@@ -27,6 +29,7 @@
   fields as (
 
       select
+          source_relation,
           _fivetran_id,
           creative_id,
           json_extract_scalar(url_tag_element, '$.key') as key,
@@ -42,6 +45,7 @@
   cleaned_json as (
 
       select
+          source_relation,
           _fivetran_id,
           creative_id,
           replace(trim(url_tags::text, '"'),'\\','')::json as cleaned_url_tags
@@ -51,6 +55,7 @@
   unnested as (
 
       select 
+        source_relation,
         _fivetran_id, 
         creative_id, 
         url_tag_element
@@ -62,6 +67,7 @@
   fields as (
 
       select
+          source_relation,
           _fivetran_id,
           creative_id,
           url_tag_element->>'key' as key,
@@ -83,6 +89,7 @@
   flattened_url_tags as (
 
       select
+          source_relation,
           _fivetran_id,
           creative_id,
           json_extract_array_element_text(required_fields.url_tags, numbers.generated_number::int - 1, true) as element
@@ -94,6 +101,7 @@
   fields as (
 
       select
+          source_relation,
           _fivetran_id,
           creative_id,
           json_extract_path_text(element,'key') as key,
@@ -109,6 +117,7 @@
   cleaned_fields as (
 
       select
+          source_relation,
           _fivetran_id,
           creative_id,
           parse_json(url_tags) as url_tags
@@ -119,6 +128,7 @@
   fields as (
 
       select
+          source_relation,
           _fivetran_id,
           creative_id,
           url_tags.value:key::string as key,
@@ -135,6 +145,7 @@
   cleaned_fields as (
 
       select
+          source_relation,
           _fivetran_id,
           creative_id,
           explode(from_json(url_tags, 'array<struct<key:STRING, value:STRING, type:STRING>>')) as url_tags
@@ -145,6 +156,7 @@
   fields as (
 
       select
+          source_relation,
           _fivetran_id,
           creative_id,
           url_tags.key as key,

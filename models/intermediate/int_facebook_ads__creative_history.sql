@@ -1,5 +1,3 @@
-ADD source_relation WHERE NEEDED + CHECK JOINS AND WINDOW FUNCTIONS! (Delete this line when done.)
-
 {{ config(enabled=var('ad_reporting__facebook_ads_enabled', True)) }}
 
 {% set url_field = "coalesce(page_link,template_page_link)" %}
@@ -21,6 +19,7 @@ url_tags as (
 url_tags_pivoted as (
 
     select 
+        source_relation,
         _fivetran_id,
         creative_id,
         min(case when key = 'utm_source' then value end) as utm_source,
@@ -29,13 +28,14 @@ url_tags_pivoted as (
         min(case when key = 'utm_content' then value end) as utm_content,
         min(case when key = 'utm_term' then value end) as utm_term
     from url_tags
-    group by 1,2
+    group by 1,2,3
 
 ), 
 
 fields as (
 
     select
+        base.source_relation,
         base._fivetran_id,
         base.creative_id,
         base.account_id,
