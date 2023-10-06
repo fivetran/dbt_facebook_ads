@@ -79,7 +79,6 @@ vars:
 ```
 
 ## (Optional) Step 4: Additional configurations
-<details><summary>Expand for configurations</summary>
 
 ### Union multiple connectors
 If you have multiple facebook_ads connectors in Fivetran and would like to use this package on all of them simultaneously, we have provided functionality to do so. The package will union all of the data together and pass the unioned table into the transformations. You will be able to see which source it came from in the `source_relation` column of each model. To use this functionality, you will need to set either the `facebook_ads_union_schemas` OR `facebook_ads_union_databases` variables (cannot do both) in your root `dbt_project.yml` file:
@@ -125,8 +124,6 @@ If an individual source table has a different name than the package expects, add
 vars:
     facebook_ads_<default_source_table_name>_identifier: your_table_name 
 ```
-
-</details>
 
 ## (Optional) Step 5: Orchestrate your models with Fivetran Transformations for dbt Core™    
 <details><summary>Expand for more details</summary>
