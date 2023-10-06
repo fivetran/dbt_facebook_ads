@@ -6,8 +6,8 @@
 ## Under the hood 🚘
 - In the source package, updated tmp models to union source data using the `fivetran_utils.union_data` macro. 
 - To distinguish which source each field comes from, added `source_relation` column in each staging and downstream model and applied the `fivetran_utils.source_relation` macro.
+  - The `source_relation` column is included in all joins and window function partition clauses in the transform package. 
 - Updated tests to account for the new `source_relation` column.
-    - The `source_relation` column is included in all joins and window function partition clauses in the transform package. 
 
 [PR #27](https://github.com/fivetran/dbt_facebook_ads/pull/27) includes the following updates:
 - Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job.
