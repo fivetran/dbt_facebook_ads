@@ -10,6 +10,7 @@ with base as (
 required_fields as (
 
     select
+        source_relation,
         _fivetran_id,
         creative_id,
         url_tags

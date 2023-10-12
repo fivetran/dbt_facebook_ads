@@ -19,6 +19,7 @@ url_tags as (
 url_tags_pivoted as (
 
     select 
+        source_relation,
         _fivetran_id,
         creative_id,
         min(case when key = 'utm_source' then value end) as utm_source,
@@ -27,13 +28,14 @@ url_tags_pivoted as (
         min(case when key = 'utm_content' then value end) as utm_content,
         min(case when key = 'utm_term' then value end) as utm_term
     from url_tags
-    group by 1,2
+    group by 1,2,3
 
 ), 
 
 fields as (
 
     select
+        base.source_relation,
         base._fivetran_id,
         base.creative_id,
         base.account_id,
@@ -50,6 +52,7 @@ fields as (
     from base
     left join url_tags_pivoted
         on base._fivetran_id = url_tags_pivoted._fivetran_id
+        and base.source_relation = url_tags_pivoted.source_relation
         and base.creative_id = url_tags_pivoted.creative_id
 )
 
