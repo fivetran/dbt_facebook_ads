@@ -41,14 +41,10 @@ To use this dbt package, you must have the following:
 
 - At least one Fivetran Facebook Ads connector syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
-- You will need to configure your Facebook Ads connector to pull the `BASIC_AD` pre-built report. Follow the below steps in the Fivetran UI to do so:
-    1. Navigate to the connector setup form (**Setup** -> **Edit connection details** for pre-existing connectors)
-    2. Click **Add table** 
-    3. Select **Pre-built Report**
-    4. Set the table name to `basic_ad`
-    5. Select `BASIC_AD` as the corresponding pre-built report
-    6. Select a daily aggregation period
-    7. Click **Ok** and **Save & test**!
+- You will need to configure your Facebook Ads connector to pull the `basic_ad` pre-built report. This pre-built report should be enabled in your connector by default. However, to confirm this pre-built report is actively syncing you may perform the following steps:
+    1. Navigate to the connector schema tab.
+    2. Search for `basic_ad` and confirm it is selected.
+    3. If not selected, do so and sync. If already selected you are ready to run the models!
 
 ### Databricks Dispatch Configuration
 If you are using a Databricks destination with this package you will need to add the below (or a variation of the below) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
