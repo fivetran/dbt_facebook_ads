@@ -1,5 +1,5 @@
 name: 'facebook_ads_integration_tests'
-version: '0.7.1'
+version: '0.7.2'
 profile: 'integration_tests'
 config-version: 2
 
