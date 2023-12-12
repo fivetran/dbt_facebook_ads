@@ -3,5 +3,6 @@ target/
 dbt_modules/
 logs/
 .DS_Store
-
+env/
 dbt_packages/
+package-lock.yml

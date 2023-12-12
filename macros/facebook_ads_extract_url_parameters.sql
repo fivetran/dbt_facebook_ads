@@ -1,6 +1,6 @@
 {% macro facebook_ads_extract_url_parameter(field, url_parameter) -%}
 
-{{ adapter.dispatch('facebook_ads_extract_url_parameter', 'facebook_ads') (field, url_parameter) }}
+{{ return(adapter.dispatch('facebook_ads_extract_url_parameter', 'facebook_ads') (field, url_parameter)) }}
 
 {% endmacro %}
 
