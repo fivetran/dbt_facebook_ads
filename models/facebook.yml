@@ -67,6 +67,8 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
+      - name: conversion_value
+        description: Value of conversions using the default attribution window on the given day.
 
   - name: facebook_ads__ad_report
     description: Each record represents the daily performance of a Facebook ad.
@@ -108,6 +110,8 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
+      - name: conversion_value
+        description: Value of conversions using the default attribution window on the given day.
 
   - name: facebook_ads__ad_set_report
     description: Each record represents the daily performance of a Facebook ad set.
@@ -144,6 +148,8 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
+      - name: conversion_value
+        description: Value of conversions using the default attribution window on the given day.
 
   - name: facebook_ads__campaign_report
     description: Each record represents the daily performance of a Facebook campaign.
@@ -175,6 +181,8 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
+      - name: conversion_value
+        description: Value of conversions using the default attribution window on the given day.
 
   - name: facebook_ads__account_report
     description: Each record represents the daily performance of a Facebook account.
@@ -201,7 +209,9 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
-
+      - name: conversion_value
+        description: Value of conversions using the default attribution window on the given day.
+        
   - name: facebook_ads__url_tags
     description: Each record is a unique combination of creative_id and corresponding key, value, type contained in the url_tags field
     tests:

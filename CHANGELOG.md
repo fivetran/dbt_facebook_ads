@@ -1,7 +1,11 @@
-# dbt_facebook_ads v0.NEXT.RELEASE
+# dbt_facebook_ads v0.8.0
+
+## New
+- Added conversions! TODO: fill in
 
 ## Under the Hood
 - Updated the `quickstart.yml` file to allow for automated Quickstart data model deployments.  ([PR #40](https://github.com/fivetran/dbt_facebook_ads/pull/40))
+- Updated the PR templates to align with our most up-to-date standards.
 
 # dbt_facebook_ads v0.7.2
 

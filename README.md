@@ -41,9 +41,9 @@ To use this dbt package, you must have the following:
 
 - At least one Fivetran Facebook Ads connector syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
-- You will need to configure your Facebook Ads connector to pull the `basic_ad` pre-built report. This pre-built report should be enabled in your connector by default. However, to confirm this pre-built report is actively syncing you may perform the following steps:
-    1. Navigate to the connector schema tab.
-    2. Search for `basic_ad` and confirm it is selected.
+- You will need to configure your Facebook Ads connector to pull the `basic_ad` pre-built report and its child `basic_ad_actions` pre-built report. These pre-built reports should be enabled in your connector by default. However, to confirm these reports are actively syncing you may perform the following steps:
+    1. Navigate to the connector schema tab in Fivetran.
+    2. Search for `basic_ad` and `basic_ad_actions` and confirm they are both selected/enabled.
     3. If not selected, do so and sync. If already selected you are ready to run the models!
 
 ### Databricks Dispatch Configuration
@@ -60,7 +60,7 @@ Include the following facebook_ads package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/facebook_ads
-    version: [">=0.7.0", "<0.8.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=0.8.0", "<0.9.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 
 Do NOT include the `facebook_ads_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
@@ -89,17 +89,22 @@ Please be aware that the native `source.yml` connection set up in the package wi
 To connect your multiple schema/database sources to the package models, follow the steps outlined in the [Union Data Defined Sources Configuration](https://github.com/fivetran/dbt_fivetran_utils/tree/releases/v0.4.latest#union_data-source) section of the Fivetran Utils documentation for the union_data macro. This will ensure a proper configuration and correct visualization of connections in the DAG.
 
 ### Passing Through Additional Metrics
-By default, this package will select `clicks`, `impressions`, and `cost` from the source reporting tables to store into the staging models. If you would like to pass through additional metrics to the staging models, add the below configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) if desired, but not required. Use the below format for declaring the respective pass-through variables:
+By default, this package will select `clicks`, `impressions`, and `cost`, and conversion `value` (using the default attribution window) from the source reporting tables to store into the staging models. If you would like to pass through additional metrics to the staging models, add the below configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) if desired, but not required. Use the below format for declaring the respective pass-through variables:
 
->**Note** Please ensure you exercised due diligence when adding metrics to these models. The metrics added by default (taps, impressions, and spend) have been vetted by the Fivetran team maintaining this package for accuracy. There are metrics included within the source reports, for example metric averages, which may be inaccurately represented at the grain for reports created in this package. You will want to ensure whichever metrics you pass through are indeed appropriate to aggregate at the respective reporting levels provided in this package.
+>**Note** Please ensure you exercised due diligence when adding metrics to these models. The metrics added by default (taps, impressions, spend, and default-attribution window conversion values) have been vetted by the Fivetran team maintaining this package for accuracy. There are metrics included within the source reports, for example metric averages, which may be inaccurately represented at the grain for reports created in this package. You will want to ensure whichever metrics you pass through are indeed appropriate to aggregate at the respective reporting levels provided in this package.
 
 ```yml
 vars:
-    facebook_ads__basic_ad_passthrough_metrics: 
+    facebook_ads__basic_ad_passthrough_metrics: # add metrics found in BASIC_AD
       - name: "new_custom_field"
         alias: "custom_field"
       - name: "another_one"
+    facebook_ads__basic_ad_actions_passthrough_metrics: # add conversion metrics found in BASIC_AD_ACTIONS
+      - name: "_7_d_click"
+        alias: "conversion_value_7d_click"
+      - name: "_1_d_view"
 ```
+
 ### Change the build schema
 By default, this package builds the Facebook Ads staging models within a schema titled (`<target_schema>` + `_facebook_ads_source`) and your Facebook Ads modeling models within a schema titled (`<target_schema>` + `_facebook_ads`) in your destination. If this is not where you would like your Facebook Ads data to be written to, add the following configuration to your root `dbt_project.yml` file:
 
@@ -135,7 +140,7 @@ This dbt package is dependent on the following dbt packages. Please be aware tha
 ```yml
 packages:
     - package: fivetran/facebook_ads_source
-      version: [">=0.7.0", "<0.8.0"]
+      version: [">=0.8.0", "<0.9.0"]
 
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]

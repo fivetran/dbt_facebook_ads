@@ -31,7 +31,7 @@ seeds:
         value: "float"
         inline: "float"
         _1_d_view: "float"
-        _28_d_click: "float"
+        _7d_click: "float"
         
 dispatch:
   - macro_namespace: dbt_utils
