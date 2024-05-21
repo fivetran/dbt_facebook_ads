@@ -90,7 +90,7 @@ Please be aware that the native `source.yml` connection set up in the package wi
 To connect your multiple schema/database sources to the package models, follow the steps outlined in the [Union Data Defined Sources Configuration](https://github.com/fivetran/dbt_fivetran_utils/tree/releases/v0.4.latest#union_data-source) section of the Fivetran Utils documentation for the union_data macro. This will ensure a proper configuration and correct visualization of connections in the DAG.
 
 ### Passing Through Additional Metrics
-By default, this package will select `clicks`, `impressions`, and `cost`, and conversion `value` (using the default attribution window) from the source reporting tables to store into the staging models. If you would like to pass through additional metrics to the staging models, add the below configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) if desired, but not required. Use the below format for declaring the respective pass-through variables:
+By default, this package will select `clicks`, `impressions`, `cost`, and conversion `value` (using the default attribution window) from the source reporting tables (`BASIC_AD` and `BASIC_AD_ACTIONS`) to store into the output models. If you would like to pass through additional metrics to the output models, add the below configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and transformed (`transform_sql`) if desired, but not required. Only the `name` of each metric field is required. Use the below format for declaring the respective pass-through variables:
 
 >**Note** Please ensure you exercised due diligence when adding metrics to these models. The metrics added by default (taps, impressions, spend, and default-attribution window conversion values) have been vetted by the Fivetran team maintaining this package for accuracy. There are metrics included within the source reports, for example metric averages, which may be inaccurately represented at the grain for reports created in this package. You will want to ensure whichever metrics you pass through are indeed appropriate to aggregate at the respective reporting levels provided in this package.
 
@@ -98,8 +98,11 @@ By default, this package will select `clicks`, `impressions`, and `cost`, and co
 vars:
     facebook_ads__basic_ad_passthrough_metrics: # add metrics found in BASIC_AD
       - name: "new_custom_field"
-        alias: "custom_field"
+        alias: "custom_field_alias"
+        transform_sql: "coalesce(custom_field_alias, 0)" # reference the `alias` here if you are using one (otherwise the `name`)
       - name: "another_one"
+        transform_sql: "coalesce(another_one, 0)"
+      - name: "cpc"
     facebook_ads__basic_ad_actions_passthrough_metrics: # add conversion metrics found in BASIC_AD_ACTIONS
       - name: "_7_d_click"
         alias: "conversion_value_7d_click"
@@ -112,14 +115,16 @@ By default, this package considers the following kinds of `action_types` to be c
 | Action Type    | Action Description ([Meta docs](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/)) |
 | -------- | ------- |
 | `offsite_conversion.custom%`  | Sum of all custom conversions created by the advertiser. Each custom action aligns with this naming convention.     |
+| `offsite_conversion.fb_pixel_lead`  | The number of "lead" events tracked by the pixel or Conversions API on your website and attributed to your ads. Off-Facebook leads, in short.  |
+| `onsite_conversion.lead_grouped`  | The number of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads. On-Facebook leads, in short.   |
+| `offsite_conversion.fb_pixel_purchase`  | The number of "purchase" events tracked by the pixel or Conversions API on your website and attributed to your ads. Off-Facebook purchases, in short.   |
+| `onsite_conversion.purchase`  | The number of purchases made within Meta technologies (such as Pages or Messenger) and attributed to your ads. On-Facebook purchases, in short.   |
 | `offsite_conversion.fb_pixel_add_payment_info` | The number of "add payment" info events attributed to your ads, based on information received from one or more of your connected Meta Business Tools.     |
 | `offsite_conversion.fb_pixel_add_to_cart` | The number of "add to cart" events attributed to your ads, based on information received from one or more of your connected Meta Business Tools.   |
 | `offsite_conversion.fb_pixel_add_to_wishlist` | The number of "add to wishlist" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
 | `offsite_conversion.fb_pixel_complete_registration` | The number of "complete registration" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
 | `offsite_conversion.fb_pixel_custom`  |  Custom pixel events defined by the advertiser.   |
 | `offsite_conversion.fb_pixel_initiate_checkout` | The number of "initiate checkout events" tracked by the pixel or Conversions API on your website and attributed to your ads.   |
-| `offsite_conversion.fb_pixel_lead`  | The number of "lead" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
-| `offsite_conversion.fb_pixel_purchase`  | The number of "purchase" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
 | `offsite_conversion.fb_pixel_search`  | The number of "search" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
 | `offsite_conversion.fb_pixel_view_content`  | The number of "view content" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
 
@@ -132,8 +137,10 @@ vars:
     - name: exact_conversion_action_type_name # will grab `basic_ad_actions` records where action_type = 'exact_conversion_action_type_name'
     - pattern: %custom% # will grab `basic_ad_actions` records where action_type like '%custom%'
     - name: very_specific_conversion_action
-      where_sql: source_relation = 'specific advertiser source' # will grab `basic_ad_actions` records where action_type = very_specific_conversion_action and {{ where_sql }}
+      where_sql: source_relation = 'specific advertiser source' # will grab `basic_ad_actions` records where (action_type = very_specific_conversion_action and {{ where_sql }})
 ```
+
+> **Note**: Please ensure to exercise due diligence when adding or removing conversion action types. The action types added by default have been heavily vetted by our friends at [Seer Interactive](https://www.seerinteractive.com/) and the Fivetran team maintaining this package for accuracy. There are many ways to accidentally double-count conversion values, as some action types are hierarchical/aggregates or overlap with others. Reference the action type descriptions in the Meta [API docs](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/) to ensure you select action types that appropriately and accurately fit your use case.
 
 ### Change the build schema
 By default, this package builds the Facebook Ads staging models within a schema titled (`<target_schema>` + `_facebook_ads_source`) and your Facebook Ads modeling models within a schema titled (`<target_schema>` + `_facebook_ads`) in your destination. If this is not where you would like your Facebook Ads data to be written to, add the following configuration to your root `dbt_project.yml` file:
