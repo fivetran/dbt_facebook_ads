@@ -7,6 +7,13 @@ with report as (
 
 ), 
 
+conversion_report as (
+
+    select *
+    from {{ ref('int_facebook_ads__conversions') }}
+
+), 
+
 accounts as (
 
     select *
@@ -49,9 +56,14 @@ joined as (
         sum(report.clicks) as clicks,
         sum(report.impressions) as impressions,
         sum(report.spend) as spend
-
         {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_passthrough_metrics', transform = 'sum') }}
+        , sum(conversion_report.conversion_value) as conversion_value
+        {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_actions_passthrough_metrics', transform = 'sum') }}
+    
     from report 
+    left join conversion_report
+        on report.date_day = conversion_report.date_day
+        and report.ad_id = conversion_report.ad_id
     left join accounts
         on report.account_id = accounts.account_id
         and report.source_relation = accounts.source_relation

@@ -1,3 +1,7 @@
 packages:
-- package: fivetran/facebook_ads_source
-  version: [">=0.7.0", "<0.8.0"]
+# - package: fivetran/facebook_ads_source
+#   version: [">=0.7.0", "<0.8.0"]
+# - local: ../Facebook_ads/dbt_facebook_ads_source
+- git: https://github.com/fivetran/dbt_facebook_ads_source.git
+  revision: feature/add-conversions
+  warn-unpinned: false
