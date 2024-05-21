@@ -17,7 +17,7 @@ limit_action_types as (
 
     from report
     where 
-    {%- for action_type in var('facebook_ads__conversion_action_types') -%}
+    {% for action_type in var('facebook_ads__conversion_action_types') -%}
         (
         {%- if action_type.name -%}
             action_type = '{{ action_type.name }}'

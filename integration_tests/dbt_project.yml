@@ -12,7 +12,13 @@ vars:
   facebook_ads_basic_ad_actions_identifier: "facebook_ads_basic_ad_actions_data"
   facebook_ads_campaign_history_identifier: "facebook_ads_campaign_history_data"
   facebook_ads_creative_history_identifier: "facebook_ads_creative_history_data"
-
+  facebook_ads__basic_ad_actions_passthrough_metrics: 
+    - name: 'inline'
+      alias: 'conversion_value_inline'
+    - name: '_1_d_view'
+    - name: '_7_d_click'
+    - name: '_28_d_click'
+    
 seeds:
   facebook_ads_integration_tests:
     +column_types:
