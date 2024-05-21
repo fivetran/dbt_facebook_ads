@@ -18,10 +18,6 @@ vars:
     - name: '_1_d_view'
     - name: '_7_d_click'
     - name: '_28_d_click'
-  facebook_ads__basic_ad_passthrough_metrics:
-    - name: "reach"
-    - name: "frequency"
-      alias: "fake_freq_name"
 
 seeds:
   facebook_ads_integration_tests:
