@@ -17,11 +17,9 @@ limit_action_types as (
 
     from report
     where 
-    {# {% set name_list = [] %} #}
     {%- for action_type in var('facebook_ads__conversion_action_types') -%}
         (
         {%- if action_type.name -%}
-            {# {%- do name_list.append("'" ~ action_type.name ~ "'") -%} #}
             action_type = '{{ action_type.name }}'
         {%- elif action_type.pattern -%}
             action_type like '{{ action_type.pattern }}'
@@ -32,10 +30,6 @@ limit_action_types as (
         {%- endif -%}
         ) {% if not loop.last %} or {% endif %}
     {%- endfor %}
-    
-    {# {% if name_list|length > 0 -%}
-        and action_type in ({{ name_list|join(", ") }})
-    {%- endif -%} #}
 )
 
 select * 
