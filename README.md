@@ -31,7 +31,8 @@ The following table provides a detailed list of all models materialized within t
 | [facebook_ads__campaign_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__campaign_report)            | Each record in this table represents the daily performance of a campaign at the campaign/advertising_channel/advertising_channel_subtype level. |
 | [facebook_ads__ad_set_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__ad_set_report)            | Each record in this table represents the daily performance at the ad set level. |
 | [facebook_ads__ad_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__ad_report)            | Each record in this table represents the daily performance at the ad level. |
-| [facebook_ads__utm_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__utm_report)            | Each record in this table represents the daily performance of URLs at the ad level. |
+| [facebook_ads__url_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__url_report)            | Each record in this table represents the daily performance of URLs at the ad level. |
+| [facebook_ads__url_tags](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__utm_report)            | Each record in this table is a unique combination of creative_id and the corresponding key, value, and type values contained in the url_tags field. |
 <!--section-end-->
 
 # 🎯 How do I use the dbt package?

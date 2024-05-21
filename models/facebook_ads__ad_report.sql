@@ -63,8 +63,14 @@ joined as (
         sum(report.impressions) as impressions,
         sum(report.spend) as spend
         {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_passthrough_metrics', transform = 'sum') }}
-        , sum(conversion_report.conversion_value) as conversion_value
-        {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_actions_passthrough_metrics', transform = 'sum') }}
+        , sum(coalesce(conversion_report.conversion_value, 0)) as conversion_value
+
+        {# Adapted from fivetran_utils.persist_pass_through_columns() macro to include coalesces, since the conversion_report is on the right side of a left join #}
+        {% if var('facebook_ads__basic_ad_actions_passthrough_metrics') %}
+            {% for field in var('facebook_ads__basic_ad_actions_passthrough_metrics') %}
+                , sum( coalesce({{ field.alias if field.alias else field.name }}, 0)) as {{ field.alias if field.alias else field.name }}
+            {% endfor %}
+        {% endif %}
 
     from report 
     left join conversion_report
