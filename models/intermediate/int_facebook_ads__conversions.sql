@@ -4,16 +4,15 @@ with report as (
     from {{ var('basic_ad_actions') }}
 ),
 
-limit_action_types as (
+metrics as (
 
     select
         source_relation,
-        action_type,
         ad_id,
         date_day,
-        conversion_value
+        sum(conversion_value) as conversion_value
 
-        {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_actions_passthrough_metrics') }}
+        {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_actions_passthrough_metrics', transform='sum') }}
 
     from report
     where 
@@ -30,7 +29,9 @@ limit_action_types as (
         {%- endif -%}
         ) {% if not loop.last %} or {% endif %}
     {%- endfor %}
+
+    group by 1,2,3
 )
 
 select * 
-from limit_action_types
+from metrics

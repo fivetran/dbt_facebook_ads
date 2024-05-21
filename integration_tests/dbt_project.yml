@@ -3,15 +3,18 @@ version: '0.8.0'
 profile: 'integration_tests'
 config-version: 2
 
+models:
+  +schema: "facebook_ads_{{ var('directed_schema','dev') }}"
+
 vars:
-  facebook_ads_schema: facebook_ads_integration_tests
-  facebook_ads_account_history_identifier: "facebook_ads_account_history_data"
-  facebook_ads_ad_history_identifier: "facebook_ads_ad_history_data"
-  facebook_ads_ad_set_history_identifier: "facebook_ads_ad_set_history_data"
-  facebook_ads_basic_ad_identifier: "facebook_ads_basic_ad_data"
-  facebook_ads_basic_ad_actions_identifier: "facebook_ads_basic_ad_actions_data"
-  facebook_ads_campaign_history_identifier: "facebook_ads_campaign_history_data"
-  facebook_ads_creative_history_identifier: "facebook_ads_creative_history_data"
+  facebook_ads_schema: facebook_ads_dbt
+  # facebook_ads_account_history_identifier: "facebook_ads_account_history_data"
+  # facebook_ads_ad_history_identifier: "facebook_ads_ad_history_data"
+  # facebook_ads_ad_set_history_identifier: "facebook_ads_ad_set_history_data"
+  # facebook_ads_basic_ad_identifier: "facebook_ads_basic_ad_data"
+  # facebook_ads_basic_ad_actions_identifier: "facebook_ads_basic_ad_actions_data"
+  # facebook_ads_campaign_history_identifier: "facebook_ads_campaign_history_data"
+  # facebook_ads_creative_history_identifier: "facebook_ads_creative_history_data"
   facebook_ads__basic_ad_actions_passthrough_metrics: 
     - name: 'inline'
       alias: 'conversion_value_inline'
