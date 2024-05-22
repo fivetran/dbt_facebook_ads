@@ -14,7 +14,6 @@ conversion_report as (
 
 ), 
 
-
 accounts as (
 
     select *
