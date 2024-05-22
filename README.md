@@ -55,10 +55,10 @@ dispatch:
     search_order: ['spark_utils', 'dbt_utils']
 ```
 
-## Step 2: Install the package
+## Step 2: Install the package (skip if also using the `ad_reporting` combo package)
 Include the following facebook_ads package version in your `packages.yml` file:
 > TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
-```yaml
+```yml
 packages:
   - package: fivetran/facebook_ads
     version: [">=0.8.0", "<0.9.0"] # we recommend using ranges to capture non-breaking changes automatically
@@ -128,16 +128,18 @@ By default, this package considers the following kinds of `action_types` to be c
 | `offsite_conversion.fb_pixel_search`  | The number of "search" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
 | `offsite_conversion.fb_pixel_view_content`  | The number of "view content" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
 
-However, you may choose your own `action_types` to consider as conversions. To do so, provide each action type to the below `facebook_ads__conversion_action_types` variable. For each action type, provide either an exact `name` or a consistent `pattern` of naming convention. You may also provide an optional `where_sql` argument for each action type, in case you would like to dynamically choose conversion actions based on other columns (ie `source_relation` if you are running the package on multiple advertisers' datasets).
+However, you may choose your own `action_types` to consider as conversions. To do so, provide each action type to the below `facebook_ads__conversion_action_types` variable. For each action type, provide either an exact `name` OR a consistent `pattern` of naming convention. You may also provide an optional `where_sql` argument for each action type, in case you would like to dynamically choose conversion actions based on other columns (ie `source_relation` if you are running the package on multiple advertisers' datasets).
 
 ```yml
 # dbt_project.yml
 vars:
-  facebook_ads__conversion_action_types: 
+  facebook_ads__conversion_action_types: # case-insensitive
     - name: exact_conversion_action_type_name # will grab `basic_ad_actions` records where action_type = 'exact_conversion_action_type_name'
     - pattern: %custom% # will grab `basic_ad_actions` records where action_type like '%custom%'
     - name: very_specific_conversion_action
       where_sql: source_relation = 'specific advertiser source' # will grab `basic_ad_actions` records where (action_type = very_specific_conversion_action and {{ where_sql }})
+    - pattern: subscribe%
+      where_sql: source_relation = 'advertiser who only cares about subscriptions' # will grab `basic_ad_actions` records where (action_type like 'subscribe%' and {{ where_sql }})
 ```
 
 > **Note**: Please ensure to exercise due diligence when adding or removing conversion action types. The action types added by default have been heavily vetted by our friends at [Seer Interactive](https://www.seerinteractive.com/) and the Fivetran team maintaining this package for accuracy. There are many ways to accidentally double-count conversion values, as some action types are hierarchical/aggregates or overlap with others. Reference the action type descriptions in the Meta [API docs](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/) to ensure you select action types that appropriately and accurately fit your use case.
@@ -154,7 +156,7 @@ models:
 ```
     
 ### Change the source table references
-If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable:
+If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable. This is not available when running the package on multiple unioned connectors.
 
 > IMPORTANT: See this project's [`dbt_project.yml`](https://github.com/fivetran/dbt_facebook_ads/blob/main/dbt_project.yml) variable declarations to see the expected names.
 
@@ -200,4 +202,3 @@ We highly encourage and welcome contributions to this package. Check out [this d
 # 🏪 Are there any resources available?
 - If you have questions or want to reach out for help, please refer to the [GitHub Issue](https://github.com/fivetran/dbt_facebook_ads/issues/new/choose) section to find the right avenue of support for you.
 - If you would like to provide feedback to the dbt package team at Fivetran or would like to request a new dbt package, fill out our [Feedback Form](https://www.surveymonkey.com/r/DQ7K7WW).
-- Have questions or want to be part of the community discourse? Create a post in the [Fivetran community](https://community.fivetran.com/t5/user-group-for-dbt/gh-p/dbt-user-group) and our team along with the community can join in on the discussion!

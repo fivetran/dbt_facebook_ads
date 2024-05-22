@@ -19,18 +19,17 @@ vars:
     creative_history: "{{ ref('stg_facebook_ads__creative_history') }}"
     url_tag: "{{ ref('stg_facebook_ads__url_tag') }}"
 
-  facebook_ads__conversion_action_types:
-    - name: onsite_conversion.purchase
-    - name: onsite_conversion.lead_grouped
-      # where_sql: source_relation != 'facebook_ads_new'
-    - pattern: offsite_conversion.custom%
-    - name: offsite_conversion.fb_pixel_add_payment_info
-    - name: offsite_conversion.fb_pixel_add_to_cart
-    - name: offsite_conversion.fb_pixel_add_to_wishlist
-    - name: offsite_conversion.fb_pixel_complete_registration
-    - name: offsite_conversion.fb_pixel_custom
-    - name: offsite_conversion.fb_pixel_initiate_checkout
-    - name: offsite_conversion.fb_pixel_lead
-    - name: offsite_conversion.fb_pixel_purchase
-    - name: offsite_conversion.fb_pixel_search
-    - name: offsite_conversion.fb_pixel_view_content
+    facebook_ads__conversion_action_types: # default values
+      - name: onsite_conversion.purchase
+      - name: onsite_conversion.lead_grouped
+      - pattern: offsite_conversion.custom%
+      - name: offsite_conversion.fb_pixel_add_payment_info
+      - name: offsite_conversion.fb_pixel_add_to_cart
+      - name: offsite_conversion.fb_pixel_add_to_wishlist
+      - name: offsite_conversion.fb_pixel_complete_registration
+      - name: offsite_conversion.fb_pixel_custom
+      - name: offsite_conversion.fb_pixel_initiate_checkout
+      - name: offsite_conversion.fb_pixel_lead
+      - name: offsite_conversion.fb_pixel_purchase
+      - name: offsite_conversion.fb_pixel_search
+      - name: offsite_conversion.fb_pixel_view_content

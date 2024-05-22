@@ -60,7 +60,7 @@ joined as (
         , sum(coalesce(conversion_report.conversion_value, 0)) as conversion_value
 
         {# Adapted from fivetran_utils.persist_pass_through_columns() macro to include coalesces, since the conversion_report is on the right side of a left join #}
-        {% if var('facebook_ads__basic_ad_actions_passthrough_metrics') %}
+        {% if var('facebook_ads__basic_ad_actions_passthrough_metrics', none) %}
             {% for field in var('facebook_ads__basic_ad_actions_passthrough_metrics') %}
                 , sum( coalesce({{ field.alias if field.alias else field.name }}, 0)) as {{ field.alias if field.alias else field.name }}
             {% endfor %}

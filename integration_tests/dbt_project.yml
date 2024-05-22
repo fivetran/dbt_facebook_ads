@@ -18,6 +18,9 @@ vars:
     - name: '_1_d_view'
     - name: '_7_d_click'
     - name: '_28_d_click'
+  facebook_ads__conversion_action_types:
+    - name: lead
+    - pattern: offsite_conversion%
 
 seeds:
   facebook_ads_integration_tests:
