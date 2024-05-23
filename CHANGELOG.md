@@ -13,6 +13,10 @@ Introducing...conversion metrics ([PR #43](https://github.com/fivetran/dbt_faceb
 - Updated the `quickstart.yml` file to allow for automated Quickstart data model deployments ([PR #40](https://github.com/fivetran/dbt_facebook_ads/pull/40)).
 - Updated the PR templates to align with our most up-to-date standards ([PR #43](https://github.com/fivetran/dbt_facebook_ads/pull/43)).
 
+## Contributors
+[Seer Interactive](https://www.seerinteractive.com/)
+<More to be added>
+
 # dbt_facebook_ads v0.7.2
 
 [PR #38](https://github.com/fivetran/dbt_facebook_ads/pull/38) includes the following updates: 
