@@ -112,6 +112,8 @@ models:
         description: The spend on the ad in the given day.
       - name: conversion_value
         description: Value of conversions using the default attribution window on the given day.
+      - name: conversion_domain
+        description: The domain you've configured the ad to convert to.
 
   - name: facebook_ads__ad_set_report
     description: Each record represents the daily performance of a Facebook ad set.
@@ -150,7 +152,9 @@ models:
         description: The spend on the ad in the given day.
       - name: conversion_value
         description: Value of conversions using the default attribution window on the given day.
-
+      - name: optimization_goal
+        description: The optimization goal this ad set is using. Possible values defined [here](https://developers.facebook.com/docs/marketing-api/reference/ad-campaign/#fields).
+        
   - name: facebook_ads__campaign_report
     description: Each record represents the daily performance of a Facebook campaign.
     tests:

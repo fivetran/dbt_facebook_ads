@@ -62,6 +62,7 @@ joined as (
         ad_sets.bid_strategy,
         ad_sets.daily_budget,
         ad_sets.budget_remaining,
+        ad_sets.optimization_goal,
         sum(report.clicks) as clicks,
         sum(report.impressions) as impressions,
         sum(report.spend) as spend
@@ -85,7 +86,7 @@ joined as (
     left join ad_sets
         on ads.ad_set_id = ad_sets.ad_set_id
         and ads.source_relation = ad_sets.source_relation
-    {{ dbt_utils.group_by(13) }}
+    {{ dbt_utils.group_by(14) }}
 )
 
 select *

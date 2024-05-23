@@ -59,6 +59,7 @@ joined as (
         ad_sets.ad_set_name,
         ads.ad_id,
         ads.ad_name,
+        ads.conversion_domain,
         sum(report.clicks) as clicks,
         sum(report.impressions) as impressions,
         sum(report.spend) as spend
@@ -82,7 +83,7 @@ joined as (
     left join ad_sets
         on ads.ad_set_id = ad_sets.ad_set_id
         and ads.source_relation = ad_sets.source_relation
-    {{ dbt_utils.group_by(10) }}
+    {{ dbt_utils.group_by(11) }}
 )
 
 select *

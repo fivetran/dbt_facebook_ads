@@ -5,6 +5,8 @@ Introducing...conversion metrics ([PR #43](https://github.com/fivetran/dbt_faceb
 - Adds a `conversion_value` field to each `_report` end model, representing the value of conversions (calculated using the default attribution window set in Meta) that occurred on each day for each ad/campaign/ad set/url/account.
 - Creates a `facebook_ads__basic_ad_actions_passthrough_metrics` variable to pass through additional conversion value metrics that are calculated using different attribution windows. 
   - By default, the package includes only the conversion value calculated using the default attribution window, but your report may include calculations using the other windows defined [here](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/). See [README](https://github.com/fivetran/dbt_facebook_ads_source/tree/main?tab=readme-ov-file#passing-through-additional-metrics) for details on how to use the new variable.
+- Adds `optimization_goal` field to `facebook_ads__ad_set_report` model. This is defined as the optimization goal this ad set is using, possible values of which are defined [here](https://developers.facebook.com/docs/marketing-api/reference/ad-campaign/#fields).
+- Adds `conversion_domain` field to `facebook_ads__ad_report` model. This is defined as the domain you've configured the ad to convert to.
 
 ## Documentation
 - Documents the ability to transform metrics provided to the `facebook_ads__basic_ad_passthrough_metrics` variable. See [README](https://github.com/fivetran/dbt_facebook_ads/tree/main?tab=readme-ov-file#passing-through-additional-metrics) for details ([PR #43](https://github.com/fivetran/dbt_facebook_ads/pull/43)).
