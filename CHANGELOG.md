@@ -12,6 +12,8 @@ Introducing...conversion metrics ([PR #43](https://github.com/fivetran/dbt_faceb
 ## Under the Hood
 - Updated the `quickstart.yml` file to allow for automated Quickstart data model deployments ([PR #40](https://github.com/fivetran/dbt_facebook_ads/pull/40)).
 - Updated the PR templates to align with our most up-to-date standards ([PR #43](https://github.com/fivetran/dbt_facebook_ads/pull/43)).
+- Removed the now-defunct 2nd reviewer bot workflow ([PR #43](https://github.com/fivetran/dbt_facebook_ads/pull/43)).
+- Added a new [version](https://github.com/fivetran/dbt_facebook_ads/blob/main/macros/facebook_ads_persist_pass_through_columns.sql) of the `persist_pass_through_columns()` [macro](https://github.com/fivetran/dbt_fivetran_utils/blob/v0.4.10/macros/persist_pass_through_columns.sql) in which we can include `coalesces`.
 
 ## Contributors
 [Seer Interactive](https://www.seerinteractive.com/)
