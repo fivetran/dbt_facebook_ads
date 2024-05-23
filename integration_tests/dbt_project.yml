@@ -21,6 +21,9 @@ vars:
   facebook_ads__conversion_action_types:
     - name: lead
     - pattern: offsite_conversion%
+    
+models:
+  +schema: "facebook_ads_{{ var('directed_schema','dev') }}"
 
 seeds:
   facebook_ads_integration_tests:
