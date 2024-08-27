@@ -17,15 +17,15 @@
 ## What does this dbt package do?
 - Produces modeled tables that leverage Facebook Ads data from [Fivetran's connector](https://fivetran.com/docs/applications/facebook-ads) in the format described by [this ERD](https://fivetran.com/docs/applications/facebook-ads#schemainformation) and builds off the output of our [Facebook Ads source package](https://github.com/fivetran/dbt_facebook_ads_source).
 - Enables you to better understand the performance of your ads across varying grains:
-- Providing an account, campaign, ad group, keyword, ad, and utm level reports.
+  - Providing an account, campaign, ad group, keyword, ad, and utm level reports.
 - Materializes output models designed to work simultaneously with our [multi-platform Ad Reporting package](https://github.com/fivetran/dbt_ad_reporting).
 - Generates a comprehensive data dictionary of your source and modeled Facebook Ads data through the [dbt docs site](https://fivetran.github.io/dbt_facebook_ads/).
 
 <!--section="facebook_ads_transformation_model"-->
-The following table provides a detailed list of all models materialized within this package by default.
+The following table provides a detailed list of all tables materialized within this package by default.
 > TIP: See more details about these models in the package's [dbt docs site](https://fivetran.github.io/dbt_facebook_ads/#!/overview?g_v=1&g_e=seeds).
 
-| **Model**                | **Description**                                                                                                                                |
+| **Table**                | **Description**                                                                                                                                |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | [facebook_ads__account_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__account_report)             | Each record in this table represents the daily performance at the account level. |
 | [facebook_ads__campaign_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__campaign_report)            | Each record in this table represents the daily performance of a campaign at the campaign/advertising_channel/advertising_channel_subtype level. |
