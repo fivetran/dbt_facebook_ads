@@ -8,3 +8,12 @@ destination_configurations:
     dispatch:
       - macro_namespace: dbt_utils
         search_order: [ 'spark_utils', 'dbt_utils' ]
+
+public_models: [
+  "facebook_ads__url_report",
+  "facebook_ads__url_tags",
+  "facebook_ads__campaign_report",
+  "facebook_ads__account_report",
+  "facebook_ads__ad_report",
+  "facebook_ads__ad_set_report"
+]
