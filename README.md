@@ -23,7 +23,7 @@
 
 <!--section="facebook_ads_transformation_model"-->
 The following table provides a detailed list of all tables materialized within this package by default.
-> TIP: See more details about these models in the package's [dbt docs site](https://fivetran.github.io/dbt_facebook_ads/#!/overview?g_v=1&g_e=seeds).
+> TIP: See more details about these tables in the package's [dbt docs site](https://fivetran.github.io/dbt_facebook_ads/#!/overview?g_v=1&g_e=seeds).
 
 | **Table**                | **Description**                                                                                                                                |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -44,7 +44,7 @@ To use this dbt package, you must have the following:
 - You will need to configure your Facebook Ads connector to pull the `basic_ad` pre-built report. This pre-built report should be enabled in your connector by default. However, to confirm this pre-built report is actively syncing you may perform the following steps:
     1. Navigate to the connector schema tab.
     2. Search for `basic_ad` and confirm it is selected.
-    3. If not selected, do so and sync. If already selected you are ready to run the models!
+    3. If not selected, do so and sync. If already selected you are ready to run the models.
 
 #### Databricks Dispatch Configuration
 If you are using a Databricks destination with this package you will need to add the below (or a variation of the below) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
