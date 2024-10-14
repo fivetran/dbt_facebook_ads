@@ -110,7 +110,7 @@ vars:
 ```
 
 ### Configuring Conversion Action Types
-By default, this package considers the following kinds of `action_types` to be conversions and sums up their values in each `*_report` end model:
+By default, this package considers the following kinds of `action_types` to be conversions and pivots their metrics (raw event frequencies and monetary values) as columns in each `*_report` end model:
 
 | Action Type    | Action Description ([Meta docs](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/)) |
 | -------- | ------- |
@@ -128,7 +128,9 @@ By default, this package considers the following kinds of `action_types` to be c
 | `offsite_conversion.fb_pixel_search`  | The number of "search" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
 | `offsite_conversion.fb_pixel_view_content`  | The number of "view content" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
 
-However, you may choose your own `action_types` to consider as conversions. To do so, provide each action type to the below `facebook_ads__conversion_action_types` variable. For each action type, provide either an exact `name` OR a consistent `pattern` of naming convention. You may also provide an optional `where_sql` argument for each action type, in case you would like to dynamically choose conversion actions based on other columns (ie `source_relation` if you are running the package on multiple advertisers' datasets).
+These metrics will also be summed together into `total_conversions` and `total_conversions_value` fields in each `*_report` end model.
+
+However, you may choose your own `action_types` to consider as conversions. To do so, provide each action type to the below `facebook_ads__conversion_action_types` variable. For each action type, provide either an exact `name` **OR** a consistent `pattern` of naming convention. You may also provide an optional `where_sql` argument for each action type, in case you would like to dynamically choose conversion actions based on other columns (ie `source_relation` if you are running the package on multiple advertisers' datasets).
 
 ```yml
 # dbt_project.yml

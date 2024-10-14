@@ -10,6 +10,7 @@ vars:
   facebook_ads_ad_set_history_identifier: "facebook_ads_ad_set_history_data"
   facebook_ads_basic_ad_identifier: "facebook_ads_basic_ad_data"
   facebook_ads_basic_ad_actions_identifier: "facebook_ads_basic_ad_actions_data"
+  facebook_ads_basic_ad_action_values_identifier: "facebook_ads_basic_ad_action_values_data"
   facebook_ads_campaign_history_identifier: "facebook_ads_campaign_history_data"
   facebook_ads_creative_history_identifier: "facebook_ads_creative_history_data"
   facebook_ads__basic_ad_actions_passthrough_metrics: 
@@ -21,6 +22,8 @@ vars:
   facebook_ads__conversion_action_types:
     - name: lead
     - pattern: offsite_conversion%
+    - name: onsite_conversion.purchase
+      where_sql: 'ad_id != 1234'
     
 models:
   +schema: "facebook_ads_{{ var('directed_schema','dev') }}"

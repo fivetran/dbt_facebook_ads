@@ -38,8 +38,17 @@ joined as (
         sum(report.impressions) as impressions,
         sum(report.spend) as spend
         {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_passthrough_metrics', transform = 'sum') }}
-        , sum(coalesce(conversion_report.conversion_value, 0)) as conversion_value
+        , sum(coalesce(conversion_report.total_conversions, 0)) as total_conversions
+        , sum(coalesce(conversion_report.total_conversions_value, 0)) as conversions_value
+
+        {% for action_type in var('facebook_ads__conversion_action_types') -%}
+            {%- set action_column = action_type.name|default(action_type.pattern)|replace(".", "_") %}
+            , sum(conversion_report.{{ dbt_utils.slugify(action_column) }}) as {{ dbt_utils.slugify(action_column) }}
+            , sum(conversion_report.{{ dbt_utils.slugify(action_column) }}) as {{ dbt_utils.slugify(action_column) }}_value
+        {%- endfor -%}
+
         {{ facebook_ads_persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_actions_passthrough_metrics', transform = 'sum', coalesce_with=0) }}
+        {{ facebook_ads_persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_action_values_passthrough_metrics', transform = 'sum', coalesce_with=0) }}
 
     from report 
     left join conversion_report

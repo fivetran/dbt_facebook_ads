@@ -18,8 +18,7 @@ Introducing...conversion metrics ([PR #43](https://github.com/fivetran/dbt_faceb
 - Added a new [version](https://github.com/fivetran/dbt_facebook_ads/blob/main/macros/facebook_ads_persist_pass_through_columns.sql) of the `persist_pass_through_columns()` [macro](https://github.com/fivetran/dbt_fivetran_utils/blob/v0.4.10/macros/persist_pass_through_columns.sql) in which we can include `coalesces`.
 
 ## Contributors
-[Seer Interactive](https://www.seerinteractive.com/)
-<More to be added>
+- [Seer Interactive](https://www.seerinteractive.com/?utm_campaign=Fivetran%20%7C%20Models&utm_source=Fivetran&utm_medium=Fivetran%20Documentation)
 
 # dbt_facebook_ads v0.7.2
 

@@ -4,7 +4,8 @@
 
 {% if var(pass_through_variable, none) %}
     {% for field in var(pass_through_variable) %}
-        , {{ transform ~ '(' ~ ('coalesce(' if coalesce_with is not none else '') ~ (identifier ~ '.' if identifier else '') ~ (field.alias if field.alias else field.name) ~ ((', ' ~ coalesce_with ~ ')') if coalesce_with is not none else '') ~ ')' }} as {{ field.alias if field.alias else field.name }}
+        {% set field_name = field.alias|default(field.name)|lower if field is mapping else field %}
+        , {{ transform ~ '(' ~ ('coalesce(' if coalesce_with is not none else '') ~ (identifier ~ '.' if identifier else '') ~ field_name ~ ((', ' ~ coalesce_with ~ ')') if coalesce_with is not none else '') ~ ')' }} as {{ field_name }}
     {% endfor %}
 {% endif %}
 

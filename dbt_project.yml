@@ -15,6 +15,7 @@ vars:
     ad_set_history: "{{ ref('stg_facebook_ads__ad_set_history') }}"
     basic_ad: "{{ ref('stg_facebook_ads__basic_ad') }}"
     basic_ad_actions: "{{ ref('stg_facebook_ads__basic_ad_actions') }}"
+    basic_ad_action_values: "{{ ref('stg_facebook_ads__basic_ad_action_values') }}"
     campaign_history: "{{ ref('stg_facebook_ads__campaign_history') }}"
     creative_history: "{{ ref('stg_facebook_ads__creative_history') }}"
     url_tag: "{{ ref('stg_facebook_ads__url_tag') }}"
@@ -22,14 +23,15 @@ vars:
     facebook_ads__conversion_action_types: # default values
       - name: onsite_conversion.purchase
       - name: onsite_conversion.lead_grouped
-      - pattern: offsite_conversion.custom%
-      - name: offsite_conversion.fb_pixel_add_payment_info
-      - name: offsite_conversion.fb_pixel_add_to_cart
-      - name: offsite_conversion.fb_pixel_add_to_wishlist
-      - name: offsite_conversion.fb_pixel_complete_registration
-      - name: offsite_conversion.fb_pixel_custom
-      - name: offsite_conversion.fb_pixel_initiate_checkout
-      - name: offsite_conversion.fb_pixel_lead
       - name: offsite_conversion.fb_pixel_purchase
-      - name: offsite_conversion.fb_pixel_search
-      - name: offsite_conversion.fb_pixel_view_content
+      - name: offsite_conversion.fb_pixel_lead
+      - pattern: offsite_conversion.custom%
+      # - name: offsite_conversion.fb_pixel_custom -- sums up offsite_conversion.custom%
+
+    facebook_ads__conversion_action_value_types: # default values
+      - name: onsite_conversion.purchase
+      - name: onsite_conversion.lead_grouped
+      - name: offsite_conversion.fb_pixel_purchase
+      - name: offsite_conversion.fb_pixel_lead
+      - pattern: offsite_conversion.custom%
+      # - name: offsite_conversion.fb_pixel_custom -- sums up offsite_conversion.custom%
