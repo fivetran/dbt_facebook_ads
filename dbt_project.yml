@@ -25,13 +25,11 @@ vars:
       - name: onsite_conversion.lead_grouped
       - name: offsite_conversion.fb_pixel_purchase
       - name: offsite_conversion.fb_pixel_lead
-      - pattern: offsite_conversion.custom%
-      # - name: offsite_conversion.fb_pixel_custom -- sums up offsite_conversion.custom%
+      - name: offsite_conversion.fb_pixel_custom # same as pattern: offsite_conversion.custom%
 
     facebook_ads__conversion_action_value_types: # default values
       - name: onsite_conversion.purchase
       - name: onsite_conversion.lead_grouped
       - name: offsite_conversion.fb_pixel_purchase
       - name: offsite_conversion.fb_pixel_lead
-      - pattern: offsite_conversion.custom%
-      # - name: offsite_conversion.fb_pixel_custom -- sums up offsite_conversion.custom%
+      - name: offsite_conversion.fb_pixel_custom # sums up offsite_conversion.custom%

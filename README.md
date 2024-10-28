@@ -110,23 +110,15 @@ vars:
 ```
 
 ### Configuring Conversion Action Types
-By default, this package considers the following kinds of `action_types` to be conversions and pivots their metrics (raw event frequencies and monetary values) as columns in each `*_report` end model:
+By default, this package considers the following kinds of custom, purchase, and lead `action_types` to be conversions and pivots their metrics (raw event frequencies and monetary values) as columns in each `*_report` end model:
 
 | Action Type    | Action Description ([Meta docs](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/)) |
 | -------- | ------- |
-| `offsite_conversion.custom%`  | Sum of all custom conversions created by the advertiser. Each custom action aligns with this naming convention.     |
+| `offsite_conversion.fb_pixel_custom`  |  Custom pixel events defined by the advertiser. This will group together individual `offsite_conversion.custom%` custom conversion events.  |
 | `offsite_conversion.fb_pixel_lead`  | The number of "lead" events tracked by the pixel or Conversions API on your website and attributed to your ads. Off-Facebook leads, in short.  |
 | `onsite_conversion.lead_grouped`  | The number of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads. On-Facebook leads, in short.   |
 | `offsite_conversion.fb_pixel_purchase`  | The number of "purchase" events tracked by the pixel or Conversions API on your website and attributed to your ads. Off-Facebook purchases, in short.   |
 | `onsite_conversion.purchase`  | The number of purchases made within Meta technologies (such as Pages or Messenger) and attributed to your ads. On-Facebook purchases, in short.   |
-| `offsite_conversion.fb_pixel_add_payment_info` | The number of "add payment" info events attributed to your ads, based on information received from one or more of your connected Meta Business Tools.     |
-| `offsite_conversion.fb_pixel_add_to_cart` | The number of "add to cart" events attributed to your ads, based on information received from one or more of your connected Meta Business Tools.   |
-| `offsite_conversion.fb_pixel_add_to_wishlist` | The number of "add to wishlist" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
-| `offsite_conversion.fb_pixel_complete_registration` | The number of "complete registration" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
-| `offsite_conversion.fb_pixel_custom`  |  Custom pixel events defined by the advertiser.   |
-| `offsite_conversion.fb_pixel_initiate_checkout` | The number of "initiate checkout events" tracked by the pixel or Conversions API on your website and attributed to your ads.   |
-| `offsite_conversion.fb_pixel_search`  | The number of "search" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
-| `offsite_conversion.fb_pixel_view_content`  | The number of "view content" events tracked by the pixel or Conversions API on your website and attributed to your ads.   |
 
 These metrics will also be summed together into `total_conversions` and `total_conversions_value` fields in each `*_report` end model.
 
@@ -137,7 +129,8 @@ However, you may choose your own `action_types` to consider as conversions. To d
 vars:
   facebook_ads__conversion_action_types: # case-insensitive
     - name: exact_conversion_action_type_name # will grab `basic_ad_actions` records where action_type = 'exact_conversion_action_type_name'
-    - pattern: %custom% # will grab `basic_ad_actions` records where action_type like '%custom%'
+    - pattern: onsite_conversion% # will grab all `onsite_conversion%` records
+    - name: offsite_conversion.custom.my_custom_conversion_123
     - name: very_specific_conversion_action
       where_sql: source_relation = 'specific advertiser source' # will grab `basic_ad_actions` records where (action_type = very_specific_conversion_action and {{ where_sql }})
     - pattern: subscribe%
