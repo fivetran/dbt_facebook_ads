@@ -14,7 +14,7 @@ ad_model as (
         sum(coalesce(conversions, 0)) as conversions,
         sum(coalesce(view_through_conversions, 0)) as view_through_conversions
     from {{ ref('facebook_ads__ad_report') }}
-),
+)
 
 
 select 
