@@ -33,22 +33,23 @@ action_metrics as (
         {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_actions_passthrough_metrics', transform='sum') }}
 
     from actions_report
+    {% if var('facebook_ads__conversion_action_types') -%}
     where 
-    {# Limit conversions to the chosen action types #}
-    {% for action_type in var('facebook_ads__conversion_action_types') -%}
-        (
-        {%- if action_type.name -%}
-            action_type = '{{ action_type.name }}'
-        {%- elif action_type.pattern -%}
-            action_type like '{{ action_type.pattern }}'
-        {%- endif -%}
+        {# Limit conversions to the chosen action types #}
+        {% for action_type in var('facebook_ads__conversion_action_types') -%}
+            (
+            {%- if action_type.name -%}
+                action_type = '{{ action_type.name }}'
+            {%- elif action_type.pattern -%}
+                action_type like '{{ action_type.pattern }}'
+            {%- endif -%}
 
-        {% if action_type.where_sql %}
-            and {{ action_type.where_sql }}
-        {%- endif -%}
-        ) {% if not loop.last %} or {% endif %}
-    {%- endfor %}
-
+            {% if action_type.where_sql %}
+                and {{ action_type.where_sql }}
+            {%- endif -%}
+            ) {% if not loop.last %} or {% endif %}
+        {%- endfor %}
+    {% endif %}
     group by 1,2,3
 ),
 
@@ -73,21 +74,23 @@ action_value_metrics as (
         {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_action_values_passthrough_metrics', transform='sum') }}
 
     from action_values_report
+    {% if var('facebook_ads__conversion_action_types') -%}
     where 
-    {# Limit conversions to the chosen action types #}
-    {% for action_type in var('facebook_ads__conversion_action_types') -%}
-        (
-        {%- if action_type.name -%}
-            action_type = '{{ action_type.name }}'
-        {%- elif action_type.pattern -%}
-            action_type like '{{ action_type.pattern }}'
-        {%- endif -%}
+        {# Limit conversions to the chosen action types #}
+        {% for action_type in var('facebook_ads__conversion_action_types') -%}
+            (
+            {%- if action_type.name -%}
+                action_type = '{{ action_type.name }}'
+            {%- elif action_type.pattern -%}
+                action_type like '{{ action_type.pattern }}'
+            {%- endif -%}
 
-        {% if action_type.where_sql %}
-            and {{ action_type.where_sql }}
-        {%- endif -%}
-        ) {% if not loop.last %} or {% endif %}
-    {%- endfor %}
+            {% if action_type.where_sql %}
+                and {{ action_type.where_sql }}
+            {%- endif -%}
+            ) {% if not loop.last %} or {% endif %}
+        {%- endfor %}
+    {% endif %}
 
     group by 1,2,3
 ),

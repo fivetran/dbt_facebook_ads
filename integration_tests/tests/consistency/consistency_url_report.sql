@@ -6,9 +6,9 @@
 with prod as (
     select
         ad_id,
-        sum(clicks) as clicks, 
-        sum(impressions) as impressions,
-        sum(spend) as spend
+        sum(coalesce(clicks, 0)) as clicks, 
+        sum(coalesce(impressions, 0)) as impressions,
+        sum(coalesce(spend, 0)) as spend
     from {{ target.schema }}_facebook_ads_prod.facebook_ads__url_report
     group by 1
 ),
@@ -16,9 +16,9 @@ with prod as (
 dev as (
     select
         ad_id,
-        sum(clicks) as clicks, 
-        sum(impressions) as impressions,
-        sum(spend) as spend
+        sum(coalesce(clicks, 0)) as clicks, 
+        sum(coalesce(impressions, 0)) as impressions,
+        sum(coalesce(spend, 0)) as spend
     from {{ target.schema }}_facebook_ads_dev.facebook_ads__url_report
     group by 1
 ),

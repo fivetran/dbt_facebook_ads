@@ -42,10 +42,12 @@ To use this dbt package, you must have the following:
 
 - At least one Fivetran Facebook Ads connector syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
-- You will need to configure your Facebook Ads connector to pull the `basic_ad` pre-built report and its child `basic_ad_actions` pre-built report. These pre-built reports should be enabled in your connector by default. However, to confirm these reports are actively syncing you may perform the following steps:
+- You will need to configure your Facebook Ads connector to pull the `basic_ad` pre-built report and its child `basic_ad_actions` and `basic_ad_action_values` pre-built reports. These pre-built reports should be enabled in your connector by default. However, to confirm these reports are actively syncing you may perform the following steps:
     1. Navigate to the connector schema tab in Fivetran.
-    2. Search for `basic_ad` and `basic_ad_actions` and confirm they are both selected/enabled.
+    2. Search for `basic_ad`, `basic_ad_actions`, and `basic_ad_action_values` and confirm they are all selected/enabled.
     3. If not selected, do so and sync. If already selected you are ready to run the models!
+
+ >**Note**: If you do not have your Facebook Ads connector [schema change settings](https://fivetran.com/docs/using-fivetran/features/data-blocking-column-hashing/config#configureschemachangesettingsforexistingconnectors) set to `Allow all`, it is very possible that you are missing `basic_ad_actions` or `basic_ad_action_values`. If you would like to surface conversion metrics in your Facebook and/or Ad Reporting models, please ensure these reports are syncing. Otherwise, the `conversions` and `conversions_value` fields will be `null`.
 
 #### Databricks Dispatch Configuration
 If you are using a Databricks destination with this package you will need to add the below (or a variation of the below) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
