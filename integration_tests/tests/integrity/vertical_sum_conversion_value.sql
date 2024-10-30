@@ -35,5 +35,4 @@ select
     ad_source.*
 from ad_model 
 join ad_source on true
-where ad_model.conversions_value != ad_source.conversions_value
-    or ad_model.conversions != ad_source.conversions
+where ad_model.conversions != ad_source.conversions
