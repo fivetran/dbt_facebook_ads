@@ -67,9 +67,9 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
-      - name: total_conversions
+      - name: conversions
         description: Total number of conversions using the default attribution window on the given day.
-      - name: total_conversions_value
+      - name: conversions_value
         description: Total monetary of conversions using the default attribution window on the given day.
 
   - name: facebook_ads__ad_report
@@ -112,9 +112,9 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
-      - name: total_conversions
+      - name: conversions
         description: Total number of conversions using the default attribution window on the given day.
-      - name: total_conversions_value
+      - name: conversions_value
         description: Total monetary of conversions using the default attribution window on the given day.
       - name: conversion_domain
         description: The domain you've configured the ad to convert to.
@@ -155,9 +155,9 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
-      - name: total_conversions
+      - name: conversions
         description: Total number of conversions using the default attribution window on the given day.
-      - name: total_conversions_value
+      - name: conversions_value
         description: Total monetary of conversions using the default attribution window on the given day.
       - name: optimization_goal
         description: The optimization goal this ad set is using. Possible values defined [here](https://developers.facebook.com/docs/marketing-api/reference/ad-campaign/#fields).
@@ -192,9 +192,9 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
-      - name: total_conversions
+      - name: conversions
         description: Total number of conversions using the default attribution window on the given day.
-      - name: total_conversions_value
+      - name: conversions_value
         description: Total monetary of conversions using the default attribution window on the given day.
 
   - name: facebook_ads__account_report
@@ -222,9 +222,9 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
-      - name: total_conversions
+      - name: conversions
         description: Total number of conversions using the default attribution window on the given day.
-      - name: total_conversions_value
+      - name: conversions_value
         description: Total monetary of conversions using the default attribution window on the given day.
         
   - name: facebook_ads__url_tags
