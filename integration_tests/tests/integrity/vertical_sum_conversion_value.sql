@@ -1,3 +1,8 @@
+{{ config(
+    tags="fivetran_validations",
+    enabled=var('fivetran_validation_tests_enabled', false)
+) }}
+
 with ad_source as (
 
     select 
