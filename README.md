@@ -93,7 +93,7 @@ vars:
 To connect your multiple schema/database sources to the package models, follow the steps outlined in the [Union Data Defined Sources Configuration](https://github.com/fivetran/dbt_fivetran_utils/tree/releases/v0.4.latest#union_data-source) section of the Fivetran Utils documentation for the union_data macro. This will ensure a proper configuration and correct visualization of connections in the DAG.
 
 #### Passing Through Additional Metrics
-By default, this package will select `clicks`, `impressions`, `cost`, and conversion `value` (using the default attribution window) from the source reporting tables (`BASIC_AD` and `BASIC_AD_ACTIONS`) to store into the output models. If you would like to pass through additional metrics to the output models, add the below configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and transformed (`transform_sql`) if desired, but not required. Only the `name` of each metric field is required. Use the below format for declaring the respective pass-through variables:
+By default, this package will select `clicks`, `impressions`, `cost`, and conversion `value` (using the default attribution window) from the source reporting tables (`BASIC_AD`, `BASIC_AD_ACTIONS`, and `BASIC_AD_ACTION_VALUES`) to store into the output models. If you would like to pass through additional metrics to the output models, add the below configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and transformed (`transform_sql`) if desired, but not required. Only the `name` of each metric field is required. Use the below format for declaring the respective pass-through variables:
 
 > **Note** Please ensure you exercised due diligence when adding metrics to these models. The metrics added by default (taps, impressions, spend, and default-attribution window conversion values) have been vetted by the Fivetran team maintaining this package for accuracy. There are metrics included within the source reports, for example metric averages, which may be inaccurately represented at the grain for reports created in this package. You will want to ensure whichever metrics you pass through are indeed appropriate to aggregate at the respective reporting levels provided in this package.
 
@@ -107,6 +107,10 @@ vars:
         transform_sql: "coalesce(another_one, 0)"
       - name: "cpc"
     facebook_ads__basic_ad_actions_passthrough_metrics: # add conversion metrics found in BASIC_AD_ACTIONS
+      - name: "_7_d_click"
+        alias: "conversion_value_7d_click"
+      - name: "_1_d_view"
+    facebook_ads__basic_ad_action_values_passthrough_metrics: # add conversion metrics found in BASIC_AD_ACTIONS
       - name: "_7_d_click"
         alias: "conversion_value_7d_click"
       - name: "_1_d_view"

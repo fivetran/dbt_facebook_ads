@@ -24,7 +24,7 @@ vars:
     - pattern: offsite_conversion%
     - name: onsite_conversion.purchase
       where_sql: 'ad_id != 1234'
-    
+
 models:
   +schema: "facebook_ads_{{ var('directed_schema','dev') }}"
 

@@ -1,21 +1,46 @@
 # dbt_facebook_ads v0.8.0
 
-## Feature Updates
-Introducing...conversion metrics ([PR #43](https://github.com/fivetran/dbt_facebook_ads/pull/43))!
-- Adds a `conversion_value` field to each `_report` end model, representing the value of conversions (calculated using the default attribution window set in Meta) that occurred on each day for each ad/campaign/ad set/url/account.
-- Creates a `facebook_ads__basic_ad_actions_passthrough_metrics` variable to pass through additional conversion value metrics that are calculated using different attribution windows. 
-  - By default, the package includes only the conversion value calculated using the default attribution window, but your report may include calculations using the other windows defined [here](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/). See [README](https://github.com/fivetran/dbt_facebook_ads_source/tree/main?tab=readme-ov-file#passing-through-additional-metrics) for details on how to use the new variable.
+## Feature Updates: Conversion Metrics
+[PR #43](https://github.com/fivetran/dbt_facebook_ads/pull/43) includes the following updates:
+- Adds a `conversions` and `conversions_value` field to each `_report` end model, representing the raw and monetary value of conversions, respectively, that occurred on each day for each ad/campaign/ad set/url/account. These will aggregate conversions of all included `action_types`. 
+  - By default, the package will consider purchase, lead, and custom-defined events to be conversions based on the record's `action_type` (see below):
+
+| Action Type    | Action Description ([Meta docs](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/)) |
+| -------- | ------- |
+| `offsite_conversion.fb_pixel_custom`  |  Custom pixel events defined by the advertiser. This will group together individual `offsite_conversion.custom%` custom conversion events.  |
+| `offsite_conversion.fb_pixel_lead`  | The number of "lead" events tracked by the pixel or Conversions API on your website and attributed to your ads. Off-Facebook leads, in short.  |
+| `onsite_conversion.lead_grouped`  | The number of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads. On-Facebook leads, in short.   |
+| `offsite_conversion.fb_pixel_purchase`  | The number of "purchase" events tracked by the pixel or Conversions API on your website and attributed to your ads. Off-Facebook purchases, in short.   |
+| `onsite_conversion.purchase`  | The number of purchases made within Meta technologies (such as Pages or Messenger) and attributed to your ads. On-Facebook purchases, in short.   |
+
+  - The above can be configured via the the new `facebook_ads__conversion_action_types` variable. See [README](https://github.com/fivetran/dbt_facebook_ads/tree/main?tab=readme-ov-file#configuring-conversion-action-types) for more details.
+```yml
+# dbt_project.yml
+vars:
+  facebook_ads__conversion_action_types: # case-insensitive
+    - name: exact_conversion_action_type_name # will grab `basic_ad_actions` records where action_type = 'exact_conversion_action_type_name'
+    - pattern: onsite_conversion% # will grab all `onsite_conversion%` records
+    - name: offsite_conversion.custom.my_custom_conversion_123
+    - name: very_specific_conversion_action
+      where_sql: source_relation = 'specific advertiser source' # will grab `basic_ad_actions` records where (action_type = very_specific_conversion_action and {{ where_sql }})
+    - pattern: subscribe%
+      where_sql: source_relation = 'advertiser who only cares about subscriptions' # will grab `basic_ad_actions` records where (action_type like 'subscribe%' and {{ where_sql }})
+```
+
+- Creates the new `facebook_ads__basic_ad_actions_passthrough_metrics` and `facebook_ads__basic_ad_action_values_passthrough_metrics` variables to pass through additional conversion value metrics that are calculated using different attribution windows. 
+  - By default, the package includes only the conversion values calculated using the default attribution window set in Meta, but your report may include calculations using the other windows defined [here](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/). See [README](https://github.com/fivetran/dbt_facebook_ads_source/tree/main?tab=readme-ov-file#passing-through-additional-metrics) for details on how to use the new variables.
 - Adds `optimization_goal` field to `facebook_ads__ad_set_report` model. This is defined as the optimization goal this ad set is using, possible values of which are defined [here](https://developers.facebook.com/docs/marketing-api/reference/ad-campaign/#fields).
 - Adds `conversion_domain` field to `facebook_ads__ad_report` model. This is defined as the domain you've configured the ad to convert to.
 
 ## Documentation
-- Documents the ability to transform metrics provided to the `facebook_ads__basic_ad_passthrough_metrics` variable. See [README](https://github.com/fivetran/dbt_facebook_ads/tree/main?tab=readme-ov-file#passing-through-additional-metrics) for details ([PR #43](https://github.com/fivetran/dbt_facebook_ads/pull/43)).
+- Documents the ability to transform metrics provided to the `facebook_ads__basic_ad_passthrough_metrics` and `facebook_ads__basic_ad_action_values_passthrough_metrics` variables. See [README](https://github.com/fivetran/dbt_facebook_ads/tree/main?tab=readme-ov-file#passing-through-additional-metrics) for details ([PR #43](https://github.com/fivetran/dbt_facebook_ads/pull/43)).
+- Added missing documentation for fields in the campaign, ad set, and account report models ([PR #43](https://github.com/fivetran/dbt_facebook_ads/pull/43)).
 
 ## Under the Hood
 - Updated the `quickstart.yml` file to allow for automated Quickstart data model deployments ([PR #40](https://github.com/fivetran/dbt_facebook_ads/pull/40)).
 - Updated the PR templates to align with our most up-to-date standards ([PR #43](https://github.com/fivetran/dbt_facebook_ads/pull/43)).
 - Removed the now-defunct 2nd reviewer bot workflow ([PR #43](https://github.com/fivetran/dbt_facebook_ads/pull/43)).
-- Added a new [version](https://github.com/fivetran/dbt_facebook_ads/blob/main/macros/facebook_ads_persist_pass_through_columns.sql) of the `persist_pass_through_columns()` [macro](https://github.com/fivetran/dbt_fivetran_utils/blob/v0.4.10/macros/persist_pass_through_columns.sql) in which we can include `coalesces`.
+- Added a new [version](https://github.com/fivetran/dbt_facebook_ads/blob/main/macros/facebook_ads_persist_pass_through_columns.sql) of the `persist_pass_through_columns()` [macro](https://github.com/fivetran/dbt_fivetran_utils/blob/v0.4.10/macros/persist_pass_through_columns.sql) in which we can include `coalesces` ([PR #43](https://github.com/fivetran/dbt_facebook_ads/pull/43)).
 
 ## Contributors
 - [Seer Interactive](https://www.seerinteractive.com/?utm_campaign=Fivetran%20%7C%20Models&utm_source=Fivetran&utm_medium=Fivetran%20Documentation)
