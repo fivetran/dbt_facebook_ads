@@ -110,7 +110,7 @@ vars:
       - name: "_7_d_click"
         alias: "conversion_value_7d_click"
       - name: "_1_d_view"
-    facebook_ads__basic_ad_action_values_passthrough_metrics: # add conversion metrics found in BASIC_AD_ACTIONS
+    facebook_ads__basic_ad_action_values_passthrough_metrics: # add conversion metrics found in BASIC_AD_ACTION_VALUES
       - name: "_7_d_click"
         alias: "conversion_value_7d_click"
       - name: "_1_d_view"
@@ -135,13 +135,13 @@ However, you may choose your own `action_types` to consider as conversions. To d
 # dbt_project.yml
 vars:
   facebook_ads__conversion_action_types: # case-insensitive
-    - name: exact_conversion_action_type_name # will grab `basic_ad_actions` records where action_type = 'exact_conversion_action_type_name'
+    - name: exact_conversion_action_type_name # will grab `basic_ad_actions` and `basic_ad_action_values` records where action_type = 'exact_conversion_action_type_name'
     - pattern: onsite_conversion% # will grab all `onsite_conversion%` records
     - name: offsite_conversion.custom.my_custom_conversion_123
     - name: very_specific_conversion_action
-      where_sql: source_relation = 'specific advertiser source' # will grab `basic_ad_actions` records where (action_type = very_specific_conversion_action and {{ where_sql }})
+      where_sql: source_relation = 'specific advertiser source' # will grab `basic_ad_actions` and `basic_ad_action_values` records where (action_type = very_specific_conversion_action and {{ where_sql }})
     - pattern: subscribe%
-      where_sql: source_relation = 'advertiser who only cares about subscriptions' # will grab `basic_ad_actions` records where (action_type like 'subscribe%' and {{ where_sql }})
+      where_sql: source_relation = 'advertiser who only cares about subscriptions' # will grab `basic_ad_actions` and `basic_ad_action_values` records where (action_type like 'subscribe%' and {{ where_sql }})
 ```
 
 > **Note**: Please ensure to exercise due diligence when adding or removing conversion action types. The action types added by default have been heavily vetted by our friends at [Seer Interactive](https://www.seerinteractive.com/) and the Fivetran team maintaining this package for accuracy. There are many ways to accidentally double-count conversion values, as some action types are hierarchical/aggregates or overlap with others. Reference the action type descriptions in the Meta [API docs](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/) to ensure you select action types that appropriately and accurately fit your use case.
