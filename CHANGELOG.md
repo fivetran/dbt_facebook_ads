@@ -27,8 +27,10 @@ vars:
       where_sql: source_relation = 'advertiser who only cares about subscriptions' # will grab `basic_ad_actions` records where (action_type like 'subscribe%' and {{ where_sql }})
 ```
 
+>**Note**: If you were previously utilizing the `facebook_ads__basic_ad_passthrough_metrics` variable to include a (likely null) field called `conversions` or `conversions_value`, the package's version of these fields will take precedence over yours. To continue including your old conversions fields, change the `alias` of the passthrough field to another name.
+
 - Creates the new `facebook_ads__basic_ad_actions_passthrough_metrics` and `facebook_ads__basic_ad_action_values_passthrough_metrics` variables to pass through additional conversion value metrics that are calculated using different attribution windows. 
-  - By default, the package includes only the conversion values calculated using the default attribution window set in Meta, but your report may include calculations using the other windows defined [here](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/). See [README](https://github.com/fivetran/dbt_facebook_ads_source/tree/main?tab=readme-ov-file#passing-through-additional-metrics) for details on how to use the new variables.
+  - By default, the package includes only the conversion values calculated using the default attribution window set in Meta, but your report may include calculations using the other windows defined [here](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/). See [README](https://github.com/fivetran/dbt_facebook_ads/tree/main?tab=readme-ov-file#passing-through-additional-metrics) for details on how to use the new variables.
 - Adds `optimization_goal` field to `facebook_ads__ad_set_report` model. This is defined as the optimization goal this ad set is using, possible values of which are defined [here](https://developers.facebook.com/docs/marketing-api/reference/ad-campaign/#fields).
 - Adds `conversion_domain` field to `facebook_ads__ad_report` model. This is defined as the domain you've configured the ad to convert to.
 
