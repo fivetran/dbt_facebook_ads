@@ -4,8 +4,8 @@ ad_id,date,_fivetran_id,index,action_type,value,_fivetran_synced,_7_d_click
 23856469955990536,2020-12-05,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,2,onsite_conversion.lead_grouped,46787.82,2024-10-02T16:45:26.777,46787.82
 23856469955990536,2020-12-06,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,3,offsite_conversion.fb_pixel_lead,46787.82,2024-10-02T16:45:26.777,46787.82
 23856469955990536,2020-12-02,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,4,onsite_web_app_view_content,46787.82,2024-10-02T16:45:26.777,46787.82
-6317634610871,2020-12-03,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,0,offsite_conversion.fb_pixel_purchase,29324.84,2024-10-02T16:33:01.394,29324.84
-6317634610871,2020-12-14,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,1,onsite_web_add_to_cart,29324.84,2024-10-02T16:33:01.394,29324.84
-6317634610871,2020-12-13,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,2,onsite_conversion.purchase,29324.84,2024-10-02T16:33:01.394,29324.84
-6317634610871,2020-12-05,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,3,view_content,4194.29,2024-10-02T16:33:01.394,4194.29
-6317634610871,2020-12-08,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,4,offsite_conversion.fb_pixel_view_content,4194.29,2024-10-02T16:33:01.394,4194.29
+6229007992271,2020-12-03,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,0,offsite_conversion.fb_pixel_purchase,29324.84,2024-10-02T16:33:01.394,29324.84
+6229007992271,2020-12-14,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,1,onsite_web_add_to_cart,29324.84,2024-10-02T16:33:01.394,29324.84
+6229007992271,2020-12-13,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,2,onsite_conversion.purchase,29324.84,2024-10-02T16:33:01.394,29324.84
+6229007992271,2020-12-05,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,3,view_content,4194.29,2024-10-02T16:33:01.394,4194.29
+6229007992271,2020-12-08,2jmj7l5rSw0yVb/vlWAYkK/YBwk=,4,offsite_conversion.fb_pixel_view_content,4194.29,2024-10-02T16:33:01.394,4194.29
