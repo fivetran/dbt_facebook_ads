@@ -22,11 +22,8 @@ vars:
     - name: 'inline'
       alias: 'conversion_value_inline'
     - name: '_1_d_view'
-    - name: '_7_d_click'
     - name: '_28_d_click'
   facebook_ads__basic_ad_action_values_passthrough_metrics: 
-    - name: 'inline'
-      alias: 'conversion_value_inline'
     - name: '_7_d_click'
   facebook_ads__conversion_action_types:
     - name: lead
