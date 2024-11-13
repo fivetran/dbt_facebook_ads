@@ -67,6 +67,7 @@ joined as (
     left join conversion_report
         on report.date_day = conversion_report.date_day
         and report.ad_id = conversion_report.ad_id
+        and report.source_relation = conversion_report.source_relation
     left join accounts
         on report.account_id = accounts.account_id
         and report.source_relation = accounts.source_relation
