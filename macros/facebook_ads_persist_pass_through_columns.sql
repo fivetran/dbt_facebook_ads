@@ -6,7 +6,7 @@
     {% for field in var(pass_through_variable) %}
         {% set field_name = field.alias|default(field.name)|lower if field is mapping else field %}
         {% if field_name not in exclude_fields %}
-            , {{ transform ~ '(' ~ ('coalesce(' if coalesce_with is not none else '') ~ (identifier ~ '.' if identifier else '') ~ field_name ~ ((', ' ~ coalesce_with ~ ')') if coalesce_with is not none else '') ~ ')' }} as {{ field_name }}
+            , {{ transform ~ '(cast(' ~ ('coalesce(' if coalesce_with is not none else '') ~ (identifier ~ '.' if identifier else '') ~ field_name ~ ((', ' ~ coalesce_with ~ ')') if coalesce_with is not none else '') ~ ' as ' ~ dbt.type_float() ~ '))' }} as {{ field_name }}
         {% endif %}
     {% endfor %}
 {% endif %}
