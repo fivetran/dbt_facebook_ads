@@ -17,6 +17,7 @@ vars:
   facebook_ads__basic_ad_passthrough_metrics:
     - name: "reach"
     - name: inline_link_clicks
+      alias: inline_clicks_aliased
   facebook_ads__basic_ad_actions_passthrough_metrics: 
     - name: 'inline'
       alias: 'conversion_value_inline'
