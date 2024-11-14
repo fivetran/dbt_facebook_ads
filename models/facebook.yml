@@ -67,6 +67,10 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
+      - name: conversions
+        description: Total number of conversions using the default attribution window on the given day.
+      - name: conversions_value
+        description: Total monetary of conversions using the default attribution window on the given day.
 
   - name: facebook_ads__ad_report
     description: Each record represents the daily performance of a Facebook ad.
@@ -108,6 +112,12 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
+      - name: conversions
+        description: Total number of conversions using the default attribution window on the given day.
+      - name: conversions_value
+        description: Total monetary of conversions using the default attribution window on the given day.
+      - name: conversion_domain
+        description: The domain you've configured the ad to convert to.
 
   - name: facebook_ads__ad_set_report
     description: Each record represents the daily performance of a Facebook ad set.
@@ -144,6 +154,22 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
+      - name: conversions
+        description: Total number of conversions using the default attribution window on the given day.
+      - name: conversions_value
+        description: Total monetary of conversions using the default attribution window on the given day.
+      - name: optimization_goal
+        description: The optimization goal this ad set is using. Possible values defined [here](https://developers.facebook.com/docs/marketing-api/reference/ad-campaign/#fields).
+      - name: start_at
+        description: Timestamp of designated ad set start time.
+      - name: end_at
+        description: Timestamp of designated ad set end time.
+      - name: bid_strategy
+        description: Bid strategy values are - 'LOWEST_COST_WITHOUT_CAP', 'LOWEST_COST_WITH_BID_CAP', 'COST_CAP', 'LOWEST_COST_WITH_MIN_ROAS'.
+      - name: daily_budget
+        description: Daily budget of ad set.
+      - name: budget_remaining
+        description: Remaining budget of ad set.
 
   - name: facebook_ads__campaign_report
     description: Each record represents the daily performance of a Facebook campaign.
@@ -175,6 +201,22 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
+      - name: conversions
+        description: Total number of conversions using the default attribution window on the given day.
+      - name: conversions_value
+        description: Total monetary of conversions using the default attribution window on the given day.
+      - name: start_at
+        description: Timestamp of designated campaign start time.
+      - name: end_at
+        description: Timestamp of designated campaign end time.
+      - name: daily_budget
+        description: Daily budget of campaign.
+      - name: budget_remaining
+        description: Remaining budget of campaign.
+      - name: lifetime_budget
+        description: Lifetime budget of the campaign.
+      - name: status
+        description: Status values are - 'ACTIVE', 'PAUSED', 'DELETED', 'ARCHIVED'.
 
   - name: facebook_ads__account_report
     description: Each record represents the daily performance of a Facebook account.
@@ -201,6 +243,20 @@ models:
         description: The number of impressions the ad had on the given day.
       - name: spend
         description: The spend on the ad in the given day.
+      - name: conversions
+        description: Total number of conversions using the default attribution window on the given day.
+      - name: conversions_value
+        description: Total monetary of conversions using the default attribution window on the given day.
+      - name: account_status
+        description: Current status of account.
+      - name: business_country_code
+        description: Country code of business associated to account.
+      - name: created_at
+        description: The time account was created.
+      - name: currency
+        description: Currency associated with account.
+      - name: timezone_name
+        description: Timezone associated with account.
 
   - name: facebook_ads__url_tags
     description: Each record is a unique combination of creative_id and corresponding key, value, type contained in the url_tags field
