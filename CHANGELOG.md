@@ -1,3 +1,9 @@
+# dbt_facebook_ads version.version
+
+## Documentation
+- Added Quickstart model counts to README. ([#48](https://github.com/fivetran/dbt_facebook_ads/pull/48))
+- Corrected references to connectors and connections in the README. ([#48](https://github.com/fivetran/dbt_facebook_ads/pull/48))
+
 # dbt_facebook_ads v0.8.0
 
 ## Feature Updates: Conversion Metrics

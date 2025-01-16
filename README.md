@@ -33,6 +33,9 @@ The following table provides a detailed list of all tables materialized within t
 | [facebook_ads__ad_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__ad_report)            | Each record in this table represents the daily performance at the ad level. |
 | [facebook_ads__url_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__url_report)            | Each record in this table represents the daily performance of URLs at the ad level. _By default, this will exclude ads with NULL `url` values._ |
 | [facebook_ads__url_tags](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__url_tags)            | Each record in this table is a unique combination of creative_id and the corresponding key, value, and type values contained in the url_tags field. _This excludes creatives without url tags._ |
+
+### Materialized Models
+Each Quickstart transformation job run materializes 24 models if all components of this data model are enabled. This count includes all staging, intermediate, and final models materialized as `view`, `table`, or `incremental`.
 <!--section-end-->
 
 ## How do I use the dbt package?
@@ -40,14 +43,14 @@ The following table provides a detailed list of all tables materialized within t
 ### Step 1: Prerequisites
 To use this dbt package, you must have the following:
 
-- At least one Fivetran Facebook Ads connector syncing data into your destination.
+- At least one Fivetran Facebook Ads connection syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
-- You will need to configure your Facebook Ads connector to pull the `basic_ad` pre-built report and its child `basic_ad_actions` and `basic_ad_action_values` pre-built reports. These pre-built reports should be enabled in your connector by default. However, to confirm these reports are actively syncing you may perform the following steps:
-    1. Navigate to the connector schema tab in Fivetran.
+- You will need to configure your Facebook Ads connection to pull the `basic_ad` pre-built report and its child `basic_ad_actions` and `basic_ad_action_values` pre-built reports. These pre-built reports should be enabled in your connection by default. However, to confirm these reports are actively syncing you may perform the following steps:
+    1. Navigate to the connection schema tab in Fivetran.
     2. Search for `basic_ad`, `basic_ad_actions`, and `basic_ad_action_values` and confirm they are all selected/enabled.
     3. If not selected, do so and sync. If already selected you are ready to run the models!
 
- >**Note**: If you do not have your Facebook Ads connector [schema change settings](https://fivetran.com/docs/using-fivetran/features/data-blocking-column-hashing/config#configureschemachangesettingsforexistingconnectors) set to `Allow all`, it is very possible that you are missing `basic_ad_actions` or `basic_ad_action_values`. If you would like to surface conversion metrics in your Facebook and/or Ad Reporting models, please ensure these reports are syncing. Otherwise, the `conversions` and `conversions_value` fields will be `null`.
+ >**Note**: If you do not have your Facebook Ads connection [schema change settings](https://fivetran.com/docs/using-fivetran/features/data-blocking-column-hashing/config#configureschemachangesettingsforexistingconnectors) set to `Allow all`, it is very possible that you are missing `basic_ad_actions` or `basic_ad_action_values`. If you would like to surface conversion metrics in your Facebook and/or Ad Reporting models, please ensure these reports are syncing. Otherwise, the `conversions` and `conversions_value` fields will be `null`.
 
 #### Databricks Dispatch Configuration
 If you are using a Databricks destination with this package you will need to add the below (or a variation of the below) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
@@ -80,8 +83,8 @@ vars:
 ### (Optional) Step 4: Additional configurations
 <details open><summary>Expand/Collapse details</summary>
 
-#### Union multiple connectors
-If you have multiple facebook_ads connectors in Fivetran and would like to use this package on all of them simultaneously, we have provided functionality to do so. The package will union all of the data together and pass the unioned table into the transformations. You will be able to see which source it came from in the `source_relation` column of each model. To use this functionality, you will need to set either the `facebook_ads_union_schemas` OR `facebook_ads_union_databases` variables (cannot do both) in your root `dbt_project.yml` file:
+#### Union multiple connections
+If you have multiple facebook_ads connections in Fivetran and would like to use this package on all of them simultaneously, we have provided functionality to do so. The package will union all of the data together and pass the unioned table into the transformations. You will be able to see which source it came from in the `source_relation` column of each model. To use this functionality, you will need to set either the `facebook_ads_union_schemas` OR `facebook_ads_union_databases` variables (cannot do both) in your root `dbt_project.yml` file:
 
 ```yml
 vars:
@@ -159,7 +162,7 @@ models:
 ```
     
 #### Change the source table references
-If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable. This is not available when running the package on multiple unioned connectors.
+If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable. This is not available when running the package on multiple unioned connections.
 
 > IMPORTANT: See this project's [`dbt_project.yml`](https://github.com/fivetran/dbt_facebook_ads/blob/main/dbt_project.yml) variable declarations to see the expected names.
 
