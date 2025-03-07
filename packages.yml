@@ -1,3 +1,6 @@
 packages:
-- package: fivetran/facebook_ads_source
-  version: [">=0.8.0", "<0.9.0"]
+# - package: fivetran/facebook_ads_source
+#   version: [">=0.8.0", "<0.9.0"]
+# - local: ../Facebook_ads/dbt_facebook_ads_source
+- git: https://github.com/fivetran/dbt_facebook_ads_source.git
+  revision: update/json-variable
