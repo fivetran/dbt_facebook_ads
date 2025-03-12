@@ -12,6 +12,7 @@
 - Added Quickstart model counts to README. ([#48](https://github.com/fivetran/dbt_facebook_ads/pull/48))
 - Corrected references to connectors and connections in the README. ([#48](https://github.com/fivetran/dbt_facebook_ads/pull/48))
 - Adjusted the header formatting in the README. ([PR #49](https://github.com/fivetran/dbt_facebook_ads/pull/49))
+- Updated LICENSE. ([PR #49](https://github.com/fivetran/dbt_facebook_ads/pull/49))
 
 # dbt_facebook_ads v0.8.0
 
