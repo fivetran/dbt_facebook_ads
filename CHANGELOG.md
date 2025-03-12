@@ -1,8 +1,17 @@
-# dbt_facebook_ads version.version
+# dbt_facebook_ads v0.8.1
+
+## Bug Fixes
+- Added logic to the `stg_facebook_ads__creative_history` model to dynamically convert the `url_tags` field from a JSON to a STRING if necessary (BigQuery only). This is necessary for the success of downstream transformations in the `facebook_ads` package. ([facebook_ads_source PR #43](https://github.com/fivetran/dbt_facebook_ads_source/pull/43))
+> Note: If you are a BigQuery user unioning multiple Facebook Ads connections together in the package, the data type of `creative_history.url_tags` must be consistent across your connections. Otherwise, the `stg_facebook_ads__creative_history_tmp` will likely fail. Please reach out and create an issue if you are facing this error.
+
+## Under the Hood
+- Added a consistency validation test for the `facebook_ads__url_tags` model. ([PR #49](https://github.com/fivetran/dbt_facebook_ads/pull/49))
+- Updated existing consistency tests to include conversion metrics. ([PR #49](https://github.com/fivetran/dbt_facebook_ads/pull/49))
 
 ## Documentation
 - Added Quickstart model counts to README. ([#48](https://github.com/fivetran/dbt_facebook_ads/pull/48))
 - Corrected references to connectors and connections in the README. ([#48](https://github.com/fivetran/dbt_facebook_ads/pull/48))
+- Adjusted the header formatting in the README. ([PR #49](https://github.com/fivetran/dbt_facebook_ads/pull/49))
 
 # dbt_facebook_ads v0.8.0
 
