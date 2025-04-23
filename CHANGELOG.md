@@ -1,9 +1,11 @@
 # dbt_facebook_ads v0.9.0
 
+[PR #50](https://github.com/fivetran/dbt_facebook_ads/pull/50) introduces the following updates:
+
 ## Schema Updates
 
-**10 total changes • 0 possible breaking changes**
-| **Model/Column** | **Change type** | **Old name** | **New name** | **Notes** |
+**13 total changes • 0 possible breaking changes**
+| **Model** | **Change type** | **Old name** | **New name** | **Notes** |
 | ---------------- | --------------- | ------------ | ------------ | --------- |
 | [facebook_ads__country_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__country_report) | New Transform Model |   |   |  Each record represents the daily performance of a Facebook account at the country level.  |
 | [facebook_ads__region_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__region_report) | New Transform Model |   |   | Each record represents the daily performance of a Facebook account at the region level.    |
@@ -15,6 +17,9 @@
 | stg_facebook_ads__demographics_region_tmp | New Staging Model |   |   | Uses `demographics_region` source table   |
 | stg_facebook_ads__demographics_region_actions | New Staging Model |   |   |  Uses `demographics_region_actions` source table  |
 | stg_facebook_ads__demographics_region_actions_tmp | New Staging Model |   |   | Uses `demographics_region_actions` source table   |
+| stg_facebook_ads__account_history | New Column |   | `business_state`    |  |
+| stg_facebook_ads__account_history | New Column |   | `timezone_offset_hours_utc`    |  |
+| stg_facebook_ads__account_history | New Column |   | `min_daily_budget`    |  |
 
 ## Feature Updates
 - Added the `facebook_ads__using_demographics_country` and `facebook_ads__using_demographics_region` variables, which can be used to enable or disable the above transformations related to the new `demographics_country`/`demograhics_country_actions` and `demographics_region`/`demographics_region_actions` tables.

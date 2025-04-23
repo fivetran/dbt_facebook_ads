@@ -14,6 +14,11 @@ vars:
   facebook_ads_campaign_history_identifier: "facebook_ads_campaign_history_data"
   facebook_ads_creative_history_identifier: "facebook_ads_creative_history_data"
   
+  # Comment IN docs generate
+  # facebook_ads__using_demographics_country: true
+  # facebook_ads__using_demographics_region: true
+
+  # Comment OUT for docs generation
   facebook_ads__basic_ad_passthrough_metrics:
     - name: "reach"
     - name: inline_link_clicks
@@ -52,6 +57,12 @@ seeds:
         inline: "float"
         _1_d_view: "float"
         _7_d_click: "float"
+    facebook_ads_demographics_country_actions_data:
+      +column_types:
+        value: "float"
+    facebook_ads_demographics_region_actions_data:
+      +column_types:
+        value: "float"
         
 dispatch:
   - macro_namespace: dbt_utils

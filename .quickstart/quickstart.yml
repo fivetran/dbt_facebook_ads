@@ -3,6 +3,14 @@ schema_key: facebook_ads_schema
 
 dbt_versions: ">=1.3.0 <2.0.0"
 
+table_variables:
+  facebook_ads__using_demographics_country:
+    - demographics_country
+    - demographics_country_actions
+  facebook_ads__using_demographics_region:
+    - demographics_region
+    - demographics_region_actions
+
 destination_configurations:
   databricks:
     dispatch:
@@ -15,5 +23,7 @@ public_models: [
   "facebook_ads__campaign_report",
   "facebook_ads__account_report",
   "facebook_ads__ad_report",
-  "facebook_ads__ad_set_report"
+  "facebook_ads__ad_set_report",
+  "facebook_ads__country_report",
+  "facebook_ads__region_report"
 ]

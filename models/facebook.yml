@@ -342,29 +342,24 @@ models:
           Total number of conversions using the default attribution window on the given day. See the 
           [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
           for details around conversion-eligible action types.
-      - name: conversions_value
-        description: >
-          Total monetary of conversions using the default attribution window on the given day. See the 
-          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
-          for details around conversion-eligible action types.
-      - name: account_status
-        description: Current status of account.
-      - name: business_country_code
+      - name: account_business_country_code
         description: Country code of business associated to account.
-      - name: created_at
-        description: The time account was created.
-      - name: currency
+      - name: account_currency
         description: Currency associated with account.
-      - name: timezone_name
+      - name: account_timezone
         description: Timezone associated with account.
-      - name: timezone_offset_hours_utc
+      - name: account_timezone_offset_hours_utc
         description: Time zone difference from UTC.
-      - name: min_daily_budget
+      - name: account_min_daily_budget
         description: The minimum daily budget for this Ad Account.
       - name: country_id
         description: "{{ doc('country_id') }}"
       - name: country
         description: "{{ doc('country') }}"
+      - name: frequency
+        description: '{{ doc("frequency") }}'
+      - name: reach
+        description: '{{ doc("reach") }}'
 
   - name: facebook_ads__region_report
     description: Each record represents the daily performance of a Facebook account at the region level.
@@ -395,26 +390,23 @@ models:
           Total number of conversions using the default attribution window on the given day. See the 
           [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
           for details around conversion-eligible action types.
-      - name: conversions_value
-        description: >
-          Total monetary of conversions using the default attribution window on the given day. See the 
-          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
-          for details around conversion-eligible action types.
-      - name: account_status
-        description: Current status of account.
-      - name: business_country_code
+      - name: account_business_country_code
         description: Country code of business associated to account.
-      - name: created_at
-        description: The time account was created.
-      - name: currency
+      - name: account_business_state
+        description: State abbreviation for business address.
+      - name: account_currency
         description: Currency associated with account.
-      - name: timezone_name
+      - name: account_timezone
         description: Timezone associated with account.
-      - name: timezone_offset_hours_utc
+      - name: account_timezone_offset_hours_utc
         description: Time zone difference from UTC.
-      - name: min_daily_budget
+      - name: account_min_daily_budget
         description: The minimum daily budget for this Ad Account.
       - name: region_id
         description: "{{ doc('region_id') }}"
       - name: region
         description: "{{ doc('region') }}"
+      - name: frequency
+        description: '{{ doc("frequency") }}'
+      - name: reach
+        description: '{{ doc("reach") }}'
