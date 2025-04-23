@@ -314,7 +314,7 @@ models:
         description: The type assigned to the url tag object e.g. 'AD_VIDEO'.
 
   - name: facebook_ads__country_report
-    description: Each record represents the daily performance of a Facebook account at the country level.s
+    description: Each record represents the daily performance of a Facebook account at the country level.
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
@@ -367,7 +367,7 @@ models:
         description: "{{ doc('country') }}"
 
   - name: facebook_ads__region_report
-    description: Each record represents the daily performance of a Facebook account at the country level.s
+    description: Each record represents the daily performance of a Facebook account at the region level.
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
