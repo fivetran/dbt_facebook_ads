@@ -68,9 +68,15 @@ models:
       - name: spend
         description: The spend on the ad in the given day.
       - name: conversions
-        description: Total number of conversions using the default attribution window on the given day.
+        description: >
+          Total number of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
       - name: conversions_value
-        description: Total monetary of conversions using the default attribution window on the given day.
+        description: >
+          Total monetary of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
 
   - name: facebook_ads__ad_report
     description: Each record represents the daily performance of a Facebook ad.
@@ -113,9 +119,15 @@ models:
       - name: spend
         description: The spend on the ad in the given day.
       - name: conversions
-        description: Total number of conversions using the default attribution window on the given day.
+        description: >
+          Total number of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
       - name: conversions_value
-        description: Total monetary of conversions using the default attribution window on the given day.
+        description: >
+          Total monetary of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
       - name: conversion_domain
         description: The domain you've configured the ad to convert to.
 
@@ -155,9 +167,15 @@ models:
       - name: spend
         description: The spend on the ad in the given day.
       - name: conversions
-        description: Total number of conversions using the default attribution window on the given day.
+        description: >
+          Total number of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
       - name: conversions_value
-        description: Total monetary of conversions using the default attribution window on the given day.
+        description: >
+          Total monetary of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
       - name: optimization_goal
         description: The optimization goal this ad set is using. Possible values defined [here](https://developers.facebook.com/docs/marketing-api/reference/ad-campaign/#fields).
       - name: start_at
@@ -202,9 +220,15 @@ models:
       - name: spend
         description: The spend on the ad in the given day.
       - name: conversions
-        description: Total number of conversions using the default attribution window on the given day.
+        description: >
+          Total number of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
       - name: conversions_value
-        description: Total monetary of conversions using the default attribution window on the given day.
+        description: >
+          Total monetary of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
       - name: start_at
         description: Timestamp of designated campaign start time.
       - name: end_at
@@ -244,9 +268,15 @@ models:
       - name: spend
         description: The spend on the ad in the given day.
       - name: conversions
-        description: Total number of conversions using the default attribution window on the given day.
+        description: >
+          Total number of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
       - name: conversions_value
-        description: Total monetary of conversions using the default attribution window on the given day.
+        description: >
+          Total monetary of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
       - name: account_status
         description: Current status of account.
       - name: business_country_code
@@ -282,3 +312,109 @@ models:
         description: The value assigned to the url tag object associated with this record.
       - name: type
         description: The type assigned to the url tag object e.g. 'AD_VIDEO'.
+
+  - name: facebook_ads__country_report
+    description: Each record represents the daily performance of a Facebook account at the country level.s
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - account_id
+            - country_id
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: The date of the performance.
+      - name: account_id
+        description: The ID of the related account.
+      - name: account_name
+        description: The name of the related account.
+      - name: clicks
+        description: The number of clicks the ad had on the given day.
+      - name: impressions
+        description: The number of impressions the ad had on the given day.
+      - name: spend
+        description: The spend on the ad in the given day.
+      - name: conversions
+        description: >
+          Total number of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
+      - name: conversions_value
+        description: >
+          Total monetary of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
+      - name: account_status
+        description: Current status of account.
+      - name: business_country_code
+        description: Country code of business associated to account.
+      - name: created_at
+        description: The time account was created.
+      - name: currency
+        description: Currency associated with account.
+      - name: timezone_name
+        description: Timezone associated with account.
+      - name: timezone_offset_hours_utc
+        description: Time zone difference from UTC.
+      - name: min_daily_budget
+        description: The minimum daily budget for this Ad Account.
+      - name: country_id
+        description: "{{ doc('country_id') }}"
+      - name: country
+        description: "{{ doc('country') }}"
+
+  - name: facebook_ads__region_report
+    description: Each record represents the daily performance of a Facebook account at the country level.s
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - account_id
+            - region_id
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: The date of the performance.
+      - name: account_id
+        description: The ID of the related account.
+      - name: account_name
+        description: The name of the related account.
+      - name: clicks
+        description: The number of clicks the ad had on the given day.
+      - name: impressions
+        description: The number of impressions the ad had on the given day.
+      - name: spend
+        description: The spend on the ad in the given day.
+      - name: conversions
+        description: >
+          Total number of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
+      - name: conversions_value
+        description: >
+          Total monetary of conversions using the default attribution window on the given day. See the 
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          for details around conversion-eligible action types.
+      - name: account_status
+        description: Current status of account.
+      - name: business_country_code
+        description: Country code of business associated to account.
+      - name: created_at
+        description: The time account was created.
+      - name: currency
+        description: Currency associated with account.
+      - name: timezone_name
+        description: Timezone associated with account.
+      - name: timezone_offset_hours_utc
+        description: Time zone difference from UTC.
+      - name: min_daily_budget
+        description: The minimum daily budget for this Ad Account.
+      - name: region_id
+        description: "{{ doc('region_id') }}"
+      - name: region
+        description: "{{ doc('region') }}"

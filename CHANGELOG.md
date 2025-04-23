@@ -1,3 +1,31 @@
+# dbt_facebook_ads v0.9.0
+
+## Schema Updates
+
+**10 total changes • 0 possible breaking changes**
+| **Model/Column** | **Change type** | **Old name** | **New name** | **Notes** |
+| ---------------- | --------------- | ------------ | ------------ | --------- |
+| facebook_ads__country_report | New Transform Model |   |   |  Uses `demographics_country` and `demographics_country_actions` source tables  |
+| facebook_ads__region_report | New Transform Model |   |   |Uses `demographics_region` and `demographics_region_actions` source tables    |
+| stg_facebook_ads__demographics_country | New Staging Model |   |   |  Uses `demographics_country` source table  |
+| stg_facebook_ads__demographics_country_tmp | New Staging Model |   |   | Uses `demographics_country` source table   |
+| stg_facebook_ads__demographics_country_actions | New Staging Model |   |   |  Uses `demographics_country_actions` source table  |
+| stg_facebook_ads__demographics_country_actions_tmp | New Staging Model |   |   | Uses `demographics_country_actions` source table   |
+| stg_facebook_ads__demographics_region | New Staging Model |   |   |  Uses `demographics_region` source table  |
+| stg_facebook_ads__demographics_region_tmp | New Staging Model |   |   | Uses `demographics_region` source table   |
+| stg_facebook_ads__demographics_region_actions | New Staging Model |   |   |  Uses `demographics_region_actions` source table  |
+| stg_facebook_ads__demographics_region_actions_tmp | New Staging Model |   |   | Uses `demographics_region_actions` source table   |
+
+## Feature Updates
+- variables
+- passthrough columns
+
+## Documentation
+- Clarified conversion docs in README and yml
+
+## Under the Hood
+- validation tests (TODO)
+
 # dbt_facebook_ads v0.8.1
 
 ## Bug Fixes

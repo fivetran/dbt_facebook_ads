@@ -19,6 +19,10 @@ vars:
     campaign_history: "{{ ref('stg_facebook_ads__campaign_history') }}"
     creative_history: "{{ ref('stg_facebook_ads__creative_history') }}"
     url_tag: "{{ ref('stg_facebook_ads__url_tag') }}"
+    demographics_country: "{{ ref('stg_facebook_ads__demographics_country') }}"
+    demographics_country_actions: "{{ ref('stg_facebook_ads__demographics_country_actions') }}"
+    demographics_region: "{{ ref('stg_facebook_ads__demographics_region') }}"
+    demographics_region_actions: "{{ ref('stg_facebook_ads__demographics_region_actions') }}"
 
     facebook_ads__conversion_action_types: # default values
       - name: onsite_conversion.purchase
