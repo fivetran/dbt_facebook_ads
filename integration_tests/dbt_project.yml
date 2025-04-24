@@ -13,7 +13,11 @@ vars:
   facebook_ads_basic_ad_action_values_identifier: "facebook_ads_basic_ad_action_values_data"
   facebook_ads_campaign_history_identifier: "facebook_ads_campaign_history_data"
   facebook_ads_creative_history_identifier: "facebook_ads_creative_history_data"
-  
+  facebook_ads_demographics_country_identifier: "facebook_ads_demographics_country_data"
+  facebook_ads_demographics_country_actions_identifier: "facebook_ads_demographics_country_actions_data"
+  facebook_ads_demographics_region_identifier: "facebook_ads_demographics_region_data"
+  facebook_ads_demographics_region_actions_identifier: "facebook_ads_demographics_region_actions_data"
+
   # Comment IN docs generate
   # facebook_ads__using_demographics_country: true
   # facebook_ads__using_demographics_region: true
