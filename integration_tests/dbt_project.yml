@@ -67,7 +67,9 @@ seeds:
     facebook_ads_demographics_region_actions_data:
       +column_types:
         value: "float"
-        
+  +docs:
+    show: false
+    
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['spark_utils', 'dbt_utils']

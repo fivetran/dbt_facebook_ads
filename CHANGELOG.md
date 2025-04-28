@@ -17,9 +17,7 @@
 | stg_facebook_ads__demographics_region_tmp | New Staging Model |   |   | Uses `demographics_region` source table   |
 | stg_facebook_ads__demographics_region_actions | New Staging Model |   |   |  Uses `demographics_region_actions` source table  |
 | stg_facebook_ads__demographics_region_actions_tmp | New Staging Model |   |   | Uses `demographics_region_actions` source table   |
-| stg_facebook_ads__account_history | New Column |   | `business_state`    |  |
-| stg_facebook_ads__account_history | New Column |   | `timezone_offset_hours_utc`    |  |
-| stg_facebook_ads__account_history | New Column |   | `min_daily_budget`    |  |
+| stg_facebook_ads__account_history | New Columns |   | `business_state`, `timezone_offset_hours_utc`, `min_daily_budget`  |  |
 
 ## Feature Updates
 - Added the `facebook_ads__using_demographics_country` and `facebook_ads__using_demographics_region` variables, which can be used to enable or disable the above transformations related to the new `demographics_country`/`demograhics_country_actions` and `demographics_region`/`demographics_region_actions` tables.
