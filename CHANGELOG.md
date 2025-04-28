@@ -4,8 +4,8 @@
 
 ## Schema Updates
 
-**13 total changes • 0 possible breaking changes**
-| **Model** | **Change type** | **Old name** | **New name** | **Notes** |
+**11 total changes • 0 possible breaking changes**
+| **Data Model** | **Change type** | **Old name** | **New name** | **Notes** |
 | ---------------- | --------------- | ------------ | ------------ | --------- |
 | [facebook_ads__country_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__country_report) | New Transform Model |   |   |  Each record represents the daily performance of a Facebook account at the country level.  |
 | [facebook_ads__region_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__region_report) | New Transform Model |   |   | Each record represents the daily performance of a Facebook account at the region level.    |
