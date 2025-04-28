@@ -5,7 +5,6 @@ with accounts as (
     select *
     from {{ var('account_history') }}
     where is_most_recent_record = true
-
 ),
 
 demographics_country as (
