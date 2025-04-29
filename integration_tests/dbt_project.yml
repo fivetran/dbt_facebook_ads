@@ -1,5 +1,5 @@
 name: 'facebook_ads_integration_tests'
-version: '0.8.1'
+version: '0.9.0'
 profile: 'integration_tests'
 config-version: 2
 
@@ -13,7 +13,16 @@ vars:
   facebook_ads_basic_ad_action_values_identifier: "facebook_ads_basic_ad_action_values_data"
   facebook_ads_campaign_history_identifier: "facebook_ads_campaign_history_data"
   facebook_ads_creative_history_identifier: "facebook_ads_creative_history_data"
-  
+  facebook_ads_demographics_country_identifier: "facebook_ads_demographics_country_data"
+  facebook_ads_demographics_country_actions_identifier: "facebook_ads_demographics_country_actions_data"
+  facebook_ads_demographics_region_identifier: "facebook_ads_demographics_region_data"
+  facebook_ads_demographics_region_actions_identifier: "facebook_ads_demographics_region_actions_data"
+
+  # Comment IN docs generate
+  # facebook_ads__using_demographics_country: true
+  # facebook_ads__using_demographics_region: true
+
+  # Comment OUT for docs generation
   facebook_ads__basic_ad_passthrough_metrics:
     - name: "reach"
     - name: inline_link_clicks
@@ -28,7 +37,7 @@ vars:
     - name: lead
     - pattern: offsite_conversion%
     - name: onsite_conversion.purchase
-      where_sql: 'ad_id != 1234'
+      where_sql: source_relation != 'no_purchase_source'
 
 models:
   +schema: "facebook_ads_{{ var('directed_schema','dev') }}"
@@ -52,7 +61,15 @@ seeds:
         inline: "float"
         _1_d_view: "float"
         _7_d_click: "float"
-        
+    facebook_ads_demographics_country_actions_data:
+      +column_types:
+        value: "float"
+    facebook_ads_demographics_region_actions_data:
+      +column_types:
+        value: "float"
+  +docs:
+    show: false
+    
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['spark_utils', 'dbt_utils']

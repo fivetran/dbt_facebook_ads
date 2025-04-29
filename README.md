@@ -32,11 +32,13 @@ The following table provides a detailed list of all tables materialized within t
 | [facebook_ads__campaign_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__campaign_report)            | Each record in this table represents the daily performance of a campaign at the campaign/advertising_channel/advertising_channel_subtype level. |
 | [facebook_ads__ad_set_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__ad_set_report)            | Each record in this table represents the daily performance at the ad set level. |
 | [facebook_ads__ad_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__ad_report)            | Each record in this table represents the daily performance at the ad level. |
+| [facebook_ads__country_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__country_report)            | Each record represents the daily performance of a Facebook account at the country level. |
+| [facebook_ads__region_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__region_report)            | Each record represents the daily performance of a Facebook account at the region level. |
 | [facebook_ads__url_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__url_report)            | Each record in this table represents the daily performance of URLs at the ad level. _By default, this will exclude ads with NULL `url` values._ |
 | [facebook_ads__url_tags](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__url_tags)            | Each record in this table is a unique combination of creative_id and the corresponding key, value, and type values contained in the url_tags field. _This excludes creatives without url tags._ |
 
 ### Materialized Models
-Each Quickstart transformation job run materializes 24 models if all components of this data model are enabled. This count includes all staging, intermediate, and final models materialized as `view`, `table`, or `incremental`.
+Each Quickstart transformation job run materializes 34 models if all components of this data model are enabled. This count includes all staging, intermediate, and final models materialized as `view`, `table`, or `incremental`.
 <!--section-end-->
 
 ## How do I use the dbt package?
@@ -48,7 +50,7 @@ To use this dbt package, you must have the following:
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
 - You will need to configure your Facebook Ads connection to pull the `basic_ad` pre-built report and its child `basic_ad_actions` and `basic_ad_action_values` pre-built reports. These pre-built reports should be enabled in your connection by default. However, to confirm these reports are actively syncing you may perform the following steps:
     1. Navigate to the connection schema tab in Fivetran.
-    2. Search for `basic_ad`, `basic_ad_actions`, and `basic_ad_action_values` and confirm they are all selected/enabled.
+    2. Search for `basic_ad`, `basic_ad_actions`, and `basic_ad_action_values` and confirm they are all selected/enabled. If you would like country and region-level transformations, do the same for `demographics_country`, `demographics_country_actions`, `demographics_region`, and `demographics_region_actions`.
     3. If not selected, do so and sync. If already selected you are ready to run the models!
 
  >**Note**: If you do not have your Facebook Ads connection [schema change settings](https://fivetran.com/docs/using-fivetran/features/data-blocking-column-hashing/config#configureschemachangesettingsforexistingconnectors) set to `Allow all`, it is very possible that you are missing `basic_ad_actions` or `basic_ad_action_values`. If you would like to surface conversion metrics in your Facebook and/or Ad Reporting models, please ensure these reports are syncing. Otherwise, the `conversions` and `conversions_value` fields will be `null`.
@@ -67,7 +69,7 @@ Include the following facebook_ads package version in your `packages.yml` file:
 ```yml
 packages:
   - package: fivetran/facebook_ads
-    version: [">=0.8.0", "<0.9.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=0.9.0", "<0.10.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 
 Do NOT include the `facebook_ads_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
@@ -96,8 +98,23 @@ vars:
 
 To connect your multiple schema/database sources to the package models, follow the steps outlined in the [Union Data Defined Sources Configuration](https://github.com/fivetran/dbt_fivetran_utils/tree/releases/v0.4.latest#union_data-source) section of the Fivetran Utils documentation for the union_data macro. This will ensure a proper configuration and correct visualization of connections in the DAG.
 
+#### Enable or Disable Country and Region Reports
+This package uses the `demographics_country`, `demographics_country_actions`, `demographics_region`, and `demographics_region_actions` [pre-built](https://fivetran.com/docs/connectors/applications/facebook-ads/prebuilt-reports) reports, but takes into consideration that not every user may use these tables.
+
+If you are running the Facebook Ads package via Fivetran Quickstart, transformations of the above tables will be dynamically enabled or disabled. Otherwise, transformations of these tables are **disabled** by default.
+
+To enable transformations of the above geo-focused reports, add the following variable configurations to your root `dbt_project.yml` file:
+
+```yml
+vars:
+  facebook_ads__using_demographics_country: True # False by default. Will enable/disable use of the `demographics_country` and `demographics_country_actions` reports
+  facebook_ads__using_demographics_region: True # False by default. Will enable/disable use of the `demographics_region` and `demographics_region_actions` reports
+```
+
 #### Passing Through Additional Metrics
-By default, this package will select `clicks`, `impressions`, `cost`, `conversion`, and conversion `value` (using the [default](https://fivetran.com/docs/connectors/applications/facebook-ads/custom-reports#attributionwindows) attribution window) from the source reporting tables (`BASIC_AD`, `BASIC_AD_ACTIONS`, and `BASIC_AD_ACTION_VALUES`) to store into the output models. If you would like to pass through additional metrics to the output models, add the below configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and transformed (`transform_sql`) if desired, but not required. Only the `name` of each metric field is required. Use the below format for declaring the respective pass-through variables:
+By default, this package will select `clicks`, `impressions`, `cost`, `conversion`, and conversion `value` (using the [default](https://fivetran.com/docs/connectors/applications/facebook-ads/custom-reports#attributionwindows) attribution window) from the source reporting tables to store into the output models. `reach` and `frequency` are also selected from `DEMOGRAPHICS_COUNTRY` and `DEMOGRAPHICS_REGION` (and passed to the `facebook_ads__country_report` and `facebook_ads__region_report` models) but not from `BASIC_AD`.
+
+If you would like to pass through additional metrics to the output models, add the below configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and transformed (`transform_sql`) if desired, but not required. Only the `name` of each metric field is required. Use the below format for declaring the respective pass-through variables:
 
 > **Note** Please ensure you exercised due diligence when adding metrics to these models. The metrics added by default (taps, impressions, spend, and default-attribution window conversion values) have been vetted by the Fivetran team maintaining this package for accuracy. There are metrics included within the source reports, for example metric averages, which may be inaccurately represented at the grain for reports created in this package. You will want to ensure whichever metrics you pass through are indeed appropriate to aggregate at the respective reporting levels provided in this package.
 
@@ -118,10 +135,18 @@ vars:
       - name: "_7_d_click"
         alias: "conversion_value_7d_click"
       - name: "_1_d_view"
+    facebook_ads__demographics_country_passthrough_metrics: # Add metrics from DEMOGRAPHICS_COUNTRY
+      - name: "inline_link_clicks"
+    facebook_ads__demographics_country_actions_passthrough_metrics: # Add conversion metrics from DEMOGRAPHICS_COUNTRY_ACTIONS
+      - name: "inline"
+    facebook_ads__demographics_region_passthrough_metrics: # Add metrics from DEMOGRAPHICS_REGION
+      - name: "cost_per_inline_link_click"
+    facebook_ads__demographics_region_actions_passthrough_metrics: # Add conversion metrics from DEMOGRAPHICS_REGION_ACTIONS
+      - name: "inline"
 ```
 
 ### Configuring Conversion Action Types
-By default, this package considers the following kinds of custom, purchase, and lead `action_types` to be conversions and pivots their metrics (raw event frequencies and monetary values) as columns in each `*_report` end model:
+By default, this package considers the following kinds of custom, purchase, and lead `action_types` to be conversions from the `basic_ad_actions`, `basic_ad_action_values`, `demographics_country_actions`, and `demographics_region_actions` source reports:
 
 | Action Type    | Action Description ([Meta docs](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/)) |
 | -------- | ------- |
@@ -131,7 +156,7 @@ By default, this package considers the following kinds of custom, purchase, and 
 | `offsite_conversion.fb_pixel_purchase`  | The number of "purchase" events tracked by the pixel or Conversions API on your website and attributed to your ads. Off-Facebook purchases, in short.   |
 | `onsite_conversion.purchase`  | The number of purchases made within Meta technologies (such as Pages or Messenger) and attributed to your ads. On-Facebook purchases, in short.   |
 
-These metrics will also be summed together into `conversions` and `conversions_value` fields in each `*_report` end model.
+These metrics will be summed together into `conversions` and `conversions_value` fields in each `*_report` end model.
 
 However, you may choose your own `action_types` to consider as conversions. To do so, provide each action type to the below `facebook_ads__conversion_action_types` variable. For each action type, provide either an exact `name` **OR** a consistent `pattern` of naming convention. You may also provide an optional `where_sql` argument for each action type, in case you would like to dynamically choose conversion actions based on other columns (ie `source_relation` if you are running the package on multiple advertisers' datasets).
 
@@ -139,13 +164,13 @@ However, you may choose your own `action_types` to consider as conversions. To d
 # dbt_project.yml
 vars:
   facebook_ads__conversion_action_types: # case-insensitive
-    - name: exact_conversion_action_type_name # will grab `basic_ad_actions` and `basic_ad_action_values` records where action_type = 'exact_conversion_action_type_name'
+    - name: exact_conversion_action_type_name # will grab `*_actions` and `*_action_values` records where action_type = 'exact_conversion_action_type_name'
     - pattern: onsite_conversion% # will grab all `onsite_conversion%` records
     - name: offsite_conversion.custom.my_custom_conversion_123
     - name: very_specific_conversion_action
-      where_sql: source_relation = 'specific advertiser source' # will grab `basic_ad_actions` and `basic_ad_action_values` records where (action_type = very_specific_conversion_action and {{ where_sql }})
+      where_sql: source_relation = 'specific advertiser source' # will grab `*_actions` and `*_action_values` records where (action_type = very_specific_conversion_action and {{ where_sql }})
     - pattern: subscribe%
-      where_sql: source_relation = 'advertiser who only cares about subscriptions' # will grab `basic_ad_actions` and `basic_ad_action_values` records where (action_type like 'subscribe%' and {{ where_sql }})
+      where_sql: source_relation = 'advertiser who only cares about subscriptions' # will grab `*_actions` and `*_action_values` records where (action_type like 'subscribe%' and {{ where_sql }})
 ```
 
 > **Note**: Please ensure to exercise due diligence when adding or removing conversion action types. The action types added by default have been heavily vetted by our friends at [Seer Interactive](https://www.seerinteractive.com/) and the Fivetran team maintaining this package for accuracy. There are many ways to accidentally double-count conversion values, as some action types are hierarchical/aggregates or overlap with others. Reference the action type descriptions in the Meta [API docs](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/) to ensure you select action types that appropriately and accurately fit your use case.
@@ -188,7 +213,7 @@ This dbt package is dependent on the following dbt packages. These dependencies 
 ```yml
 packages:
     - package: fivetran/facebook_ads_source
-      version: [">=0.8.0", "<0.9.0"]
+      version: [">=0.9.0", "<0.10.0"]
 
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]
