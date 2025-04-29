@@ -9,19 +9,19 @@
 | ---------------- | --------------- | ------------ | ------------ | --------- |
 | [facebook_ads__country_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__country_report) | New Transform Model |   |   |  Each record represents the daily performance of a Facebook account at the country level.  |
 | [facebook_ads__region_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__region_report) | New Transform Model |   |   | Each record represents the daily performance of a Facebook account at the region level.    |
-| stg_facebook_ads__demographics_country | New Staging Model |   |   |  Uses `demographics_country` source table  |
-| stg_facebook_ads__demographics_country_tmp | New Staging Model |   |   | Uses `demographics_country` source table   |
-| stg_facebook_ads__demographics_country_actions | New Staging Model |   |   |  Uses `demographics_country_actions` source table  |
-| stg_facebook_ads__demographics_country_actions_tmp | New Staging Model |   |   | Uses `demographics_country_actions` source table   |
-| stg_facebook_ads__demographics_region | New Staging Model |   |   |  Uses `demographics_region` source table  |
-| stg_facebook_ads__demographics_region_tmp | New Staging Model |   |   | Uses `demographics_region` source table   |
-| stg_facebook_ads__demographics_region_actions | New Staging Model |   |   |  Uses `demographics_region_actions` source table  |
-| stg_facebook_ads__demographics_region_actions_tmp | New Staging Model |   |   | Uses `demographics_region_actions` source table   |
-| stg_facebook_ads__account_history | New Columns |   | `business_state`, `timezone_offset_hours_utc`, `min_daily_budget`  |  |
+| [stg_facebook_ads__demographics_country](https://fivetran.github.io/dbt_facebook_ads_source/#!/model/model.facebook_ads_source.stg_facebook_ads__demographics_country) | New Staging Model |   |   |  Uses `demographics_country` source table  |
+| [stg_facebook_ads__demographics_country_tmp](https://fivetran.github.io/dbt_facebook_ads_source/#!/model/model.facebook_ads_source.stg_facebook_ads__demographics_country_tmp) | New Staging Model |   |   | Uses `demographics_country` source table   |
+| [stg_facebook_ads__demographics_country_actions](https://fivetran.github.io/dbt_facebook_ads_source/#!/model/model.facebook_ads_source.stg_facebook_ads__demographics_country_actions) | New Staging Model |   |   |  Uses `demographics_country_actions` source table  |
+| [stg_facebook_ads__demographics_country_actions_tmp](https://fivetran.github.io/dbt_facebook_ads_source/#!/model/model.facebook_ads_source.stg_facebook_ads__demographics_country_actions_tmp) | New Staging Model |   |   | Uses `demographics_country_actions` source table   |
+| [stg_facebook_ads__demographics_region](https://fivetran.github.io/dbt_facebook_ads_source/#!/model/model.facebook_ads_source.stg_facebook_ads__demographics_region) | New Staging Model |   |   |  Uses `demographics_region` source table  |
+| [stg_facebook_ads__demographics_region_tmp](https://fivetran.github.io/dbt_facebook_ads_source/#!/model/model.facebook_ads_source.stg_facebook_ads__demographics_region_tmp) | New Staging Model |   |   | Uses `demographics_region` source table   |
+| [stg_facebook_ads__demographics_region_actions](https://fivetran.github.io/dbt_facebook_ads_source/#!/model/model.facebook_ads_source.stg_facebook_ads__demographics_region_actions) | New Staging Model |   |   |  Uses `demographics_region_actions` source table  |
+| [stg_facebook_ads__demographics_region_actions_tmp](https://fivetran.github.io/dbt_facebook_ads_source/#!/model/model.facebook_ads_source.stg_facebook_ads__demographics_region_actions_tmp) | New Staging Model |   |   | Uses `demographics_region_actions` source table   |
+| [stg_facebook_ads__account_history](https://fivetran.github.io/dbt_facebook_ads_source/#!/model/model.facebook_ads_source.stg_facebook_ads__account_history) | New Columns |   | `business_state`, `timezone_offset_hours_utc`, `min_daily_budget`  |  |
 
 ## Feature Updates
 - Added the `facebook_ads__using_demographics_country` and `facebook_ads__using_demographics_region` variables, which can be used to enable or disable the above transformations related to the new `demographics_country`/`demograhics_country_actions` and `demographics_region`/`demographics_region_actions` tables.
-  - These variables are dynamically set for Fivetran Quickstart users, but **false** by default otherwise. See [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#enable-or-disable-country-and-region-reports) for more details.
+  - These variables are dynamically set for Fivetran Quickstart users, but **false** by default otherwise. See [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#enable-or-disable-country-and-region-reports) for more details on how to enable these models, particularly if you are using dbt Core.
 - Introduced the following passthrough column variables, which can be used to pass through additional metrics fields from their respective source reports to `facebook_ads__country_report` or `facebook_ads__region_report`. See [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#passing-through-additional-metrics) for more details.
   - `facebook_ads__demographics_country_passthrough_metrics`
   - `facebook_ads__demographics_country_actions_passthrough_metrics`
