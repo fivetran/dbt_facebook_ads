@@ -3,7 +3,7 @@
 with report as (
 
     select *
-    from {{ var('basic_ad') }}
+    from {{ ref('stg_facebook_ads__basic_ad') }}
 
 ), 
 
@@ -24,7 +24,7 @@ creatives as (
 accounts as (
 
     select *
-    from {{ var('account_history') }}
+    from {{ ref('stg_facebook_ads__account_history') }}
     where is_most_recent_record = true
 
 ), 
@@ -32,7 +32,7 @@ accounts as (
 ads as (
 
     select *
-    from {{ var('ad_history') }}
+    from {{ ref('stg_facebook_ads__ad_history') }}
     where is_most_recent_record = true
 
 ), 
@@ -40,7 +40,7 @@ ads as (
 ad_sets as (
 
     select *
-    from {{ var('ad_set_history') }}
+    from {{ ref('stg_facebook_ads__ad_set_history') }}
     where is_most_recent_record = true
 
 ), 
@@ -48,7 +48,7 @@ ad_sets as (
 campaigns as (
 
     select *
-    from {{ var('campaign_history') }}
+    from {{ ref('stg_facebook_ads__campaign_history') }}
     where is_most_recent_record = true
 
 ), 

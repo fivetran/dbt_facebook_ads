@@ -3,7 +3,7 @@
 with report as (
 
     select *
-    from {{ var('basic_ad') }}
+    from {{ ref('stg_facebook_ads__basic_ad') }}
 
 ), 
 
@@ -17,7 +17,7 @@ conversion_report as (
 accounts as (
 
     select *
-    from {{ var('account_history') }}
+    from {{ ref('stg_facebook_ads__account_history') }}
     where is_most_recent_record = true
 
 ),
@@ -25,7 +25,7 @@ accounts as (
 campaigns as (
 
     select *
-    from {{ var('campaign_history') }}
+    from {{ ref('stg_facebook_ads__campaign_history') }}
     where is_most_recent_record = true
 
 ),
@@ -33,7 +33,7 @@ campaigns as (
 ads as (
 
     select *
-    from {{ var('ad_history') }}
+    from {{ ref('stg_facebook_ads__ad_history') }}
     where is_most_recent_record = true
 
 ),
