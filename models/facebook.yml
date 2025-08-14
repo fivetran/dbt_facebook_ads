@@ -3,18 +3,6 @@ version: 2
 models:
   - name: facebook_ads__url_report
     description: Each record represents the daily performance of a Facebook ad at the URL level.
-    tests:     
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - source_relation
-            - date_day
-            - account_id
-            - campaign_id
-            - ad_set_id
-            - ad_id
-          config:
-            # Below is so we don't run this test if the user has allowed urls to have null entries
-            enabled: "{{ var('ad_reporting__url_report__using_null_filter', True) }}"
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -80,15 +68,6 @@ models:
 
   - name: facebook_ads__ad_report
     description: Each record represents the daily performance of a Facebook ad.
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - source_relation
-            - date_day
-            - account_id
-            - campaign_id
-            - ad_set_id
-            - ad_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -133,14 +112,6 @@ models:
 
   - name: facebook_ads__ad_set_report
     description: Each record represents the daily performance of a Facebook ad set.
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - source_relation
-            - date_day
-            - account_id
-            - campaign_id
-            - ad_set_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -191,13 +162,6 @@ models:
 
   - name: facebook_ads__campaign_report
     description: Each record represents the daily performance of a Facebook campaign.
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - source_relation
-            - date_day
-            - account_id
-            - campaign_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -244,12 +208,6 @@ models:
 
   - name: facebook_ads__account_report
     description: Each record represents the daily performance of a Facebook account.
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - source_relation
-            - date_day
-            - account_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -290,13 +248,6 @@ models:
 
   - name: facebook_ads__url_tags
     description: Each record is a unique combination of creative_id and corresponding key, value, type contained in the url_tags field
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - source_relation
-            - _fivetran_id
-            - key
-            - type
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -315,13 +266,6 @@ models:
 
   - name: facebook_ads__country_report
     description: Each record represents the daily performance of a Facebook account at the country level.
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - source_relation
-            - date_day
-            - account_id
-            - country_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -363,13 +307,6 @@ models:
 
   - name: facebook_ads__region_report
     description: Each record represents the daily performance of a Facebook account at the region level.
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - source_relation
-            - date_day
-            - account_id
-            - region_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

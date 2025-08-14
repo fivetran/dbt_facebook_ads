@@ -3,13 +3,13 @@
 with actions_report as (
 
     select *
-    from {{ var('basic_ad_actions') }}
+    from {{ ref('stg_facebook_ads__basic_ad_actions') }}
 ),
 
 action_values_report as (
 
     select *
-    from {{ var('basic_ad_action_values') }}
+    from {{ ref('stg_facebook_ads__basic_ad_action_values') }}
 ),
 
 action_metrics as (
