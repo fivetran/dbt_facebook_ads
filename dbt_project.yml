@@ -10,7 +10,10 @@ models:
       +materialized: view
     staging:
       +schema: facebook_ads_source
-      +materialized: view
+      +materialized: table
+      tmp:
+        +materialized: view
+
 vars:
   facebook_ads:
     account_history: "{{ source('facebook_ads', 'account_history') }}"
@@ -33,3 +36,11 @@ vars:
       - name: offsite_conversion.fb_pixel_purchase
       - name: offsite_conversion.fb_pixel_lead
       - name: offsite_conversion.fb_pixel_custom # same as pattern: offsite_conversion.custom%
+
+  facebook_ads__basic_ad_passthrough_metrics: []
+  facebook_ads__basic_ad_actions_passthrough_metrics: []
+  facebook_ads__basic_ad_action_values_passthrough_metrics: []
+  facebook_ads__demographics_country_passthrough_metrics: []
+  facebook_ads__demographics_country_actions_passthrough_metrics: []
+  facebook_ads__demographics_region_passthrough_metrics: []
+  facebook_ads__demographics_region_actions_passthrough_metrics: []
