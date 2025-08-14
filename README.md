@@ -1,4 +1,4 @@
-# Facebook Ads Transformation dbt Package ([Docs](https://fivetran.github.io/dbt_facebook_ads/))
+# Facebook Ads dbt Package ([Docs](https://fivetran.github.io/dbt_facebook_ads/))
 
 <p align="left">
     <a alt="License"
