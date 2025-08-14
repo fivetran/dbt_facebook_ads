@@ -23,17 +23,17 @@ vars:
   # facebook_ads__using_demographics_region: true # @docs-include
 
   # Comment OUT for docs generation
-  facebook_ads__basic_ad_passthrough_metrics:
+  facebook_ads__basic_ad_passthrough_metrics: # @docs-ignore
     - name: "reach" # @docs-ignore
     - name: inline_link_clicks # @docs-ignore
       alias: inline_clicks_aliased # @docs-ignore
-  facebook_ads__basic_ad_actions_passthrough_metrics: 
+  facebook_ads__basic_ad_actions_passthrough_metrics: # @docs-ignore
     - name: 'inline' # @docs-ignore
       alias: 'conversion_value_inline' # @docs-ignore
     - name: '_1_d_view' # @docs-ignore
-  facebook_ads__basic_ad_action_values_passthrough_metrics: 
+  facebook_ads__basic_ad_action_values_passthrough_metrics: # @docs-ignore
     - name: '_7_d_click' # @docs-ignore
-  facebook_ads__conversion_action_types:
+  facebook_ads__conversion_action_types: # @docs-ignore
     - name: lead # @docs-ignore
     - pattern: offsite_conversion% # @docs-ignore
     - name: onsite_conversion.purchase # @docs-ignore
