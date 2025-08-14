@@ -19,6 +19,10 @@
   - Removed all `accepted_values` tests.
   - Moved `loaded_at_field: _fivetran_synced` under the `config:` block in `src_facebook_ads.yml`.
 
+### Under the Hood
+- Updated conditions in `.github/workflows/auto-release.yml`.
+- Added `.github/workflows/generate-docs.yml`.
+
 # dbt_facebook_ads v0.10.0
 
 [PR #51](https://github.com/fivetran/dbt_facebook_ads/pull/51) introduces the following updates:
