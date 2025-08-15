@@ -1,5 +1,5 @@
 name: 'facebook_ads_integration_tests'
-version: '0.10.0'
+version: '1.0.0'
 profile: 'integration_tests'
 config-version: 2
 
@@ -19,30 +19,32 @@ vars:
   facebook_ads_demographics_region_actions_identifier: "facebook_ads_demographics_region_actions_data"
 
   # Comment IN docs generate
-  # facebook_ads__using_demographics_country: true
-  # facebook_ads__using_demographics_region: true
+  # facebook_ads__using_demographics_country: true # @docs-include
+  # facebook_ads__using_demographics_region: true # @docs-include
 
   # Comment OUT for docs generation
-  facebook_ads__basic_ad_passthrough_metrics:
-    - name: "reach"
-    - name: inline_link_clicks
-      alias: inline_clicks_aliased
-  facebook_ads__basic_ad_actions_passthrough_metrics: 
-    - name: 'inline'
-      alias: 'conversion_value_inline'
-    - name: '_1_d_view'
-  facebook_ads__basic_ad_action_values_passthrough_metrics: 
-    - name: '_7_d_click'
-  facebook_ads__conversion_action_types:
-    - name: lead
-    - pattern: offsite_conversion%
-    - name: onsite_conversion.purchase
-      where_sql: source_relation != 'no_purchase_source'
+  facebook_ads__basic_ad_passthrough_metrics: # @docs-ignore
+    - name: "reach" # @docs-ignore
+    - name: inline_link_clicks # @docs-ignore
+      alias: inline_clicks_aliased # @docs-ignore
+  facebook_ads__basic_ad_actions_passthrough_metrics: # @docs-ignore
+    - name: 'inline' # @docs-ignore
+      alias: 'conversion_value_inline' # @docs-ignore
+    - name: '_1_d_view' # @docs-ignore
+  facebook_ads__basic_ad_action_values_passthrough_metrics: # @docs-ignore
+    - name: '_7_d_click' # @docs-ignore
+  facebook_ads__conversion_action_types: # @docs-ignore
+    - name: lead # @docs-ignore
+    - pattern: offsite_conversion% # @docs-ignore
+    - name: onsite_conversion.purchase # @docs-ignore
+      where_sql: source_relation != 'no_purchase_source' # @docs-ignore
 
 models:
   +schema: "facebook_ads_{{ var('directed_schema','dev') }}"
 
 seeds:
+  +docs:
+    show: false
   facebook_ads_integration_tests:
     +column_types:
       id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -67,9 +69,11 @@ seeds:
     facebook_ads_demographics_region_actions_data:
       +column_types:
         value: "float"
-  +docs:
-    show: false
     
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['spark_utils', 'dbt_utils']
+
+flags:
+  send_anonymous_usage_stats: False
+  use_colors: True

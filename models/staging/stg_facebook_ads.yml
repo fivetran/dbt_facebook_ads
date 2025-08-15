@@ -1,0 +1,329 @@
+version: 2
+
+models:
+  - name: stg_facebook_ads__account_history
+    description: Each record in this table reflects a Facebook ad account.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: account_id
+        description: The ID of the ad account.
+        tests:
+          - not_null
+      - name: account_name
+        description: Name of the account.
+      - name: is_most_recent_record
+        description: "{{ doc('is_most_recent_record') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+        tests:
+          - not_null
+      - name: account_status
+        description: Current status of account.
+      - name: business_country_code
+        description: Country code of business associated to account.
+      - name: created_at
+        description: The time account was created.
+      - name: currency
+        description: Currency associated with account.
+      - name: timezone_name
+        description: Timezone associated with account.
+      - name: timezone_offset_hours_utc
+        description: Time zone difference from UTC.
+      - name: business_state
+        description: State abbreviation for business address.
+      - name: min_daily_budget
+        description: The minimum daily budget for this Ad Account.
+
+  - name: stg_facebook_ads__ad_history
+    description: Each record in this table reflects a Facebook ad.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: ad_id
+        description: The ID of this ad.
+        tests:
+          - not_null
+      - name: account_id
+        description: The ID of the ad account that this ad belongs to.
+      - name: ad_set_id
+        description: ID of the ad set that contains the ad.
+      - name: campaign_id
+        description: Ad campaign that contains this ad.
+      - name: creative_id
+        description: The ID of the ad creative to be used by this ad.
+      - name: ad_name
+        description: Name of the ad.
+      - name: is_most_recent_record
+        description: "{{ doc('is_most_recent_record') }}"
+      - name: updated_at
+        description: "{{ doc('updated_time') }}"
+        tests:
+          - not_null
+      - name: conversion_domain
+        description: The domain you've configured the ad to convert to.
+            
+  - name: stg_facebook_ads__ad_set_history
+    description: Each record in this table reflects a Facebook ad set.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: ad_set_id
+        description: The ID of the ad set.
+        tests:
+          - not_null
+      - name: account_id
+        description: The ID of the ad account that this ad set belongs to.
+      - name: campaign_id
+        description: Ad campaign that contains this ad set.
+      - name: ad_set_name
+        description: The name of the ad set.
+      - name: is_most_recent_record
+        description: "{{ doc('is_most_recent_record') }}"
+      - name: updated_at
+        description: "{{ doc('updated_time') }}"
+        tests:
+          - not_null
+      - name: start_at
+        description: Timestamp of designated ad set start time.
+      - name: end_at
+        description: Timestamp of designated ad set end time.
+      - name: bid_strategy
+        description: Bid strategy values are - 'LOWEST_COST_WITHOUT_CAP', 'LOWEST_COST_WITH_BID_CAP', 'COST_CAP', 'LOWEST_COST_WITH_MIN_ROAS'.
+      - name: daily_budget
+        description: Daily budget of ad set.
+      - name: budget_remaining
+        description: Remaining budget of ad set.
+      - name: status
+        description: Status values are - 'ACTIVE', 'PAUSED', 'DELETED', 'ARCHIVED'.
+      - name: optimization_goal
+        description: The optimization goal this ad set is using. Possible values defined [here](https://developers.facebook.com/docs/marketing-api/reference/ad-campaign/#fields).
+
+  - name: stg_facebook_ads__campaign_history
+    description: Each record in this table reflects a Facebook campaign.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: campaign_id
+        description: The ID of the campaign.
+        tests:
+          - not_null
+      - name: account_id
+        description: The ID of the ad account that this campaign belongs to.
+      - name: campaign_name
+        description: The name of the campaign.
+      - name: is_most_recent_record
+        description: "{{ doc('is_most_recent_record') }}"
+      - name: updated_at
+        description: "{{ doc('updated_time') }}"
+        tests:
+          - not_null
+      - name: created_at
+        description: The time the campaign was created.
+      - name: start_at
+        description: Timestamp of designated campaign start time.
+      - name: end_at
+        description: Timestamp of designated campaign end time.
+      - name: daily_budget
+        description: Daily budget of campaign.
+      - name: budget_remaining
+        description: Remaining budget of campaign.
+      - name: lifetime_budget
+        description: Lifetime budget of the campaign.
+      - name: status
+        description: Status values are - 'ACTIVE', 'PAUSED', 'DELETED', 'ARCHIVED'.
+
+  - name: stg_facebook_ads__creative_history
+    description: Each record in this table reflects a Facebook creative.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: _fivetran_id
+        description: Unique record identifier
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+        tests:
+          - not_null
+      - name: creative_id
+        tests:
+          - not_null
+      - name: creative_id
+        description: Unique ID for an ad creative.
+      - name: account_id
+        description: Ad account ID for the account this ad creative belongs to.
+      - name: creative_name
+        description: Name of this ad creative as seen in the ad account's library.
+      - name: url_tags
+        description: A set of query string parameters which will replace or be appended to urls clicked from page post ads, message of the post, and canvas app install creatives only.
+      - name: is_most_recent_record
+        description: Indicates whether a record is the most recent version of that record.
+      - name: page_link
+        description: Link for the page.
+      - name: template_page_link
+        description: URL destination of Facebook dynamic ads.
+      - name: asset_feed_spec_link_urls
+        description: Link to the asset feed spec
+      - name: object_story_link_data_child_attachments
+        description: Link of the object story child attachments
+      - name: object_story_link_data_caption
+        description: Link of the object story caption
+      - name: object_story_link_data_description
+        description: Link of the object story description
+      - name: object_story_link_data_link
+        description: Link of the object story link
+      - name: object_story_link_data_message
+        description: Link of the object story message
+      - name: template_app_link_spec_ios
+        description: Link of the object story spec for ios
+      - name: template_app_link_spec_ipad
+        description: Link of the template app spec for ipad
+      - name: template_app_link_spec_android
+        description: Link of the template app for android
+      - name: template_app_link_spec_iphone
+        description: Link of the template app for iphone
+
+  - name: stg_facebook_ads__basic_ad
+    description: Each record represents the daily performance of an ad in Facebook.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: ad_id
+        description: The ID of the ad the report relates to.
+        tests:
+          - not_null
+      - name: ad_name
+        description: Name of the ad the report relates to.
+      - name: ad_set_name
+        description: Name of the ad set the report relates to.
+      - name: date_day
+        description: The date of the reported performance.
+      - name: account_id
+        description: The ID of the ad account that this ad belongs to.
+        tests:
+          - not_null
+      - name: impressions
+        description: The number of impressions the ad had on the given day.
+      - name: clicks
+        description: The number of clicks the ad had on the given day.
+      - name: spend
+        description: The spend on the ad in the given day.
+      - name: reach
+        description: The number of people who saw any content from your Page or about your Page. This metric is estimated.
+      - name: frequency
+        description: The average number of times each person saw your ad; it is calculated as impressions divided by reach.
+
+  - name: stg_facebook_ads__basic_ad_actions
+    description: >
+      Each record represents the daily conversion performance of an ad in Facebook. This is the prebuilt `basic_ad` report broken down by `action_type`.
+      Include more conversion value metrics by configuring the `facebook_ads__basic_ad_actions_passthrough_metrics` variable.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: action_type
+        description: >
+          The kind of actions taken on your ad, Page, app or event after your ad was served to someone, even if they didn't click on it. Action types include Page likes, app installs, conversions, event responses and more.
+          Actions prepended by app_custom_event come from mobile app events and actions prepended by offsite_conversion come from the Facebook Pixel.
+      - name: ad_id
+        description: The ID of the ad the report relates to.
+      - name: date_day
+        description: The date of the reported performance.
+      - name: conversions
+        description: Conversion metric value using the default attribution window.
+
+  - name: stg_facebook_ads__basic_ad_action_values
+    description: >
+      Each record represents the daily conversion values associated with an ad in Facebook. This is the prebuilt `basic_ad` report broken down by `action_type` and `action_values`
+      Include more conversion value metrics by configuring the `facebook_ads__basic_ad_action_values_passthrough_metrics` variable.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: action_type
+        description: >
+          The kind of actions taken on your ad, Page, app or event after your ad was served to someone, even if they didn't click on it. Action types include Page likes, app installs, conversions, event responses and more.
+          Actions prepended by app_custom_event come from mobile app events and actions prepended by offsite_conversion come from the Facebook Pixel.
+      - name: ad_id
+        description: The ID of the ad the report relates to.
+      - name: date_day
+        description: The date of the reported performance.
+      - name: conversions_value
+        description: Monetary value associated with the conversion action using the default attribution window.
+  
+  - name: stg_facebook_ads__demographics_country
+    description: "{{ doc('demographics_country') }}"
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: country_id
+        description: "{{ doc('country_id') }}"
+      - name: country
+        description: "{{ doc('country') }}"
+      - name: date_day
+        description: "{{ doc('date') }}"
+      - name: account_id
+        description: "{{ doc('account_id') }}"
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: clicks
+        description: "{{ doc('inline_link_clicks') }}"
+      - name: spend
+        description: "{{ doc('spend') }}"
+      - name: reach
+        description: "{{ doc('reach') }}"
+      - name: frequency
+        description: "{{ doc('frequency') }}"
+
+  - name: stg_facebook_ads__demographics_country_actions
+    description: "{{ doc('demographics_country_actions') }}"
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: country_id
+        description: "{{ doc('country_id') }}"
+      - name: action_type
+        description: "{{ doc('action_type') }}"
+      - name: account_id
+        description: "{{ doc('account_id') }}"
+      - name: date_day
+        description: "{{ doc('date') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+
+  - name: stg_facebook_ads__demographics_region
+    description: "{{ doc('demographics_region') }}"
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: region_id
+        description: "{{ doc('region_id') }}"
+      - name: region
+        description: "{{ doc('region') }}"
+      - name: date_day
+        description: "{{ doc('date') }}"
+      - name: account_id
+        description: "{{ doc('account_id') }}"
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: clicks
+        description: "{{ doc('inline_link_clicks') }}"
+      - name: spend
+        description: "{{ doc('spend') }}"
+      - name: reach
+        description: "{{ doc('reach') }}"
+      - name: frequency
+        description: "{{ doc('frequency') }}"
+
+  - name: stg_facebook_ads__demographics_region_actions
+    description: "{{ doc('demographics_region_actions') }}"
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: region_id
+        description: "{{ doc('region_id') }}"
+      - name: action_type
+        description: "{{ doc('action_type') }}"
+      - name: account_id
+        description: "{{ doc('account_id') }}"
+      - name: date_day
+        description: "{{ doc('date') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"

@@ -5,7 +5,7 @@
 with base as (
 
     select *
-    from {{ var('creative_history') }}
+    from {{ ref('stg_facebook_ads__creative_history') }}
     where is_most_recent_record = true
 
 ), 

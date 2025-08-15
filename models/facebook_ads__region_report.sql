@@ -3,7 +3,7 @@
 with accounts as (
 
     select *
-    from {{ var('account_history') }}
+    from {{ ref('stg_facebook_ads__account_history') }}
     where is_most_recent_record = true
 
 ),

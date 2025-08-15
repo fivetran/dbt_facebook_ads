@@ -1,0 +1,374 @@
+version: 2
+
+sources:
+  - name: facebook_ads # This source will only be used if you are using a single facebook_ads source connector. If multiple sources are being unioned, their tables will be directly referenced via adapter.get_relation.
+    schema: "{{ var('facebook_ads_schema', 'facebook_ads') }}"
+    database: "{% if target.type != 'spark' %}{{ var('facebook_ads_database', target.database) }}{% endif %}"
+    
+    loader: Fivetran
+
+    config:
+      loaded_at_field: _fivetran_synced
+      enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) }}"
+      freshness: 
+        warn_after: {count: 48, period: hour}
+        error_after: {count: 168, period: hour}
+
+    tables:
+      - name: account_history
+        description: Each record in this table reflects a version of a Facebook ad account.
+        identifier: "{{ var('facebook_ads_account_history_identifier', 'account_history') }}"
+        columns:
+          - name: id
+            description: The ID of the ad account.
+          - name: name
+            description: Name of the account.
+          - name: _fivetran_synced
+            description: "{{ doc('_fivetran_synced') }}"
+          - name: account_status
+            description: Current status of account.
+          - name: business_country_code
+            description: Country code of business associated to account.
+          - name: created_time
+            description: The time account was created.
+          - name: currency
+            description: Currency associated with account.
+          - name: timezone_name
+            description: Timezone associated with account.
+          - name: business_state
+            description: State abbreviation for business address.
+          - name: timezone_offset_hours_utc
+            description: Time zone difference from UTC.
+          - name: min_daily_budget
+            description: The minimum daily budget for this Ad Account.
+
+      - name: ad_history
+        description: Each record in this table reflects a version of a Facebook ad.
+        identifier: "{{ var('facebook_ads_ad_history_identifier', 'ad_history') }}"
+        columns:
+          - name: id
+            description: The ID of this ad.
+          - name: account_id
+            description: The ID of the ad account that this ad belongs to.
+          - name: ad_set_id
+            description: ID of the ad set that contains the ad.
+          - name: campaign_id
+            description: Ad campaign that contains this ad.
+          - name: creative_id
+            description: The ID of the ad creative to be used by this ad.
+          - name: name
+            description: Name of the ad.
+          - name: _fivetran_synced
+            description: "{{ doc('_fivetran_synced') }}"
+          - name: updated_time
+            description: "{{ doc('updated_time') }}"
+          - name: conversion_domain
+            description: The domain you've configured the ad to convert to.
+
+      - name: ad_set_history
+        description: Each record in this table reflects a version of a Facebook ad set.
+        identifier: "{{ var('facebook_ads_ad_set_history_identifier', 'ad_set_history') }}"
+        columns:
+          - name: id
+            description: The ID of the ad set.
+          - name: account_id
+            description: The ID of the ad account that this ad set belongs to.
+          - name: campaign_id
+            description: Ad campaign that contains this ad set.
+          - name: name
+            description: The name of the ad set.
+          - name: _fivetran_synced
+            description: "{{ doc('_fivetran_synced') }}"
+          - name: updated_time
+            description: "{{ doc('updated_time') }}"
+          - name: start_time
+            description: Timestamp of designated ad set start time.
+          - name: end_time
+            description: Timestamp of designated ad set end time.
+          - name: bid_strategy
+            description: Bid strategy values are - 'LOWEST_COST_WITHOUT_CAP', 'LOWEST_COST_WITH_BID_CAP', 'COST_CAP', 'LOWEST_COST_WITH_MIN_ROAS'.
+          - name: daily_budget
+            description: Daily budget of ad set.
+          - name: budget_remaining
+            description: Remaining budget of ad set.
+          - name: status
+            description: Status values are - 'ACTIVE', 'PAUSED', 'DELETED', 'ARCHIVED'.
+          - name: optimization_goal
+            description: The optimization goal this ad set is using. Possible values defined [here](https://developers.facebook.com/docs/marketing-api/reference/ad-campaign/#fields).
+
+      - name: basic_ad
+        description: Each record represents the daily performance of an ad in Facebook.
+        identifier: "{{ var('facebook_ads_basic_ad_identifier', 'basic_ad') }}"
+        columns:
+          - name: ad_id
+            description: The ID of the ad the report relates to.
+          - name: ad_name
+            description: Name of the ad the report relates to.
+          - name: adset_name
+            description: Name of the ad set the report relates to.
+          - name: date
+            description: The date of the reported performance.
+          - name: account_id
+            description: The ID of the ad account that this ad belongs to.
+          - name: impressions
+            description: The number of impressions the ad had on the given day.
+          - name: inline_link_clicks
+            description: The number of clicks the ad had on the given day.
+          - name: spend
+            description: The spend on the ad in the given day.
+          - name: reach
+            description: The number of people who saw any content from your Page or about your Page. This metric is estimated.
+          - name: frequency
+            description: The average number of times each person saw your ad; it is calculated as impressions divided by reach.
+          - name: _fivetran_synced
+            description: "{{ doc('_fivetran_synced') }}"
+
+      - name: basic_ad_actions
+        description: Each record represents the daily conversion performance of an ad in Facebook. This is the prebuilt `basic_ad` report broken down by `action_type`.
+        identifier: "{{ var('facebook_ads_basic_ad_actions_identifier', 'basic_ad_actions') }}"
+        columns:
+          - name: _1_d_view
+            description: Conversion metric value using an attribution window of "1 day after viewing the ad". Not included in downstream models by default, but can be added using the `facebook_ads__basic_ad_actions_passthrough_metrics` var.
+          - name: _7_d_click
+            description: Conversion metric value using an attribution window of "7 days after clicking the ad". Not included in downstream models by default, but can be added using the `facebook_ads__basic_ad_actions_passthrough_metrics` var.
+          - name: _28_d_click
+            description: Conversion metric value using an attribution window of "28 days after clicking the ad". Deprecated by Facebook due to digital privacy initiatives. Not included in downstream models by default, but can be added using the `facebook_ads__basic_ad_actions_passthrough_metrics` var.
+          - name: _fivetran_id
+            description: Defunct field.
+          - name: _fivetran_synced
+            description: "{{ doc('_fivetran_synced') }}"
+          - name: action_type
+            description: >
+              The kind of actions taken on your ad, Page, app or event after your ad was served to someone, even if they didn't click on it. Action types include Page likes, app installs, conversions, event responses and more.
+              Actions prepended by app_custom_event come from mobile app events and actions prepended by offsite_conversion come from the Facebook Pixel.
+          - name: ad_id
+            description: The ID of the ad the report relates to.
+          - name: date
+            description: The date of the reported performance.
+          - name: index
+            description: Index reflecting the `action_type` tracked for this ad on this day. Column of not much consequence. 
+          - name: inline
+            description: Conversion metric value using the attribution window that occurs on the ad itself. Not included in downstream models by default, but can be added using the `facebook_ads__basic_ad_actions_passthrough_metrics` var.
+          - name: value
+            description: Conversion metric value using the default attribution window.
+
+      - name: basic_ad_action_values
+        description: Each record represents the daily conversion values associated with an ad in Facebook. This is the prebuilt `basic_ad` report broken down by `action_type` and `action_value`.
+        identifier: "{{ var('facebook_ads_basic_ad_action_values_identifier', 'basic_ad_action_values') }}"
+        config:
+          freshness: null # Likely missing
+        columns:
+          - name: _7_d_click
+            description: Conversion metric value using an attribution window of "7 days after clicking the ad". Not included in downstream models by default, but can be added using the `facebook_ads__basic_ad_actions_passthrough_metrics` var.
+          - name: _fivetran_id
+            description: Defunct field.
+          - name: _fivetran_synced
+            description: "{{ doc('_fivetran_synced') }}"
+          - name: action_type
+            description: >
+              The kind of actions taken on your ad, Page, app or event after your ad was served to someone, even if they didn't click on it. Action types include Page likes, app installs, conversions, event responses and more.
+              Actions prepended by app_custom_event come from mobile app events and actions prepended by offsite_conversion come from the Facebook Pixel.
+          - name: ad_id
+            description: The ID of the ad the report relates to.
+          - name: date
+            description: The date of the reported performance.
+          - name: index
+            description: Index reflecting the `action_type` tracked for this ad on this day. Column of not much consequence. 
+          - name: value
+            description: Monetary value associated with the convesion action using the default attribution window.
+
+      - name: campaign_history
+        description: Each record in this table reflects a version of a Facebook campaign.
+        identifier: "{{ var('facebook_ads_campaign_history_identifier', 'campaign_history') }}"
+        columns:
+          - name: id
+            description: The ID of the campaign.
+          - name: account_id
+            description: The ID of the ad account that this campaign belongs to.
+          - name: name
+            description: The name of the campaign.
+          - name: _fivetran_synced
+            description: "{{ doc('_fivetran_synced') }}"
+          - name: updated_time
+            description: "{{ doc('updated_time') }}"
+          - name: created_time
+            description: The time the campaign was created.
+          - name: start_time
+            description: Timestamp of designated campaign start time.
+          - name: stop_time
+            description: Timestamp of designated campaign end time.
+          - name: daily_budget
+            description: Daily budget of campaign.
+          - name: budget_remaining
+            description: Remaining budget of campaign.
+          - name: lifetime_budget
+            description: Lifetime budget of the campaign.
+          - name: status
+            description: Status values are - 'ACTIVE', 'PAUSED', 'DELETED', 'ARCHIVED'.
+
+      - name: creative_history
+        description: Each record in this table reflects a version of a Facebook creative.
+        identifier: "{{ var('facebook_ads_creative_history_identifier', 'creative_history') }}"
+        columns:
+          - name: _fivetran_id
+            description: Unique record identifier
+          - name: page_link
+            description: URL destination of Facebook ads.
+          - name: template_page_link
+            description: URL destination of Facebook dynamic ads.
+          - name: id
+            description: Unique ID for an ad creative.
+          - name: account_id
+            description: Ad account ID for the account this ad creative belongs to.
+          - name: name
+            description: Name of this ad creative as seen in the ad account's library.
+          - name: url_tags        
+            description: A set of query string parameters which will replace or be appended to urls clicked from page post ads, message of the post, and canvas app install creatives only.
+          - name: _fivetran_synced
+            description: "{{ doc('_fivetran_synced') }}"
+          - name: template_page_link
+            description: URL destination of Facebook dynamic ads.
+          - name: asset_feed_spec_link_urls
+            description: Link to the asset feed spec
+          - name: object_story_link_data_child_attachments
+            description: Link of the object story child attachments
+          - name: object_story_link_data_caption
+            description: Link of the object story caption
+          - name: object_story_link_data_description
+            description: Link of the object story description
+          - name: object_story_link_data_link
+            description: Link of the object story link
+          - name: object_story_link_data_message
+            description: Link of the object story message
+          - name: template_app_link_spec_ios
+            description: Link of the object story spec for ios
+          - name: template_app_link_spec_ipad
+            description: Link of the template app spec for ipad
+          - name: template_app_link_spec_android
+            description: Link of the template app for android
+          - name: template_app_link_spec_iphone
+            description: Link of the template app for iphone
+
+      - name: demographics_country
+        identifier: '{{ var("facebook_ads_demographics_country_identifier", "demographics_country") }}'
+        description: '{{ doc("demographics_country") }}'
+        config:
+          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_country', false) }}"
+        columns:
+          - name: account_id
+            description: '{{ doc("account_id") }}'
+          - name: date
+            description: '{{ doc("date") }}'
+          - name: _fivetran_id
+            description: '{{ doc("country_id") }}'
+          - name: country
+            description: '{{ doc("country") }}'
+          - name: impressions
+            description: '{{ doc("impressions") }}'
+          - name: inline_link_clicks
+            description: '{{ doc("inline_link_clicks") }}'
+          - name: reach
+            description: '{{ doc("reach") }}'
+          - name: cost_per_inline_link_click
+            description: '{{ doc("cost_per_inline_link_click") }}'
+          - name: cpc
+            description: '{{ doc("cpc") }}'
+          - name: cpm
+            description: '{{ doc("cpm") }}'
+          - name: ctr
+            description: '{{ doc("ctr") }}'
+          - name: frequency
+            description: '{{ doc("frequency") }}'
+          - name: spend
+            description: '{{ doc("spend") }}'
+          - name: inline_link_click_ctr
+            description: '{{ doc("inline_link_click_ctr") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+
+      - name: demographics_country_actions
+        identifier: '{{ var("facebook_ads_demographics_country_actions_identifier", "demographics_country_actions") }}'
+        description: '{{ doc("demographics_country_actions") }}'
+        config:
+          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_country', false) }}"
+        columns:
+          - name: account_id
+            description: '{{ doc("account_id") }}'
+          - name: date
+            description: '{{ doc("date") }}'
+          - name: _fivetran_id
+            description: '{{ doc("country_id") }}'
+          - name: index
+            description: '{{ doc("index") }}'
+          - name: action_type
+            description: '{{ doc("action_type") }}'
+          - name: value
+            description: '{{ doc("conversions") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: inline
+            description: '{{ doc("inline") }}'
+          - name: _7_d_click
+            description: '{{ doc("_7_d_click") }}'
+          - name: _1_d_view
+            description: '{{ doc("_1_d_view") }}'
+
+      - name: demographics_region
+        identifier: '{{ var("facebook_ads_demographics_region_identifier", "demographics_region") }}'
+        description: '{{ doc("demographics_region") }}'
+        config:
+          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_region', false) }}"
+        columns:
+          - name: account_id
+            description: '{{ doc("account_id") }}'
+          - name: date
+            description: '{{ doc("date") }}'
+          - name: _fivetran_id
+            description: '{{ doc("region_id") }}'
+          - name: region
+            description: '{{ doc("region") }}'
+          - name: impressions
+            description: '{{ doc("impressions") }}'
+          - name: inline_link_clicks
+            description: '{{ doc("inline_link_clicks") }}'
+          - name: reach
+            description: '{{ doc("reach") }}'
+          - name: cost_per_inline_link_click
+            description: '{{ doc("cost_per_inline_link_click") }}'
+          - name: cpc
+            description: '{{ doc("cpc") }}'
+          - name: cpm
+            description: '{{ doc("cpm") }}'
+          - name: ctr
+            description: '{{ doc("ctr") }}'
+          - name: frequency
+            description: '{{ doc("frequency") }}'
+          - name: spend
+            description: '{{ doc("spend") }}'
+          - name: inline_link_click_ctr
+            description: '{{ doc("inline_link_click_ctr") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+
+      - name: demographics_region_actions
+        identifier: '{{ var("facebook_ads_demographics_region_actions_identifier", "demographics_region_actions") }}'
+        description: '{{ doc("demographics_region_actions") }}'
+        config:
+          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_region', false) }}"
+        columns:
+          - name: account_id
+            description: '{{ doc("account_id") }}'
+          - name: date
+            description: '{{ doc("date") }}'
+          - name: _fivetran_id
+            description: '{{ doc("region_id") }}'
+          - name: index
+            description: '{{ doc("index") }}'
+          - name: action_type
+            description: '{{ doc("action_type") }}'
+          - name: value
+            description: '{{ doc("conversions") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: inline
+            description: '{{ doc("inline") }}'
