@@ -6,6 +6,7 @@
     {"name": "account_id", "datatype": dbt.type_string()},
     {"name": "action_type", "datatype": dbt.type_string()},
     {"name": "date", "datatype": "date"},
+    {"name": "index", "datatype": dbt.type_int()},
     {"name": "value", "datatype": dbt.type_float()}
 ] %}
 

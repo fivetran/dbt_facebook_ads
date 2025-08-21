@@ -30,6 +30,7 @@ final as (
         lower(action_type) as action_type,
         cast(account_id as {{ dbt.type_bigint() }}) as account_id,
         date as date_day,
+        index,
         cast(coalesce(value, 0) as {{ dbt.type_float() }}) as conversions
 
     {{ fivetran_utils.fill_pass_through_columns('facebook_ads__demographics_region_actions_passthrough_metrics') }}

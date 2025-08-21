@@ -227,6 +227,8 @@ models:
         description: The ID of the ad the report relates to.
       - name: date_day
         description: The date of the reported performance.
+      - name: index
+        description: '{{ doc("index") }}'
       - name: conversions
         description: Conversion metric value using the default attribution window.
 
@@ -245,6 +247,8 @@ models:
         description: The ID of the ad the report relates to.
       - name: date_day
         description: The date of the reported performance.
+      - name: index
+        description: '{{ doc("index") }}'
       - name: conversions_value
         description: Monetary value associated with the conversion action using the default attribution window.
   
@@ -285,6 +289,8 @@ models:
         description: "{{ doc('account_id') }}"
       - name: date_day
         description: "{{ doc('date') }}"
+      - name: index
+        description: '{{ doc("index") }}'
       - name: conversions
         description: "{{ doc('conversions') }}"
 
@@ -325,5 +331,7 @@ models:
         description: "{{ doc('account_id') }}"
       - name: date_day
         description: "{{ doc('date') }}"
+      - name: index
+        description: '{{ doc("index") }}'
       - name: conversions
         description: "{{ doc('conversions') }}"

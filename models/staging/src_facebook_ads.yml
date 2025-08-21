@@ -146,7 +146,7 @@ sources:
           - name: date
             description: The date of the reported performance.
           - name: index
-            description: Index reflecting the `action_type` tracked for this ad on this day. Column of not much consequence. 
+            description: '{{ doc("index") }}'
           - name: inline
             description: Conversion metric value using the attribution window that occurs on the ad itself. Not included in downstream models by default, but can be added using the `facebook_ads__basic_ad_actions_passthrough_metrics` var.
           - name: value
@@ -173,7 +173,7 @@ sources:
           - name: date
             description: The date of the reported performance.
           - name: index
-            description: Index reflecting the `action_type` tracked for this ad on this day. Column of not much consequence. 
+            description: '{{ doc("index") }}'
           - name: value
             description: Monetary value associated with the convesion action using the default attribution window.
 
