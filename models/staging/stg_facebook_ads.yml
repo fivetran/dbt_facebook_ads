@@ -225,6 +225,8 @@ models:
           Actions prepended by app_custom_event come from mobile app events and actions prepended by offsite_conversion come from the Facebook Pixel.
       - name: ad_id
         description: The ID of the ad the report relates to.
+      - name: _fivetran_id
+        description: Unique record identifier.
       - name: date_day
         description: The date of the reported performance.
       - name: index
@@ -245,6 +247,8 @@ models:
           Actions prepended by app_custom_event come from mobile app events and actions prepended by offsite_conversion come from the Facebook Pixel.
       - name: ad_id
         description: The ID of the ad the report relates to.
+      - name: _fivetran_id
+        description: Unique record identifier.
       - name: date_day
         description: The date of the reported performance.
       - name: index
