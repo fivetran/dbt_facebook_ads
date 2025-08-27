@@ -15,7 +15,7 @@
 - Updated `fivetran_id` and `index` definitions to highlight importance in determining Fivetran key.
 
 ## Under the Hood
-- Removed experimental reviewer workflow as it's not longer being implemented.
+- Removed second reviewer workflow, as it's not longer being implemented.
 
 # dbt_facebook_ads v1.0.0
 
