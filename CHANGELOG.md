@@ -12,7 +12,10 @@
 | [stg_facebook_ads__demographics_region_actions](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.stg_facebook_ads__demographics_region_actions) | New Column |   |  `index`  |  Adding composite field for primary key for `demographics_region_actions` source table. |
 
 ## Documentation
-- Updated `fivetran_id` and `index` definitions to highlight importance in determinining Fivetran key.
+- Updated `fivetran_id` and `index` definitions to highlight importance in determining Fivetran key.
+
+## Under the Hood
+- Removed experimental reviewer workflow as it's not longer being implemented.
 
 # dbt_facebook_ads v1.0.0
 
