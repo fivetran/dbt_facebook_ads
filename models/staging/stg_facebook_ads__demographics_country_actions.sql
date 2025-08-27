@@ -31,6 +31,7 @@ final as (
         lower(action_type) as action_type,
         cast(account_id as {{ dbt.type_bigint() }}) as account_id,
         date as date_day,
+        index,
         cast(coalesce(value, 0) as {{ dbt.type_float() }}) as conversions
 
         {{ facebook_ads_fill_pass_through_columns(var('facebook_ads__demographics_country_actions_passthrough_metrics')) }}

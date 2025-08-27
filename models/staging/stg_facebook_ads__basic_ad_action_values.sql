@@ -28,7 +28,9 @@ final as (
         source_relation, 
         lower(action_type) as action_type,
         cast(ad_id as {{ dbt.type_bigint() }}) as ad_id,
+        _fivetran_id,
         date as date_day,
+        index,
         cast(coalesce(value, 0) as {{ dbt.type_float() }}) as conversions_value
 
         {{ facebook_ads_fill_pass_through_columns(var('facebook_ads__basic_ad_action_values_passthrough_metrics')) }}

@@ -1,3 +1,22 @@
+# dbt_facebook_ads v1.1.0
+[PR #57](https://github.com/fivetran/dbt_facebook_ads/pull/57) includes the following updates:
+
+## Schema Updates
+
+**4 total changes • 0 possible breaking changes**
+| **Data Model** | **Change type** | **Old name** | **New name** | **Notes** |
+| ---------------- | --------------- | ------------ | ------------ | --------- |
+| [stg_facebook_ads__basic_ad_action_values](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.stg_facebook_ads__basic_ad_action_values) | New Columns |   | `index`, `_fivetran_id`  |  Adding composite fields for primary keys for `basic_ad_action_values` source table. |
+| [stg_facebook_ads__basic_ad_actions](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.stg_facebook_ads__basic_ad_actions) | New Columns |   |  `index`, `_fivetran_id`  |  Adding composite fields for primary keys for `basic_ad_actions` source table. |
+| [stg_facebook_ads__demographics_country_actions](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.stg_facebook_ads__demographics_country_actions) | New Column |   | `index`  |  Adding composite field for primary key for `demographics_country_actions` source table. |
+| [stg_facebook_ads__demographics_region_actions](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.stg_facebook_ads__demographics_region_actions) | New Column |   |  `index`  |  Adding composite field for primary key for `demographics_region_actions` source table. |
+
+## Documentation
+- Updated `fivetran_id` and `index` definitions to highlight importance in determining Fivetran key.
+
+## Under the Hood
+- Removed second reviewer workflow, as it's not longer being implemented.
+
 # dbt_facebook_ads v1.0.0
 
 [PR #56](https://github.com/fivetran/dbt_facebook_ads/pull/56) includes the following updates:

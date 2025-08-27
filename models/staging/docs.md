@@ -61,7 +61,7 @@ Conversion metric value using an attribution window of "7 days after clicking th
 {% enddocs %}
 
 {% docs index %}
-Index reflecting the `action_type` tracked for this ad on this day. Column of not much consequence.
+Index reflecting the `action_type` tracked for this ad on this day. A primary key created by Fivetran utilized for tracking data, specifically when there are multiple rows associated with a single row in the parent table. 
 {% enddocs %}
 
 {% docs action_type %}

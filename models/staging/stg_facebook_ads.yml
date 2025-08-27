@@ -225,8 +225,12 @@ models:
           Actions prepended by app_custom_event come from mobile app events and actions prepended by offsite_conversion come from the Facebook Pixel.
       - name: ad_id
         description: The ID of the ad the report relates to.
+      - name: _fivetran_id
+        description: Unique record identifier.
       - name: date_day
         description: The date of the reported performance.
+      - name: index
+        description: '{{ doc("index") }}'
       - name: conversions
         description: Conversion metric value using the default attribution window.
 
@@ -243,8 +247,12 @@ models:
           Actions prepended by app_custom_event come from mobile app events and actions prepended by offsite_conversion come from the Facebook Pixel.
       - name: ad_id
         description: The ID of the ad the report relates to.
+      - name: _fivetran_id
+        description: Unique record identifier.
       - name: date_day
         description: The date of the reported performance.
+      - name: index
+        description: '{{ doc("index") }}'
       - name: conversions_value
         description: Monetary value associated with the conversion action using the default attribution window.
   
@@ -285,6 +293,8 @@ models:
         description: "{{ doc('account_id') }}"
       - name: date_day
         description: "{{ doc('date') }}"
+      - name: index
+        description: '{{ doc("index") }}'
       - name: conversions
         description: "{{ doc('conversions') }}"
 
@@ -325,5 +335,7 @@ models:
         description: "{{ doc('account_id') }}"
       - name: date_day
         description: "{{ doc('date') }}"
+      - name: index
+        description: '{{ doc("index") }}'
       - name: conversions
         description: "{{ doc('conversions') }}"
