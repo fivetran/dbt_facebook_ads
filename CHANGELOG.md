@@ -1,3 +1,10 @@
+# dbt_facebook_ads v1.2.0
+
+[PR #59](https://github.com/fivetran/dbt_facebook_ads/pull/59) includes the following updates:
+
+## Features
+  - Increases the required dbt version upper limit to v3.0.0
+
 # dbt_facebook_ads v1.1.0
 [PR #57](https://github.com/fivetran/dbt_facebook_ads/pull/57) includes the following updates:
 
