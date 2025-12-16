@@ -62,9 +62,16 @@ models:
           for details around conversion-eligible action types.
       - name: conversions_value
         description: >
-          Total monetary of conversions using the default attribution window on the given day. See the 
-          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          Total monetary value of conversions using the default attribution window on the given day. See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
           for details around conversion-eligible action types.
+      - name: '{{ facebook_action_slug(action_type) }}_conversions'
+        description: >
+          Number of conversions for each configured action type using the default attribution window. Column names are dynamically
+          generated based on the `facebook_ads__conversion_action_types` variable (for example, `onsite_conversion_purchase_conversions`,
+          `offsite_conversion_fb_pixel_lead_conversions`). See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
+          for configuration details.
 
   - name: facebook_ads__ad_report
     description: Each record represents the daily performance of a Facebook ad.
@@ -104,9 +111,16 @@ models:
           for details around conversion-eligible action types.
       - name: conversions_value
         description: >
-          Total monetary of conversions using the default attribution window on the given day. See the 
-          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          Total monetary value of conversions using the default attribution window on the given day. See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
           for details around conversion-eligible action types.
+      - name: '{{ facebook_action_slug(action_type) }}_conversions'
+        description: >
+          Number of conversions for each configured action type using the default attribution window. Column names are dynamically
+          generated based on the `facebook_ads__conversion_action_types` variable (for example, `onsite_conversion_purchase_conversions`,
+          `offsite_conversion_fb_pixel_lead_conversions`). See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
+          for configuration details.
       - name: conversion_domain
         description: The domain you've configured the ad to convert to.
 
@@ -144,9 +158,16 @@ models:
           for details around conversion-eligible action types.
       - name: conversions_value
         description: >
-          Total monetary of conversions using the default attribution window on the given day. See the 
-          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          Total monetary value of conversions using the default attribution window on the given day. See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
           for details around conversion-eligible action types.
+      - name: '{{ facebook_action_slug(action_type) }}_conversions'
+        description: >
+          Number of conversions for each configured action type using the default attribution window. Column names are dynamically
+          generated based on the `facebook_ads__conversion_action_types` variable (for example, `onsite_conversion_purchase_conversions`,
+          `offsite_conversion_fb_pixel_lead_conversions`). See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
+          for configuration details.
       - name: optimization_goal
         description: The optimization goal this ad set is using. Possible values defined [here](https://developers.facebook.com/docs/marketing-api/reference/ad-campaign/#fields).
       - name: start_at
@@ -190,9 +211,16 @@ models:
           for details around conversion-eligible action types.
       - name: conversions_value
         description: >
-          Total monetary of conversions using the default attribution window on the given day. See the 
-          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          Total monetary value of conversions using the default attribution window on the given day. See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
           for details around conversion-eligible action types.
+      - name: '{{ facebook_action_slug(action_type) }}_conversions'
+        description: >
+          Number of conversions for each configured action type using the default attribution window. Column names are dynamically
+          generated based on the `facebook_ads__conversion_action_types` variable (for example, `onsite_conversion_purchase_conversions`,
+          `offsite_conversion_fb_pixel_lead_conversions`). See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
+          for configuration details.
       - name: start_at
         description: Timestamp of designated campaign start time.
       - name: end_at
@@ -232,9 +260,16 @@ models:
           for details around conversion-eligible action types.
       - name: conversions_value
         description: >
-          Total monetary of conversions using the default attribution window on the given day. See the 
-          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          Total monetary value of conversions using the default attribution window on the given day. See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
           for details around conversion-eligible action types.
+      - name: '{{ facebook_action_slug(action_type) }}_conversions'
+        description: >
+          Number of conversions for each configured action type using the default attribution window. Column names are dynamically
+          generated based on the `facebook_ads__conversion_action_types` variable (for example, `onsite_conversion_purchase_conversions`,
+          `offsite_conversion_fb_pixel_lead_conversions`). See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
+          for configuration details.
       - name: account_status
         description: Current status of account.
       - name: business_country_code
@@ -283,9 +318,16 @@ models:
         description: The spend on the ad in the given day.
       - name: conversions
         description: >
-          Total number of conversions using the default attribution window on the given day. See the 
-          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          Total number of conversions using the default attribution window on the given day. See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
           for details around conversion-eligible action types.
+      - name: '{{ facebook_action_slug(action_type) }}_conversions'
+        description: >
+          Number of conversions for each configured action type using the default attribution window. Column names are dynamically
+          generated based on the `facebook_ads__conversion_action_types` variable (for example, `onsite_conversion_purchase_conversions`,
+          `offsite_conversion_fb_pixel_lead_conversions`). See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
+          for configuration details.
       - name: account_business_country_code
         description: Country code of business associated to account.
       - name: account_currency
@@ -324,9 +366,16 @@ models:
         description: The spend on the ad in the given day.
       - name: conversions
         description: >
-          Total number of conversions using the default attribution window on the given day. See the 
-          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types) 
+          Total number of conversions using the default attribution window on the given day. See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
           for details around conversion-eligible action types.
+      - name: '{{ facebook_action_slug(action_type) }}_conversions'
+        description: >
+          Number of conversions for each configured action type using the default attribution window. Column names are dynamically
+          generated based on the `facebook_ads__conversion_action_types` variable (for example, `onsite_conversion_purchase_conversions`,
+          `offsite_conversion_fb_pixel_lead_conversions`). See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
+          for configuration details.
       - name: account_business_country_code
         description: Country code of business associated to account.
       - name: account_business_state

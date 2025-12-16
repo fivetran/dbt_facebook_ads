@@ -1,3 +1,23 @@
+# dbt_facebook_ads v1.3.0
+
+[PR #60](https://github.com/fivetran/dbt_facebook_ads/pull/60) includes the following updates:
+
+## Schema/Data Change
+**7 total changes • 0 possible breaking changes**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ---------- | ----------- | -------- | -------- | ----- |
+| [facebook_ads__account_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__account_report) | New Columns |  | Dynamic conversion columns based on `facebook_ads__conversion_action_types` | Adds individual conversion metrics for each configured action type (for example, `onsite_conversion_purchase_conversions`, `offsite_conversion_fb_pixel_lead_conversions`). Column names are generated dynamically using the `facebook_action_slug` macro. |
+| [facebook_ads__ad_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__ad_report) | New Columns |  | Dynamic conversion columns based on `facebook_ads__conversion_action_types` | Adds individual conversion metrics for each configured action type. Column names are generated dynamically using the `facebook_action_slug` macro. |
+| [facebook_ads__ad_set_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__ad_set_report) | New Columns |  | Dynamic conversion columns based on `facebook_ads__conversion_action_types` | Adds individual conversion metrics for each configured action type. Column names are generated dynamically using the `facebook_action_slug` macro. |
+| [facebook_ads__campaign_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__campaign_report) | New Columns |  | Dynamic conversion columns based on `facebook_ads__conversion_action_types` | Adds individual conversion metrics for each configured action type. Column names are generated dynamically using the `facebook_action_slug` macro. |
+| [facebook_ads__country_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__country_report) | New Columns |  | Dynamic conversion columns based on `facebook_ads__conversion_action_types` | Adds individual conversion metrics for each configured action type. Column names are generated dynamically using the `facebook_action_slug` macro. |
+| [facebook_ads__region_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__region_report) | New Columns |  | Dynamic conversion columns based on `facebook_ads__conversion_action_types` | Adds individual conversion metrics for each configured action type. Column names are generated dynamically using the `facebook_action_slug` macro. |
+| [int_facebook_ads__conversions](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.int_facebook_ads__conversions) | New Columns |  | Dynamic conversion columns based on `facebook_ads__conversion_action_types` | Adds individual conversion metrics for each configured action type. Column names are generated dynamically using the `facebook_action_slug` macro. |
+
+## Under the Hood
+- Adds `facebook_action_slug` macro to generate slugified column names from action type configurations.
+
 # dbt_facebook_ads v1.2.0
 
 [PR #59](https://github.com/fivetran/dbt_facebook_ads/pull/59) includes the following updates:

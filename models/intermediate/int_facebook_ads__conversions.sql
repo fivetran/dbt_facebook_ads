@@ -20,6 +20,21 @@ action_metrics as (
         date_day,
         sum(conversions) as conversions
 
+        {% for action_type in var('facebook_ads__conversion_action_types') %}
+        ,sum(case when 
+        {% if action_type.name %}
+         action_type  = '{{ action_type.name }}'
+        {% elif action_type.pattern %}
+         action_type like '{{ action_type.pattern }}'
+        {% endif %}
+
+        {% if action_type.where_sql %}
+        and {{ action_type.where_sql }}
+        {% endif %}
+        then conversions else 0 end) 
+             as {{ facebook_action_slug(action_type) }}_conversions
+        {% endfor %}
+
         {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_actions_passthrough_metrics', transform='sum') }}
 
     from actions_report
@@ -84,6 +99,10 @@ metrics_join as (
         action_metrics.conversions,
         action_value_metrics.conversions_value
         
+        {% for action_type in var('facebook_ads__conversion_action_types') %}
+        ,{{ facebook_action_slug(action_type) }}_conversions
+        {% endfor %}
+
         {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_actions_passthrough_metrics', identifier='action_metrics') }}
         {{ fivetran_utils.persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_action_values_passthrough_metrics', identifier='action_value_metrics') }}
 
