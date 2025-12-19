@@ -7,8 +7,16 @@
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ---------- | ----------- | -------- | -------- | ----- |
-| All facebook_ads__*_report models | New Columns |  | `onsite_conversion_purchase_conversions`, `onsite_conversion_lead_grouped_conversions`, `offsite_conversion_fb_pixel_purchase_conversions`, `offsite_conversion_fb_pixel_lead_conversions`, `offsite_conversion_fb_pixel_custom_conversions` | Add individual conversion metrics for each default action type configured in the package. |
-| All facebook_ads__*_report models except [facebook_ads__country_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__country_report) and [facebook_ads__region_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__region_report) | New Columns |  | `onsite_conversion_purchase_conversions_value`, `onsite_conversion_lead_grouped_conversions_value`, `offsite_conversion_fb_pixel_purchase_conversions_value`, `offsite_conversion_fb_pixel_lead_conversions_value`, `offsite_conversion_fb_pixel_custom_conversions_value` | Add individual conversion metrics for each default action type configured in the package. |
+| All facebook_ads__*_report models | New Column |  | `onsite_conversion_purchase_conversions` | Total attributed conversions for onsite_conversion_purchase action type. |
+| All facebook_ads__*_report models | New Column |  | `onsite_conversion_lead_grouped_conversions` | Total attributed conversions for onsite_conversion_lead_grouped action type. |
+| All facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_purchase_conversions` | Total attributed conversions for offsite_conversion_fb_pixel_purchase action type. |
+| All facebook_ads__*_report models | New Column |  |  `offsite_conversion_fb_pixel_lead_conversions` | Total attributed conversions for offsite_conversion_fb_pixel_lead action type. |
+| All facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_custom_conversions` | Total attributed conversions for offsite_conversion_fb_pixel_custom action type. |
+| All non-geographical facebook_ads__*_report models | New Column |  | `onsite_conversion_purchase_conversions_value` | Total attributed conversions_value for onsite_conversion_purchase action type. |
+| All non-geographical facebook_ads__*_report models | New Column |  | `onsite_conversion_lead_grouped_conversions_value` | Total attributed conversions_value for onsite_conversion_lead_grouped action type. |
+| All non-geographical facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_purchase_conversions_value` | Total attributed conversions_value for offsite_conversion_fb_pixel_purchase action type. |
+| All non-geographical facebook_ads__*_report models | New Column |  | `ooffsite_conversion_fb_pixel_lead_conversions_value` | Total attributed conversions_value for offsite_conversion_fb_pixel_lead action type. |
+| All non-geographical facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_custom_conversions_value` | Total attributed conversions_value for offsite_conversion_fb_pixel_custom action type. |
 
 The default action types included are `onsite_conversion.purchase`, `onsite_conversion.lead_grouped`, `offsite_conversion.fb_pixel_purchase`, `offsite_conversion.fb_pixel_lead`, and `offsite_conversion.fb_pixel_custom`. You can add additional custom action types by configuring the `facebook_ads__conversion_action_types` variable. See the [README](https://github.com/fivetran/dbt_facebook_ads/blob/main/README.md#passing-through-additional-metrics) for details on how to configure custom action types.
 

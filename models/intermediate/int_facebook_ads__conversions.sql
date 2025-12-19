@@ -116,9 +116,6 @@ metrics_join as (
         
         {% for action_type in var('facebook_ads__conversion_action_types') %}
         ,{{ facebook_action_slug(action_type) }}_conversions
-        {% endfor %}
-
-        {% for action_type in var('facebook_ads__conversion_action_types') %}
         ,{{ facebook_action_slug(action_type) }}_conversions_value
         {% endfor %}
 

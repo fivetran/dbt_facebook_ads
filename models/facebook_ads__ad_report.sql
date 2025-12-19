@@ -69,9 +69,6 @@ joined as (
         {% for action_type in var('facebook_ads__conversion_action_types') %}
         , sum(coalesce(conversion_report.{{ facebook_action_slug(action_type) }}_conversions, 0)) 
             as {{ facebook_action_slug(action_type) }}_conversions
-        {% endfor %}
-
-        {% for action_type in var('facebook_ads__conversion_action_types') %}
         , sum(coalesce(conversion_report.{{ facebook_action_slug(action_type) }}_conversions_value, 0)) 
             as {{ facebook_action_slug(action_type) }}_conversions_value
         {% endfor %}
