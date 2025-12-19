@@ -85,6 +85,26 @@ models:
         description: >
           Number of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.
           Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: onsite_conversion_purchase_conversions_value
+        description: >
+          Monetary value of purchase conversions made within Meta technologies (such as Pages or Messenger) and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: onsite_conversion_lead_grouped_conversions_value
+        description: >
+          Monetary value of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_purchase_conversions_value
+        description: >
+          Monetary value of purchase events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_lead_conversions_value
+        description: >
+          Monetary value of lead events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_custom_conversions_value
+        description: >
+          Monetary value of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
 
   - name: facebook_ads__ad_report
     description: Each record represents the daily performance of a Facebook ad.
@@ -147,6 +167,26 @@ models:
         description: >
           Number of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.
           Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: onsite_conversion_purchase_conversions_value
+        description: >
+          Monetary value of purchase conversions made within Meta technologies (such as Pages or Messenger) and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: onsite_conversion_lead_grouped_conversions_value
+        description: >
+          Monetary value of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_purchase_conversions_value
+        description: >
+          Monetary value of purchase events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_lead_conversions_value
+        description: >
+          Monetary value of lead events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_custom_conversions_value
+        description: >
+          Monetary value of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
       - name: conversion_domain
         description: The domain you've configured the ad to convert to.
 
@@ -206,6 +246,26 @@ models:
       - name: offsite_conversion_fb_pixel_custom_conversions
         description: >
           Number of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: onsite_conversion_purchase_conversions_value
+        description: >
+          Monetary value of purchase conversions made within Meta technologies (such as Pages or Messenger) and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: onsite_conversion_lead_grouped_conversions_value
+        description: >
+          Monetary value of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_purchase_conversions_value
+        description: >
+          Monetary value of purchase events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_lead_conversions_value
+        description: >
+          Monetary value of lead events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_custom_conversions_value
+        description: >
+          Monetary value of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.
           Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
       - name: optimization_goal
         description: The optimization goal this ad set is using. Possible values defined [here](https://developers.facebook.com/docs/marketing-api/reference/ad-campaign/#fields).
@@ -273,6 +333,26 @@ models:
         description: >
           Number of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.
           Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: onsite_conversion_purchase_conversions_value
+        description: >
+          Monetary value of purchase conversions made within Meta technologies (such as Pages or Messenger) and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: onsite_conversion_lead_grouped_conversions_value
+        description: >
+          Monetary value of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_purchase_conversions_value
+        description: >
+          Monetary value of purchase events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_lead_conversions_value
+        description: >
+          Monetary value of lead events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_custom_conversions_value
+        description: >
+          Monetary value of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
       - name: start_at
         description: Timestamp of designated campaign start time.
       - name: end_at
@@ -334,6 +414,26 @@ models:
       - name: offsite_conversion_fb_pixel_custom_conversions
         description: >
           Number of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: onsite_conversion_purchase_conversions_value
+        description: >
+          Monetary value of purchase conversions made within Meta technologies (such as Pages or Messenger) and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: onsite_conversion_lead_grouped_conversions_value
+        description: >
+          Monetary value of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_purchase_conversions_value
+        description: >
+          Monetary value of purchase events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_lead_conversions_value
+        description: >
+          Monetary value of lead events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_custom_conversions_value
+        description: >
+          Monetary value of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.
           Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
       - name: account_status
         description: Current status of account.
