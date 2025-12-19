@@ -74,6 +74,11 @@ joined as (
             as {{ facebook_action_slug(action_type) }}_conversions
         {% endfor %}
 
+        {% for action_type in var('facebook_ads__conversion_action_types') %}
+        , sum(coalesce(conversion_report.{{ facebook_action_slug(action_type) }}_conversions_value, 0)) 
+            as {{ facebook_action_slug(action_type) }}_conversions_value
+        {% endfor %}
+
         {{ facebook_ads_persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_passthrough_metrics', transform = 'sum', exclude_fields=['conversions', 'conversions_value']) }}
         {{ facebook_ads_persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_actions_passthrough_metrics', transform = 'sum', coalesce_with=0) }}
         {{ facebook_ads_persist_pass_through_columns(pass_through_variable='facebook_ads__basic_ad_action_values_passthrough_metrics', transform = 'sum', coalesce_with=0) }}
