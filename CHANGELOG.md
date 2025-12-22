@@ -3,20 +3,20 @@
 [PR #60](https://github.com/fivetran/dbt_facebook_ads/pull/60) includes the following updates:
 
 ## Schema/Data Change
-**35 total changes • 0 possible breaking changes**
+**10 total changes • 0 possible breaking changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ---------- | ----------- | -------- | -------- | ----- |
-| All facebook_ads__*_report models | New Column |  | `onsite_conversion_purchase_conversions` | Total attributed conversions for onsite_conversion_purchase action type. |
-| All facebook_ads__*_report models | New Column |  | `onsite_conversion_lead_grouped_conversions` | Total attributed conversions for onsite_conversion_lead_grouped action type. |
-| All facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_purchase_conversions` | Total attributed conversions for offsite_conversion_fb_pixel_purchase action type. |
-| All facebook_ads__*_report models | New Column |  |  `offsite_conversion_fb_pixel_lead_conversions` | Total attributed conversions for offsite_conversion_fb_pixel_lead action type. |
-| All facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_custom_conversions` | Total attributed conversions for offsite_conversion_fb_pixel_custom action type. |
-| All non-geographical facebook_ads__*_report models | New Column |  | `onsite_conversion_purchase_conversions_value` | Total attributed conversions_value for onsite_conversion_purchase action type. |
-| All non-geographical facebook_ads__*_report models | New Column |  | `onsite_conversion_lead_grouped_conversions_value` | Total attributed conversions_value for onsite_conversion_lead_grouped action type. |
-| All non-geographical facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_purchase_conversions_value` | Total attributed conversions_value for offsite_conversion_fb_pixel_purchase action type. |
-| All non-geographical facebook_ads__*_report models | New Column |  | `ooffsite_conversion_fb_pixel_lead_conversions_value` | Total attributed conversions_value for offsite_conversion_fb_pixel_lead action type. |
-| All non-geographical facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_custom_conversions_value` | Total attributed conversions_value for offsite_conversion_fb_pixel_custom action type. |
+| All facebook_ads__*_report models | New Column |  | `onsite_conversion_purchase_conversions` | Number of purchase conversions made within Meta technologies (such as Pages or Messenger) and attributed to your ads, using the default attribution window.|
+| All facebook_ads__*_report models | New Column |  | `onsite_conversion_lead_grouped_conversions` | Number of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads, using the default attribution window.|
+| All facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_purchase_conversions` | Number of purchase events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.|
+| All facebook_ads__*_report models | New Column |  |  `offsite_conversion_fb_pixel_lead_conversions` | Number of lead events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.|
+| All facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_custom_conversions` | Number of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.|
+| All non-geographical facebook_ads__*_report models | New Column |  | `onsite_conversion_purchase_conversions_value` | Monetary value of purchase conversions made within Meta technologies (such as Pages or Messenger) and attributed to your ads, using the default attribution window.|
+| All non-geographical facebook_ads__*_report models | New Column |  | `onsite_conversion_lead_grouped_conversions_value` | Monetary value of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads, using the default attribution window.|
+| All non-geographical facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_purchase_conversions_value` | Monetary value of purchase events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.|
+| All non-geographical facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_lead_conversions_value` | Monetary value of lead events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.|
+| All non-geographical facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_custom_conversions_value` | Monetary value of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.|
 
 The default action types included are `onsite_conversion.purchase`, `onsite_conversion.lead_grouped`, `offsite_conversion.fb_pixel_purchase`, `offsite_conversion.fb_pixel_lead`, and `offsite_conversion.fb_pixel_custom`. You can add additional custom action types by configuring the `facebook_ads__conversion_action_types` variable. See the [README](https://github.com/fivetran/dbt_facebook_ads/blob/main/README.md#passing-through-additional-metrics) for details on how to configure custom action types.
 
