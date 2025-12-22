@@ -1,3 +1,28 @@
+# dbt_facebook_ads v1.3.0
+
+[PR #60](https://github.com/fivetran/dbt_facebook_ads/pull/60) includes the following updates:
+
+## Schema/Data Change
+**10 total changes • 0 possible breaking changes**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ---------- | ----------- | -------- | -------- | ----- |
+| All facebook_ads__*_report models | New Column |  | `onsite_conversion_purchase_conversions` | Number of purchase conversions made within Meta technologies (such as Pages or Messenger) and attributed to your ads, using the default attribution window.|
+| All facebook_ads__*_report models | New Column |  | `onsite_conversion_lead_grouped_conversions` | Number of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads, using the default attribution window.|
+| All facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_purchase_conversions` | Number of purchase events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.|
+| All facebook_ads__*_report models | New Column |  |  `offsite_conversion_fb_pixel_lead_conversions` | Number of lead events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.|
+| All facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_custom_conversions` | Number of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.|
+| All non-geographical facebook_ads__*_report models | New Column |  | `onsite_conversion_purchase_conversions_value` | Monetary value of purchase conversions made within Meta technologies (such as Pages or Messenger) and attributed to your ads, using the default attribution window.|
+| All non-geographical facebook_ads__*_report models | New Column |  | `onsite_conversion_lead_grouped_conversions_value` | Monetary value of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads, using the default attribution window.|
+| All non-geographical facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_purchase_conversions_value` | Monetary value of purchase events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.|
+| All non-geographical facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_lead_conversions_value` | Monetary value of lead events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.|
+| All non-geographical facebook_ads__*_report models | New Column |  | `offsite_conversion_fb_pixel_custom_conversions_value` | Monetary value of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.|
+
+The default action types included are `onsite_conversion.purchase`, `onsite_conversion.lead_grouped`, `offsite_conversion.fb_pixel_purchase`, `offsite_conversion.fb_pixel_lead`, and `offsite_conversion.fb_pixel_custom`. You can add additional custom action types by configuring the `facebook_ads__conversion_action_types` variable. See the [README](https://github.com/fivetran/dbt_facebook_ads/blob/main/README.md#passing-through-additional-metrics) for details on how to configure custom action types.
+
+## Under the Hood
+- Adds `facebook_action_slug` macro to generate slugified column names from action type configurations.
+
 # dbt_facebook_ads v1.2.0
 
 [PR #59](https://github.com/fivetran/dbt_facebook_ads/pull/59) includes the following updates:
@@ -96,7 +121,7 @@ If you are using dbt Core < 1.9.6 and want to continue running Facebook Ads fres
 | [stg_facebook_ads__account_history](https://fivetran.github.io/dbt_facebook_ads_source/#!/model/model.facebook_ads_source.stg_facebook_ads__account_history) | New Columns |   | `business_state`, `timezone_offset_hours_utc`, `min_daily_budget`  |  |
 
 ## Feature Updates
-- Added the `facebook_ads__using_demographics_country` and `facebook_ads__using_demographics_region` variables, which can be used to enable or disable the above transformations related to the new `demographics_country`/`demograhics_country_actions` and `demographics_region`/`demographics_region_actions` tables.
+- Added the `facebook_ads__using_demographics_country` and `facebook_ads__using_demographics_region` variables, which can be used to enable or disable the above transformations related to the new `demographics_country`/`demographics_country_actions` and `demographics_region`/`demographics_region_actions` tables.
   - These variables are dynamically set for Fivetran Quickstart users, but **false** by default otherwise. See [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#enable-or-disable-country-and-region-reports) for more details on how to enable these models, particularly if you are using dbt Core.
 - Introduced the following passthrough column variables, which can be used to pass through additional metrics fields from their respective source reports to `facebook_ads__country_report` or `facebook_ads__region_report`. See [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#passing-through-additional-metrics) for more details.
   - `facebook_ads__demographics_country_passthrough_metrics`
