@@ -63,21 +63,21 @@ supported_vars:
 
   facebook_ads__demographics_country_passthrough_metrics:
     type: dictionary
-    description: "Addtional `DEMOGRAPHICS_COUNTRY` report columns to include in `facebook_ads__country_report`"
+    description: "Additional `DEMOGRAPHICS_COUNTRY` report columns to include in `facebook_ads__country_report`"
     display_name: "Additional `DEMOGRAPHICS_COUNTRY` Metrics"
 
   facebook_ads__demographics_country_actions_passthrough_metrics:
     type: dictionary
-    description: "Addtional `DEMOGRAPHICS_COUNTRY_ACTIONS` report columns to include in `facebook_ads__country_report`"
+    description: "Additional `DEMOGRAPHICS_COUNTRY_ACTIONS` report columns to include in `facebook_ads__country_report`"
     display_name: "Additional `DEMOGRAPHICS_COUNTRY_ACTIONS` Conversion Metrics"
 
   facebook_ads__demographics_region_passthrough_metrics:
     type: dictionary
-    description: "Addtional `DEMOGRAPHICS_REGION` report columns to include in `facebook_ads__region_report`"
+    description: "Additional `DEMOGRAPHICS_REGION` report columns to include in `facebook_ads__region_report`"
     display_name: "Additional `DEMOGRAPHICS_REGION` Metrics"
 
   facebook_ads__demographics_region_actions_passthrough_metrics:
     type: dictionary
-    description: "Addtional `DEMOGRAPHICS_REGION_ACTIONS` report columns to include in `facebook_ads__region_report`"
+    description: "Additional `DEMOGRAPHICS_REGION_ACTIONS` report columns to include in `facebook_ads__region_report`"
     display_name: "Additional `DEMOGRAPHICS_REGION_ACTIONS` Conversion Metrics"
 
