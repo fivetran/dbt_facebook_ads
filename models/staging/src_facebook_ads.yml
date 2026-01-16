@@ -226,8 +226,6 @@ sources:
             description: A set of query string parameters which will replace or be appended to urls clicked from page post ads, message of the post, and canvas app install creatives only.
           - name: _fivetran_synced
             description: "{{ doc('_fivetran_synced') }}"
-          - name: template_page_link
-            description: URL destination of Facebook dynamic ads.
           - name: asset_feed_spec_link_urls
             description: Link to the asset feed spec
           - name: object_story_link_data_child_attachments
