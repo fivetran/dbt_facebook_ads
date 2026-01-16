@@ -15,8 +15,6 @@ table_variables:
     - basic_ad_actions
   _fivetran_quickstart_basic_ad_action_values:
     - basic_ad_action_values
-  _fivetran_quickstart_url_tag:
-    - url_tag
 
 destination_configurations:
   databricks:
@@ -36,15 +34,6 @@ public_models: [
 ]
 
 supported_vars:
-  facebook_ads__conversion_action_types:
-    type: dictionary
-    value: "- name: onsite_conversion.purchase
-- name: onsite_conversion.lead_grouped
-- name: offsite_conversion.fb_pixel_purchase
-- name: offsite_conversion.fb_pixel_lead
-- name: offsite_conversion.fb_pixel_custom"
-    description: "`action_type` values to be tracked as conversions"
-    display_name: "Conversion Action Types"
 
   facebook_ads__basic_ad_passthrough_metrics:
     type: dictionary

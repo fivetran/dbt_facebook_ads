@@ -4,6 +4,7 @@
 
 ## Documentation
 - Updates README with standardized Fivetran formatting.
+- Removes duplicative column yml definitions.
 
 ## Under the Hood
 - In the `quickstart.yml` file:

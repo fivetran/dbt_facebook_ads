@@ -62,7 +62,7 @@ By default, this package materializes the following final tables:
 ---
 
 ## Visualizations
-Many of the above reports are now configurable for [visualization via Streamlit](https://github.com/fivetran/streamlit_facebook-ads). Check out some [sample reports here](https://fivetran-facebook-ads.streamlit.app/).
+Many of the above reports are now configurable for [visualization via Streamlit](https://github.com/fivetran/streamlit_ad_reporting). Check out some [sample reports here](https://fivetran-ad-reporting.streamlit.app/ad_performance).
 
 <p align="center">
   <a href="https://fivetran-ad-reporting.streamlit.app/ad_performance">
