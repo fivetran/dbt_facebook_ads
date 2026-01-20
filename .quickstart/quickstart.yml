@@ -11,6 +11,11 @@ table_variables:
     - demographics_region
     - demographics_region_actions
 
+  _fivetran_quickstart_basic_ad_actions:
+    - basic_ad_actions
+  _fivetran_quickstart_basic_ad_action_values:
+    - basic_ad_action_values
+
 destination_configurations:
   databricks:
     dispatch:
@@ -27,3 +32,41 @@ public_models: [
   "facebook_ads__country_report",
   "facebook_ads__region_report"
 ]
+
+supported_vars:
+
+  facebook_ads__basic_ad_passthrough_metrics:
+    type: dictionary
+    description: "Additional `BASIC_AD` report columns to include in `facebook_ads__account_report`, `facebook_ads__ad_report`, `facebook_ads__campaign_report`, `facebook_ads__ad_set_report`, and `facebook_ads__url_report`"
+    display_name: "Additional `BASIC_AD` Metrics"
+
+  facebook_ads__basic_ad_actions_passthrough_metrics:
+    type: dictionary
+    description: "Additional `BASIC_AD_ACTIONS` report columns to include in `facebook_ads__account_report`, `facebook_ads__ad_report`, `facebook_ads__campaign_report`, `facebook_ads__ad_set_report`, and `facebook_ads__url_report`"
+    display_name: "Additional `BASIC_AD_ACTIONS` Conversion Metrics"
+
+  facebook_ads__basic_ad_action_values_passthrough_metrics:
+    type: dictionary
+    description: "Additional `BASIC_AD_ACTION_VALUES` report columns to include in `facebook_ads__account_report`, `facebook_ads__ad_report`, `facebook_ads__campaign_report`, `facebook_ads__ad_set_report`, and `facebook_ads__url_report`"
+    display_name: "Additional `BASIC_AD_ACTION_VALUES` Conversion Metrics"
+
+  facebook_ads__demographics_country_passthrough_metrics:
+    type: dictionary
+    description: "Additional `DEMOGRAPHICS_COUNTRY` report columns to include in `facebook_ads__country_report`"
+    display_name: "Additional `DEMOGRAPHICS_COUNTRY` Metrics"
+
+  facebook_ads__demographics_country_actions_passthrough_metrics:
+    type: dictionary
+    description: "Additional `DEMOGRAPHICS_COUNTRY_ACTIONS` report columns to include in `facebook_ads__country_report`"
+    display_name: "Additional `DEMOGRAPHICS_COUNTRY_ACTIONS` Conversion Metrics"
+
+  facebook_ads__demographics_region_passthrough_metrics:
+    type: dictionary
+    description: "Additional `DEMOGRAPHICS_REGION` report columns to include in `facebook_ads__region_report`"
+    display_name: "Additional `DEMOGRAPHICS_REGION` Metrics"
+
+  facebook_ads__demographics_region_actions_passthrough_metrics:
+    type: dictionary
+    description: "Additional `DEMOGRAPHICS_REGION_ACTIONS` report columns to include in `facebook_ads__region_report`"
+    display_name: "Additional `DEMOGRAPHICS_REGION_ACTIONS` Conversion Metrics"
+

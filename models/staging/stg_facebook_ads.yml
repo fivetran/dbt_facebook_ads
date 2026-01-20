@@ -145,10 +145,9 @@ models:
         tests:
           - not_null
       - name: creative_id
+        description: Unique ID for an ad creative.
         tests:
           - not_null
-      - name: creative_id
-        description: Unique ID for an ad creative.
       - name: account_id
         description: Ad account ID for the account this ad creative belongs to.
       - name: creative_name

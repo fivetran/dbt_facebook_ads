@@ -1,3 +1,16 @@
+# dbt_facebook_ads v1.4.0
+
+[PR #63](https://github.com/fivetran/dbt_facebook_ads/pull/63) includes the following updates:
+
+## Documentation
+- Updates README with standardized Fivetran formatting.
+- Removes duplicative column yml definitions.
+
+## Under the Hood
+- In the `quickstart.yml` file:
+  - Adds `table_variables` for relevant sources to prevent missing sources from blocking downstream Quickstart models.
+  - Adds `supported_vars` for Quickstart UI customization.
+
 # dbt_facebook_ads v1.3.0
 
 [PR #60](https://github.com/fivetran/dbt_facebook_ads/pull/60) includes the following updates:
