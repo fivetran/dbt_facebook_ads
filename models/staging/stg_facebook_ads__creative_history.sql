@@ -6,15 +6,6 @@ with base as (
     from {{ ref('stg_facebook_ads__creative_history_tmp') }}
 ),
 
-{%- set columns = adapter.get_columns_in_relation(ref('stg_facebook_ads__creative_history_tmp')) -%}
-{%- set ns = namespace(url_tags_column_type='string') -%}
-
-{% for column in columns %}
-    {%- if column.name|lower == 'url_tags' and target.type == 'bigquery' -%}
-        {%- set ns.url_tags_column_type = column.dtype|lower -%}
-    {%- endif -%}
-{%- endfor %}
-
 fields as (
 
     select
@@ -45,11 +36,8 @@ final as (
         name as creative_name,
         page_link,
         template_page_link,
-        {% if ns.url_tags_column_type == 'json' and target.type == 'bigquery' -%}
-            TO_JSON_STRING(url_tags)
-        {%- else -%}
-            url_tags
-        {%- endif %} as url_tags,
+        url_tags,
+        '{{ get_column_datatype("stg_facebook_ads__creative_history_tmp", "url_tags") }}' as url_tags_column_type,
         asset_feed_spec_link_urls,
         object_story_link_data_child_attachments,
         object_story_link_data_caption, 
