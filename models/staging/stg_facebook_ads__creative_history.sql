@@ -37,7 +37,6 @@ final as (
         page_link,
         template_page_link,
         url_tags,
-        '{{ get_column_datatype("stg_facebook_ads__creative_history_tmp", "url_tags") }}' as url_tags_column_type,
         asset_feed_spec_link_urls,
         object_story_link_data_child_attachments,
         object_story_link_data_caption, 
