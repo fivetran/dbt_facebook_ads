@@ -2,19 +2,6 @@
     {{ return(adapter.dispatch('get_url_tags_query', 'facebook_ads') ()) }}
 {%- endmacro %}
 
-{%- macro default__get_url_tags_query() %}
-    fields as (
-        select
-            source_relation,
-            _fivetran_id,
-            creative_id,
-            cast(null as {{ dbt.type_string() }}) as key,
-            cast(null as {{ dbt.type_string() }}) as value,
-            cast(null as {{ dbt.type_string() }}) as type
-        from required_fields
-    )
-{%- endmacro %}
-
 {%- macro bigquery__get_url_tags_query() %}
 
     {%- set is_native_json = get_column_datatype('stg_facebook_ads__creative_history', 'url_tags') == 'json' %}
