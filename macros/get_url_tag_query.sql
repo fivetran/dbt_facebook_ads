@@ -114,7 +114,7 @@
     )
 {%- endmacro %}
 
-{%- macro spark__get_url_tags_query() %}
+{%- macro spark__get_url_tags_query(cte_name) %}
     {# JSON datatype not supported by Fivetran so no need to check datatype. #}
 
     cleaned_fields as (
