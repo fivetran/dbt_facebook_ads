@@ -18,7 +18,7 @@ required_fields as (
     where url_tags is not null
 ), 
 
-{{ get_url_tags_query() }} 
+{{ get_url_tags_query(cte_name='fields') }} 
 
 select *
 from fields

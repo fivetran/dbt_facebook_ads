@@ -12,7 +12,7 @@ vars:
   facebook_ads_basic_ad_actions_identifier: "facebook_ads_basic_ad_actions_data"
   facebook_ads_basic_ad_action_values_identifier: "facebook_ads_basic_ad_action_values_data"
   facebook_ads_campaign_history_identifier: "facebook_ads_campaign_history_data"
-  facebook_ads_creative_history_identifier: "facebook_ads_creative_history_data"
+  facebook_ads_creative_history_identifier: "facebook_ads_creative_history_json_data"
   facebook_ads_demographics_country_identifier: "facebook_ads_demographics_country_data"
   facebook_ads_demographics_country_actions_identifier: "facebook_ads_demographics_country_actions_data"
   facebook_ads_demographics_region_identifier: "facebook_ads_demographics_region_data"
@@ -79,6 +79,22 @@ seeds:
         page_link: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
         template_page_link: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
         _fivetran_synced: "timestamp"
+        url_tags: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
+    facebook_ads_creative_history_json_data:
+      +enabled: "{{ target.type in ('bigquery', 'redshift', 'postgres', 'snowflake') }}" # @docs-ignore
+      # +enabled: false # @docs-include
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        account_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        page_link: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
+        template_page_link: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
+        _fivetran_synced: "timestamp"
+        url_tags_string: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
+      # Load as VARCHAR first, then convert to native JSON type in a post-hook.
+      # This is necessary for testing native JSON datatypes with seed data.
+      +post-hook:
+        - "alter table {{ this }} add column url_tags {{ 'super' if target.type == 'redshift' else 'variant' if target.type == 'snowflake' else 'json' }} {{ 'default null' if target.type != 'bigquery' }}"
+        - "update {{ this }} set url_tags = {{ 'json_parse(url_tags_string)' if target.type == 'redshift' else 'url_tags_string::jsonb' if target.type == 'postgres' else 'parse_json(url_tags_string)' }} {{ 'where url_tags_string is not null' if target.type == 'bigquery' }}"
     facebook_ads_basic_ad_data:
       +column_types:
         ad_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"

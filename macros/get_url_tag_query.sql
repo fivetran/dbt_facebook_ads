@@ -1,8 +1,8 @@
-{%- macro get_url_tags_query() %}
-    {{ return(adapter.dispatch('get_url_tags_query', 'facebook_ads') ()) }}
+{%- macro get_url_tags_query(cte_name) %}
+    {{ return(adapter.dispatch('get_url_tags_query', 'facebook_ads') (cte_name)) }}
 {%- endmacro %}
 
-{%- macro bigquery__get_url_tags_query() %}
+{%- macro bigquery__get_url_tags_query(cte_name) %}
 
     {%- set is_native_json = get_column_datatype('stg_facebook_ads__creative_history', 'url_tags') == 'json' %}
 
@@ -15,7 +15,7 @@
         from required_fields,
 
     {%- if is_native_json %}
-        unnest(url_tags) as url_tag_element
+        unnest(json_extract_array(url_tags)) as url_tag_element
     {%- else %}
         unnest(json_extract_array(replace(trim(url_tags, '"'),'\\',''))) as url_tag_element
     {%- endif %}
@@ -23,7 +23,7 @@
         where url_tags is not null
     ),
 
-    fields as (
+    {{ cte_name }} as (
         select
             source_relation,
             _fivetran_id,
@@ -35,7 +35,7 @@
     )
 {%- endmacro %}
 
-{%- macro postgres__get_url_tags_query() %}
+{%- macro postgres__get_url_tags_query(cte_name) %}
 
     {%- set is_native_json = get_column_datatype('stg_facebook_ads__creative_history', 'url_tags') in ('json', 'jsonb') %}
 
@@ -48,15 +48,15 @@
         from required_fields
 
     {%- if is_native_json %}
-        left join lateral json_array_elements(url_tags) as url_tag_element on True
+        cross join lateral json_array_elements(url_tags) as url_tag_element
     {%- else %}
-        left join lateral json_array_elements(replace(trim(url_tags::text, '"'),'\\','')::json) as url_tag_element on True
+        cross join lateral json_array_elements(replace(trim(url_tags::text, '"'),'\\','')::json) as url_tag_element
     {%- endif %}
 
         where url_tags is not null
     ),
 
-    fields as (
+    {{ cte_name }} as (
         select
             source_relation,
             _fivetran_id,
@@ -68,56 +68,39 @@
     )
 {%- endmacro %}
 
-{%- macro redshift__get_url_tags_query() %}
+{%- macro redshift__get_url_tags_query(cte_name) %}
 
     {%- set is_native_json = get_column_datatype('stg_facebook_ads__creative_history', 'url_tags') == 'super' %}
 
-    numbers as (
-        {{ dbt_utils.generate_series(upper_bound=1000) }}
-    ),
-
-    flattened_url_tags as (
+    url_tags as (
         select
             source_relation,
             _fivetran_id,
             creative_id,
-
-        {%- if is_native_json %}
-                required_fields.url_tags[numbers.generated_number::int - 1] as element
-        {%- else %}
-                json_extract_array_element_text(required_fields.url_tags, numbers.generated_number::int - 1, true) as element
-        {%- endif %}
-            from required_fields
-            inner join numbers
-                on json_array_length(required_fields.url_tags) >= numbers.generated_number
+            {{ 'url_tags' if is_native_json else 'json_parse(url_tags)' }} as parsed_url_tags
+        from required_fields
+        where url_tags is not null
     ),
 
-    fields as (
+    {{ cte_name }} as (
         select
-            source_relation,
-            _fivetran_id,
-            creative_id,
-
-        {%- if is_native_json %}
+            ut.source_relation,
+            ut._fivetran_id,
+            ut.creative_id,
             element.key::varchar as key,
             element.value::varchar as value,
             element.type::varchar as type
-        {%- else %}
-            json_extract_path_text(element,'key') as key,
-            json_extract_path_text(element,'value') as value,
-            json_extract_path_text(element,'type') as type
-        {%- endif %}
-
-        from flattened_url_tags
+        from url_tags as ut
+        cross join ut.parsed_url_tags as element
     )
 {%- endmacro %}
 
-{%- macro snowflake__get_url_tags_query() %}
+{%- macro snowflake__get_url_tags_query(cte_name) %}
 
     {%- set is_native_json = 
         get_column_datatype('stg_facebook_ads__creative_history', 'url_tags') in ('variant', 'object', 'array') %}
 
-    fields as (
+    {{ cte_name }} as (
         select
             source_relation,
             _fivetran_id,
@@ -144,7 +127,7 @@
         where url_tags is not null
     ),
 
-    fields as (
+    {{ cte_name }} as (
         select
             source_relation,
             _fivetran_id,

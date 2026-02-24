@@ -20,6 +20,10 @@ dbt seed --target "$db" --full-refresh
 dbt source freshness --target "$db" || echo "...Only verifying freshness runs…"
 dbt run --target "$db" --full-refresh
 dbt test --target "$db"
+if [ "$db" = "bigquery" ] || [ "$db" = "redshift" ] || [ "$db" = "postgres" ]; then
+dbt run --vars '{facebook_ads_creative_history_identifier: facebook_ads_creative_history_json_data}' --target "$db" --full-refresh
+dbt test --target "$db"
+fi
 dbt run --vars '{ad_reporting__url_report__using_null_filter: false, facebook_ads__using_demographics_country: true, facebook_ads__using_demographics_region: true}' --target "$db" --full-refresh
 dbt test --vars '{ad_reporting__url_report__using_null_filter: false, facebook_ads__using_demographics_country: true, facebook_ads__using_demographics_region: true}' --target "$db"
 dbt run-operation fivetran_utils.drop_schemas_automation --target "$db"
