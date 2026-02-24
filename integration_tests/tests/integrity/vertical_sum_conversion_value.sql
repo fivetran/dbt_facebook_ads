@@ -5,9 +5,9 @@
 
 with ad_source as (
 
-    select 
-        sum(coalesce(conversions, 0)) as conversions
-    from {{ ref('stg_facebook_ads__basic_ad_actions') }}
+    select
+        sum(coalesce(conversions_value, 0)) as conversions_value
+    from {{ ref('stg_facebook_ads__basic_ad_action_values') }}
 
     {% if var('facebook_ads__conversion_action_types') -%}
     where 
@@ -30,14 +30,15 @@ with ad_source as (
 
 ad_model as (
 
-    select 
-        sum(coalesce(conversions, 0)) as conversions
+    select
+        sum(coalesce(conversions_value, 0)) as conversions_value
     from {{ ref('facebook_ads__ad_report') }}
 )
 
 
-select 
-    ad_source.*
-from ad_model 
+select
+    ad_source.conversions_value as ad_source_conversions_value,
+    ad_model.conversions_value as ad_model_conversions_value
+from ad_model
 join ad_source on true
-where ad_model.conversions != ad_source.conversions
+where ad_model.conversions_value != ad_source.conversions_value
