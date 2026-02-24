@@ -20,7 +20,7 @@ dbt seed --target "$db" --full-refresh
 dbt source freshness --target "$db" || echo "...Only verifying freshness runs…"
 dbt run --target "$db" --full-refresh
 dbt test --target "$db"
-if [ "$db" = "bigquery" ] || [ "$db" = "redshift" ] || [ "$db" = "postgres" ]; then
+if [ "$db" = "bigquery" ] || [ "$db" = "redshift" ] || [ "$db" = "postgres" ] || [ "$db" = "snowflake" ]; then
 dbt run --vars '{facebook_ads_creative_history_identifier: facebook_ads_creative_history_json_data}' --target "$db" --full-refresh
 dbt test --target "$db"
 fi
