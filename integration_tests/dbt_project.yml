@@ -40,6 +40,9 @@ vars:
       where_sql: source_relation != 'no_purchase_source' # @docs-ignore
 
 models:
+  +persist_docs:
+    relation: true
+    columns: true
   +schema: "facebook_ads_{{ var('directed_schema','dev') }}"
 
 seeds:
