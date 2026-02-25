@@ -19,7 +19,7 @@ required_fields as (
 ), 
 
 {{ get_url_tags_query(
-    cte_name='fields', 
+    output_cte_name='fields', 
     url_tags_datatype=get_column_datatype('stg_facebook_ads__creative_history', 'url_tags')
 ) }} 
 
