@@ -1,3 +1,6 @@
+{# Utility macro to get the datatype of a specific column in a table. 
+Returns the datatype as a lowercase string. #}
+
 {% macro get_column_datatype(table_name, column_name) -%}
     {{ return(adapter.dispatch('get_column_datatype', 'facebook_ads')(table_name, column_name)) }}
 {% endmacro %}

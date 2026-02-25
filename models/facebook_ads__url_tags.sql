@@ -18,7 +18,10 @@ required_fields as (
     where url_tags is not null
 ), 
 
-{{ get_url_tags_query(cte_name='fields') }} 
+{{ get_url_tags_query(
+    cte_name='fields', 
+    url_tags_datatype=get_column_datatype('stg_facebook_ads__creative_history', 'url_tags')
+) }} 
 
 select *
 from fields
