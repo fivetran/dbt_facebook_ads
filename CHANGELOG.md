@@ -2,7 +2,7 @@
 [PR #65](https://github.com/fivetran/dbt_facebook_ads/pull/65) includes the following updates:
 
 ## Bug Fix
-- Updates URL tag processing to handle native JSON datatypes across all supported databases, preventing errors when `url_tags` columns are stored as JSON/JSONB/VARIANT/SUPER instead of strings.
+- Updates URL tag processing to handle native JSON datatypes across all supported warehouses, preventing errors when `url_tags` columns are stored as JSON/JSONB/VARIANT/SUPER instead of strings.
 
 ## Feature Update
 - Adds the `get_column_datatype()` macro to retrieve the datatype of a specific column. 
@@ -10,7 +10,7 @@
 
 ## Under the Hood
 - Adds native JSON testing to `integration_tests`.
-- Fixes `vertical_sum_conversion_value.sql` integrity test to properly validate conversion_values instead of conversion counts, and now uses `stg_facebook_ads__basic_ad_action_values` as the source.
+- Fixes the `vertical_sum_conversion_value.sql` integrity test to properly validate conversion_values instead of conversion counts, and now uses `stg_facebook_ads__basic_ad_action_values` as the source.
 
 # dbt_facebook_ads v1.4.0
 
