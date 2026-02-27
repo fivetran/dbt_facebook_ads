@@ -10,7 +10,7 @@
 
 ## Under the Hood
 - Adds native JSON testing to `integration_tests`.
-- Fixes the `vertical_sum_conversion_value.sql` integrity test to properly validate conversion_values instead of conversion counts, and now uses `stg_facebook_ads__basic_ad_action_values` as the source.
+- Fixes the `vertical_sum_conversion_value` integrity test to properly validate conversion_values instead of conversion counts, and now uses `stg_facebook_ads__basic_ad_action_values` as the source.
 
 # dbt_facebook_ads v1.4.0
 
