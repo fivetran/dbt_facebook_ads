@@ -1,3 +1,17 @@
+# dbt_facebook_ads v1.4.1
+[PR #65](https://github.com/fivetran/dbt_facebook_ads/pull/65) includes the following updates:
+
+## Bug Fix
+- Updates URL tag processing to handle native JSON datatypes across all supported warehouses, preventing errors when `url_tags` columns are stored as JSON/JSONB/VARIANT/SUPER instead of strings. 
+
+## Feature Update
+- Adds the `get_column_datatype()` macro to retrieve the datatype of a specific column. 
+- Updates the `get_url_tags_query()` macro with datatype detection to handle both native JSON columns and JSON-like string columns across BigQuery (JSON), Snowflake (VARIANT), Redshift (SUPER), and PostgreSQL (JSONB).
+
+## Under the Hood
+- Adds native JSON testing to `integration_tests`.
+- Updates the `vertical_sum_conversion_value` integrity test to validate both `conversions_value` and `conversions`.
+
 # dbt_facebook_ads v1.4.0
 
 [PR #63](https://github.com/fivetran/dbt_facebook_ads/pull/63) includes the following updates:

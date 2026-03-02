@@ -1,168 +1,174 @@
-{% macro get_url_tags_query() %}
-  {{ return(adapter.dispatch('get_url_tags_query') ()) }}
-{% endmacro %}
+{# This macro generates database-specific SQL queries to extract and unnest URL tags into key-value pairs.
 
-{% macro bigquery__get_url_tags_query() %}
+Parameters:
+- output_cte_name: Name for the output CTE containing the parsed URL tag data
+- url_tags_datatype: The detected datatype of the url_tags column (passed from calling macro)
 
-  cleaned_json as (
+Approach:
+- Receives the url_tags datatype as a parameter to determine processing method
+- For native JSON types (BigQuery JSON, Snowflake VARIANT, Redshift SUPER, PostgreSQL JSON/JSONB):
+    - Uses direct JSON unnesting functions for optimal performance
+- For string types containing JSON-like data:
+    - Cleans and parses the string to native JSON format first, then unnests
+- Returns a CTE with columns: source_relation, _fivetran_id, creative_id, key, value, type
 
-      select
-          source_relation,
-          _fivetran_id,
-          creative_id,
-          json_extract_array(replace(trim(url_tags, '"'),'\\','')) as cleaned_url_tags
-      from required_fields
-  ), 
+Database-specific implementations:
+- BigQuery: json_extract_array() + unnest()
+- PostgreSQL: json_array_elements() + cross join lateral
+- Redshift: json_parse() + cross join with array elements
+- Snowflake: parse_json() + lateral flatten()
+- Spark: from_json() + explode() (assumes string input only) #}
 
-  unnested as (
+{%- macro get_url_tags_query(output_cte_name, url_tags_datatype) %}
+    {{ return(adapter.dispatch('get_url_tags_query', 'facebook_ads') (output_cte_name, url_tags_datatype)) }}
+{%- endmacro %}
 
-      select 
-        source_relation,
-        _fivetran_id, 
-        creative_id, 
-        url_tag_element
-      from cleaned_json
-      left join unnest(cleaned_url_tags) as url_tag_element
-      where cleaned_url_tags is not null
-  ), 
+{%- macro default__get_url_tags_query(output_cte_name, url_tags_datatype) %}
 
-  fields as (
+    {{ output_cte_name }} as (
+        select
+            source_relation,
+            _fivetran_id,
+            creative_id,
+            cast(null as {{ dbt.type_string() }}) as key,
+            cast(null as {{ dbt.type_string() }}) as value,
+            cast(null as {{ dbt.type_string() }}) as type
+        from unnested
+    )
+{%- endmacro %}
 
-      select
-          source_relation,
-          _fivetran_id,
-          creative_id,
-          json_extract_scalar(url_tag_element, '$.key') as key,
-          json_extract_scalar(url_tag_element, '$.value') as value,
-          json_extract_scalar(url_tag_element, '$.type') as type
-      from unnested
-  )
+{%- macro bigquery__get_url_tags_query(output_cte_name, url_tags_datatype) %}
 
-{% endmacro %}
+    {%- set is_native_json = url_tags_datatype == 'json' %}
 
-{% macro postgres__get_url_tags_query() %}
+    unnested as (
+        select
+            source_relation,
+            _fivetran_id,
+            creative_id,
+            url_tag_element
+        from required_fields,
 
-  cleaned_json as (
+    {%- if is_native_json %}
+        unnest(json_extract_array(url_tags)) as url_tag_element
+    {%- else %}
+        unnest(json_extract_array(replace(trim(url_tags, '"'),'\\',''))) as url_tag_element
+    {%- endif %}
 
-      select
-          source_relation,
-          _fivetran_id,
-          creative_id,
-          replace(trim(url_tags::text, '"'),'\\','')::json as cleaned_url_tags
-      from required_fields
-  ), 
+        where url_tags is not null
+    ),
 
-  unnested as (
+    {{ output_cte_name }} as (
+        select
+            source_relation,
+            _fivetran_id,
+            creative_id,
+            json_extract_scalar(url_tag_element, '$.key') as key,
+            json_extract_scalar(url_tag_element, '$.value') as value,
+            json_extract_scalar(url_tag_element, '$.type') as type
+        from unnested
+    )
+{%- endmacro %}
 
-      select 
-        source_relation,
-        _fivetran_id, 
-        creative_id, 
-        url_tag_element
-      from cleaned_json
-      left join lateral json_array_elements(cleaned_url_tags) as url_tag_element on True
-      where cleaned_url_tags is not null
-  ), 
+{%- macro postgres__get_url_tags_query(output_cte_name, url_tags_datatype) %}
 
-  fields as (
+    {%- set is_native_json = url_tags_datatype in ('json', 'jsonb') %}
 
-      select
-          source_relation,
-          _fivetran_id,
-          creative_id,
-          url_tag_element->>'key' as key,
-          url_tag_element->>'value' as value,
-          url_tag_element->>'type' as type
-      from unnested
-  )
+    unnested as (
+        select
+            source_relation,
+            _fivetran_id,
+            creative_id,
+            url_tag_element
+        from required_fields
 
-{% endmacro %}
+    {%- if is_native_json %}
+        cross join lateral json_array_elements(url_tags) as url_tag_element
+    {%- else %}
+        cross join lateral json_array_elements(replace(trim(url_tags::text, '"'),'\\','')::json) as url_tag_element
+    {%- endif %}
 
-{% macro redshift__get_url_tags_query() %}
+        where url_tags is not null
+    ),
 
-  numbers as (
+    {{ output_cte_name }} as (
+        select
+            source_relation,
+            _fivetran_id,
+            creative_id,
+            url_tag_element->>'key' as key,
+            url_tag_element->>'value' as value,
+            url_tag_element->>'type' as type
+        from unnested
+    )
+{%- endmacro %}
 
-      {{ dbt_utils.generate_series(upper_bound=1000) }}
+{%- macro redshift__get_url_tags_query(output_cte_name, url_tags_datatype) %}
 
-  ), 
+    {%- set is_native_json = url_tags_datatype == 'super' %}
 
-  flattened_url_tags as (
+    url_tags as (
+        select
+            source_relation,
+            _fivetran_id,
+            creative_id,
+            {{ 'url_tags' if is_native_json else 'json_parse(url_tags)' }} as parsed_url_tags
+        from required_fields
+        where url_tags is not null
+    ),
 
-      select
-          source_relation,
-          _fivetran_id,
-          creative_id,
-          json_extract_array_element_text(required_fields.url_tags, numbers.generated_number::int - 1, true) as element
-      from required_fields
-      inner join numbers
-          on json_array_length(required_fields.url_tags) >= numbers.generated_number
-  ), 
+    {{ output_cte_name }} as (
+        select
+            ut.source_relation,
+            ut._fivetran_id,
+            ut.creative_id,
+            element.key::varchar as key,
+            element.value::varchar as value,
+            element.type::varchar as type
+        from url_tags as ut
+        cross join ut.parsed_url_tags as element
+    )
+{%- endmacro %}
 
-  fields as (
+{%- macro snowflake__get_url_tags_query(output_cte_name, url_tags_datatype) %}
 
-      select
-          source_relation,
-          _fivetran_id,
-          creative_id,
-          json_extract_path_text(element,'key') as key,
-          json_extract_path_text(element,'value') as value,
-          json_extract_path_text(element,'type') as type
-      from flattened_url_tags
-  )
+    {%- set is_native_json = url_tags_datatype in ('variant', 'object', 'array') %}
 
-{% endmacro %}
+    {{ output_cte_name }} as (
+        select
+            source_relation,
+            _fivetran_id,
+            creative_id,
+            url_tags.value:key::string as key,
+            url_tags.value:value::string as value,
+            url_tags.value:type::string as type
+        from required_fields,
+        lateral flatten(input => {{ 'url_tags' if is_native_json else 'parse_json(url_tags)' }}) as url_tags
+        where url_tags is not null
+    )
+{%- endmacro %}
 
-{% macro snowflake__get_url_tags_query() %}
+{%- macro spark__get_url_tags_query(output_cte_name, url_tags_datatype) %}
+    {# JSON datatype not supported by Fivetran so no need to check datatype. #}
 
-  cleaned_fields as (
+    cleaned_fields as (
+        select
+            source_relation,
+            _fivetran_id,
+            creative_id,
+            explode(from_json(url_tags, 'array<struct<key:STRING, value:STRING, type:STRING>>')) as url_tags
+        from required_fields
+        where url_tags is not null
+    ),
 
-      select
-          source_relation,
-          _fivetran_id,
-          creative_id,
-          parse_json(url_tags) as url_tags
-      from required_fields
-      where url_tags is not null
-  ), 
-
-  fields as (
-
-      select
-          source_relation,
-          _fivetran_id,
-          creative_id,
-          url_tags.value:key::string as key,
-          url_tags.value:value::string as value,
-          url_tags.value:type::string as type
-      from cleaned_fields,
-      lateral flatten( input => url_tags ) as url_tags
-  )
-
-{% endmacro %}
-
-{% macro spark__get_url_tags_query() %}
-
-  cleaned_fields as (
-
-      select
-          source_relation,
-          _fivetran_id,
-          creative_id,
-          explode(from_json(url_tags, 'array<struct<key:STRING, value:STRING, type:STRING>>')) as url_tags
-      from required_fields
-      where url_tags is not null
-  ), 
-
-  fields as (
-
-      select
-          source_relation,
-          _fivetran_id,
-          creative_id,
-          url_tags.key as key,
-          url_tags.value as value,
-          url_tags.type as type
-      from cleaned_fields
-  )
-
-{% endmacro %}
+    {{ output_cte_name }} as (
+        select
+            source_relation,
+            _fivetran_id,
+            creative_id,
+            url_tags.key as key,
+            url_tags.value as value,
+            url_tags.type as type
+        from cleaned_fields
+    )
+{%- endmacro %}
