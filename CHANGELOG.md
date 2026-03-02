@@ -2,7 +2,7 @@
 [PR #65](https://github.com/fivetran/dbt_facebook_ads/pull/65) includes the following updates:
 
 ## Bug Fix
-- Updates URL tag processing to handle native JSON datatypes across all supported warehouses, preventing errors when `url_tags` columns are stored as JSON/JSONB/VARIANT/SUPER instead of strings.
+- Updates URL tag processing to handle native JSON datatypes across all supported warehouses, preventing errors when `url_tags` columns are stored as JSON/JSONB/VARIANT/SUPER instead of strings. 
 
 ## Feature Update
 - Adds the `get_column_datatype()` macro to retrieve the datatype of a specific column. 
