@@ -1,5 +1,5 @@
 # dbt_facebook_ads v1.4.2
-[PR #TBD](https://github.com/fivetran/dbt_facebook_ads/pull/TBD) includes the following updates:
+[PR #67](https://github.com/fivetran/dbt_facebook_ads/pull/67) includes the following updates:
 
 ## Bug Fix
 - Fixes PostgreSQL compatibility issue in `get_url_tags_query()` macro where `jsonb` columns were incorrectly processed using `json_array_elements()` instead of `jsonb_array_elements()`, causing database errors when `url_tags` column is stored as `jsonb` datatype.
