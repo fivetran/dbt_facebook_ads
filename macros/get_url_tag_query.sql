@@ -83,7 +83,7 @@ Database-specific implementations:
         from required_fields
 
     {%- if is_native_json %}
-        cross join lateral {{url_tags_datatype}}_array_elements(url_tags) as url_tag_element -- use json_array_elements or jsonb_array_elements based on datatype
+        cross join lateral {{ url_tags_datatype }}_array_elements(url_tags) as url_tag_element -- use json_array_elements or jsonb_array_elements based on datatype
     {%- else %}
         cross join lateral json_array_elements(replace(trim(url_tags::text, '"'),'\\','')::json) as url_tag_element
     {%- endif %}
