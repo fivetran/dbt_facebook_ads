@@ -1,5 +1,5 @@
 name: 'facebook_ads_integration_tests'
-version: '1.4.1'
+version: '1.4.2'
 profile: 'integration_tests'
 config-version: 2
 
@@ -96,7 +96,7 @@ seeds:
       # Load as VARCHAR first, then convert to native JSON type in a post-hook.
       # This is necessary for testing native JSON datatypes with seed data.
       +post-hook:
-        - "alter table {{ this }} add column url_tags {{ 'super' if target.type == 'redshift' else 'variant' if target.type == 'snowflake' else 'json' }} {{ 'default null' if target.type != 'bigquery' }}"
+        - "alter table {{ this }} add column url_tags {{ 'super' if target.type == 'redshift' else 'variant' if target.type == 'snowflake' else 'jsonb' if target.type == 'postgres' else 'json' }} {{ 'default null' if target.type != 'bigquery' }}"
         - "update {{ this }} set url_tags = {{ 'json_parse(url_tags_string)' if target.type == 'redshift' else 'url_tags_string::jsonb' if target.type == 'postgres' else 'parse_json(url_tags_string)' }} {{ 'where url_tags_string is not null' if target.type == 'bigquery' }}"
     facebook_ads_basic_ad_data:
       +column_types:
