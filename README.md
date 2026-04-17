@@ -195,6 +195,14 @@ vars:
 
 > **Note**: Please ensure to exercise due diligence when adding or removing conversion action types. The action types added by default have been heavily vetted by our friends at [Seer Interactive](https://www.seerinteractive.com/) and the Fivetran team maintaining this package for accuracy. There are many ways to accidentally double-count conversion values, as some action types are hierarchical/aggregates or overlap with others. Reference the action type descriptions in the Meta [API docs](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/) to ensure you select action types that appropriately and accurately fit your use case.
 
+#### Disable the URL null filter
+By default, the `facebook_ads__url_report` model excludes ads with NULL `url` values. If you would like to include these records in your URL report, add the following configuration to your root `dbt_project.yml` file:
+
+```yml
+vars:
+  ad_reporting__url_report__using_null_filter: false # True by default
+```
+
 #### Change the build schema
 
 By default, this package builds the Facebook Ads staging models (8 views, 8 tables) within a schema titled (`<target_schema>` + `_facebook_ads_source`) and your Facebook Ads modeling models (6 tables, 2 intermediate views) within a schema titled (`<target_schema>` + `_facebook_ads`) in your destination. If this is not where you would like your Facebook Ads data to be written to, add the following configuration to your root `dbt_project.yml` file:
