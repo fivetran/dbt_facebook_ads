@@ -1,0 +1,31 @@
+# Only set if not using default adapter ranges
+# dbt_adapter_versions:
+#   snowflake: ">=1.3.0,<2.0.0"
+#   bigquery: ">=1.3.0,<2.0.0"
+#   postgres: ">=1.3.0,<2.0.0"
+#   redshift: ">=1.3.0,<2.0.0"
+#   databricks: ">=1.6.0,<2.0.0"
+
+schema_variable_name: "facebook_ads_schema"
+
+include_databricks_sql: false
+include_sqlserver: false
+include_dbt_compile: true
+
+test_scenarios:
+  - name: "Default"
+    vars: {}
+    include_incremental: false
+
+  - name: "creative history json"
+    vars:
+      facebook_ads_creative_history_identifier: "facebook_ads_creative_history_json_data"
+    include_incremental: false
+    warehouses: ["bigquery", "redshift", "postgres", "snowflake"]
+
+  - name: "demographics and url filter"
+    vars:
+      ad_reporting__url_report__using_null_filter: false
+      facebook_ads__using_demographics_country: true
+      facebook_ads__using_demographics_region: true
+    include_incremental: false
