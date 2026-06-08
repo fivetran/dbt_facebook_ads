@@ -9,7 +9,7 @@ sources:
 
     config:
       loaded_at_field: _fivetran_synced
-      enabled: "{{ var('facebook_ads_sources', []) == [] }}"
+      enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads_sources', []) == [] }}"
       freshness: 
         warn_after: {count: 48, period: hour}
         error_after: {count: 168, period: hour}
