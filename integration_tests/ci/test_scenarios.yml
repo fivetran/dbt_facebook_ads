@@ -29,3 +29,9 @@ test_scenarios:
       facebook_ads__using_demographics_country: true
       facebook_ads__using_demographics_region: true
     include_incremental: false
+
+  - name: "MDLS"
+    vars:
+      fivetran_using_source_casing: true
+    include_incremental: false
+    include_dbt_seed: true

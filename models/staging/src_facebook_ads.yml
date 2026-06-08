@@ -9,7 +9,7 @@ sources:
 
     config:
       loaded_at_field: _fivetran_synced
-      enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) }}"
+      enabled: "{{ var('facebook_ads_sources', []) == [] }}"
       freshness: 
         warn_after: {count: 48, period: hour}
         error_after: {count: 168, period: hour}
@@ -251,7 +251,7 @@ sources:
         identifier: '{{ var("facebook_ads_demographics_country_identifier", "demographics_country") }}'
         description: '{{ doc("demographics_country") }}'
         config:
-          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_country', false) }}"
+          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_country', false) and var('facebook_ads_sources', []) == [] }}"
         columns:
           - name: account_id
             description: '{{ doc("account_id") }}'
@@ -288,7 +288,7 @@ sources:
         identifier: '{{ var("facebook_ads_demographics_country_actions_identifier", "demographics_country_actions") }}'
         description: '{{ doc("demographics_country_actions") }}'
         config:
-          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_country', false) }}"
+          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_country', false) and var('facebook_ads_sources', []) == [] }}"
         columns:
           - name: account_id
             description: '{{ doc("account_id") }}'
@@ -315,7 +315,7 @@ sources:
         identifier: '{{ var("facebook_ads_demographics_region_identifier", "demographics_region") }}'
         description: '{{ doc("demographics_region") }}'
         config:
-          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_region', false) }}"
+          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_region', false) and var('facebook_ads_sources', []) == [] }}"
         columns:
           - name: account_id
             description: '{{ doc("account_id") }}'
@@ -352,7 +352,7 @@ sources:
         identifier: '{{ var("facebook_ads_demographics_region_actions_identifier", "demographics_region_actions") }}'
         description: '{{ doc("demographics_region_actions") }}'
         config:
-          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_region', false) }}"
+          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_region', false) and var('facebook_ads_sources', []) == [] }}"
         columns:
           - name: account_id
             description: '{{ doc("account_id") }}'
