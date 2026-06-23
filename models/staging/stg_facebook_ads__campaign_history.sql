@@ -17,10 +17,7 @@ fields as (
         }}
         
     
-        {{ fivetran_utils.source_relation(
-            union_schema_variable='facebook_ads_union_schemas', 
-            union_database_variable='facebook_ads_union_databases') 
-        }}
+        {{ fivetran_utils.apply_source_relation(package_name='facebook_ads') }}
 
     from base
 ),
@@ -41,8 +38,8 @@ final as (
         lifetime_budget,
         budget_remaining,
         case when id is null and updated_time is null 
-            then row_number() over (partition by source_relation order by source_relation)
-        else row_number() over (partition by source_relation, id order by updated_time desc) end = 1 as is_most_recent_record
+            then row_number() over ({{ fivetran_utils.partition_by_source_relation(package_name='facebook_ads', has_other_partitions='no') }} order by source_relation)
+        else row_number() over (partition by id {{ fivetran_utils.partition_by_source_relation(package_name='facebook_ads') }} order by updated_time desc) end = 1 as is_most_recent_record
     from fields
 
 )
