@@ -148,6 +148,31 @@ Database-specific implementations:
     )
 {%- endmacro %}
 
+{%- macro duckdb__get_url_tags_query(output_cte_name, url_tags_datatype) %}
+    {# JSON datatype not supported by DuckDB connector so no need to check datatype. #}
+
+    unnested as (
+        select
+            source_relation,
+            _fivetran_id,
+            creative_id,
+            unnest(from_json(url_tags, '["JSON"]')) as url_tag_element
+        from required_fields
+        where url_tags is not null
+    ),
+
+    {{ output_cte_name }} as (
+        select
+            source_relation,
+            _fivetran_id,
+            creative_id,
+            json_extract_string(url_tag_element, '$.key') as key,
+            json_extract_string(url_tag_element, '$.value') as value,
+            json_extract_string(url_tag_element, '$.type') as type
+        from unnested
+    )
+{%- endmacro %}
+
 {%- macro spark__get_url_tags_query(output_cte_name, url_tags_datatype) %}
     {# JSON datatype not supported by Fivetran so no need to check datatype. #}
 
