@@ -1,3 +1,11 @@
+# dbt_facebook_ads v1.5.1
+
+[PR #72](https://github.com/fivetran/dbt_facebook_ads/pull/72) includes the following updates:
+
+## Feature Updates
+- Adds DuckDB as a supported destination.
+
+
 # dbt_facebook_ads v1.5.0
 
 [PR #70](https://github.com/fivetran/dbt_facebook_ads/pull/70) includes the following updates:
