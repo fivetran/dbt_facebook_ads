@@ -84,6 +84,7 @@ seeds:
         template_page_link: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
         _fivetran_synced: "timestamp"
         url_tags: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
+        object_story_link_data_child_attachments: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar(1000)' }}"
     facebook_ads_creative_history_json_data:
       +enabled: "{{ target.type in ('bigquery', 'redshift', 'postgres', 'snowflake') and not var('fivetran_using_source_casing', false) }}" # @docs-ignore
       # +enabled: false # @docs-include
@@ -94,6 +95,7 @@ seeds:
         template_page_link: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
         _fivetran_synced: "timestamp"
         url_tags_string: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
+        object_story_link_data_child_attachments: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar(1000)' }}"
       # Load as VARCHAR first, then convert to native JSON type in a post-hook.
       # This is necessary for testing native JSON datatypes with seed data.
       +post-hook:
