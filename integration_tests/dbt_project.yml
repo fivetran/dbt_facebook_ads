@@ -140,14 +140,25 @@ seeds:
         value: "float"
     facebook_ads_demographics_age_and_gender_data:
       +column_types:
-        account_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_id: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
         _fivetran_synced: "timestamp"
+        account_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         age: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
+        date: "date"
+        frequency: "float"
         gender: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
+        impressions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        inline_link_clicks: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        reach: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        spend: "float"
     facebook_ads_demographics_age_and_gender_actions_data:
       +column_types:
-        account_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_id: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
         _fivetran_synced: "timestamp"
+        account_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        action_type: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
+        date: "date"
+        index: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         value: "float"
     
 dispatch:

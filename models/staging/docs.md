@@ -96,15 +96,15 @@ Audience age range, such as `18-24`, `25-34`, `35-44`, `45-54`, `55-64`, `65+`, 
 {% enddocs %}
 
 {% docs min_age %}
-Lower bound of the audience age range, parsed from `age`. For example, `18-24` and `65+` return 18 and 65. Null when `age` isn't a range, such as `Unknown`.
+Lower bound of the audience age range, parsed from `age`. For example, `18-24` and `65+` return 18 and 65. Null when age is unknown.
 {% enddocs %}
 
 {% docs max_age %}
-Upper bound of the audience age range, parsed from `age`. For example, `18-24` returns 24. An open-ended range such as `65+` returns 100. Null when `age` isn't a range, such as `Unknown`.
+Upper bound of the audience age range, parsed from `age`. For example, `18-24` returns 24. An open-ended range such as `65+` returns 100. Null when age is unknown.
 {% enddocs %}
 
 {% docs gender %}
-Audience gender, such as `female`, `male`, or `unknown` when Facebook can't determine it. A null value becomes `unknown`.
+Audience gender, such as `female`, `male`, or `unknown` when Facebook can't determine it.
 {% enddocs %}
 
 {% docs demographics_age_and_gender %}
