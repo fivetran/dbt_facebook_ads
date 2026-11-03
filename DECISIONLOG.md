@@ -28,5 +28,4 @@ Facebook reports audience age as a range string, such as `18-24`. The oldest ran
 We keep the raw `age` value and parse it into `min_age` and `max_age` integer columns:
 - A range such as `18-24` maps to `min_age = 18` and `max_age = 24`.
 - An open-ended range such as `65+` maps to `min_age = 65` and `max_age = 100`. We use 100 as the upper bound so you can filter and bucket ages with `between min_age and max_age`.
-- Values that aren't a range, such as `Unknown`, get `null` for both. A null `age` becomes `Unknown`, and a null `gender` becomes `unknown`, matching Facebook's own values.
-
+- Values that aren't a range, such as `Unknown`, get `null` for both.
