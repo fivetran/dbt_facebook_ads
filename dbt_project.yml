@@ -1,5 +1,5 @@
 name: 'facebook_ads'
-version: '1.5.1'
+version: '1.6.0'
 config-version: 2
 require-dbt-version: [">=1.3.0", "<3.0.0"]
 models:
@@ -29,6 +29,8 @@ vars:
     demographics_country_actions: "{{ source('facebook_ads', 'demographics_country_actions') }}"
     demographics_region: "{{ source('facebook_ads', 'demographics_region') }}"
     demographics_region_actions: "{{ source('facebook_ads', 'demographics_region_actions') }}"
+    demographics_age_and_gender: "{{ source('facebook_ads', 'demographics_age_and_gender') }}"
+    demographics_age_and_gender_actions: "{{ source('facebook_ads', 'demographics_age_and_gender_actions') }}"
 
     facebook_ads__conversion_action_types: # default values
       - name: onsite_conversion.purchase
@@ -44,3 +46,5 @@ vars:
   facebook_ads__demographics_country_actions_passthrough_metrics: []
   facebook_ads__demographics_region_passthrough_metrics: []
   facebook_ads__demographics_region_actions_passthrough_metrics: []
+  facebook_ads__demographics_age_and_gender_passthrough_metrics: []
+  facebook_ads__demographics_age_and_gender_actions_passthrough_metrics: []

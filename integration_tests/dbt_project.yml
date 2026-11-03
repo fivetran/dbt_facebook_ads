@@ -1,5 +1,5 @@
 name: 'facebook_ads_integration_tests'
-version: '1.5.1'
+version: '1.6.0'
 profile: 'integration_tests'
 config-version: 2
 
@@ -17,10 +17,13 @@ vars:
   facebook_ads_demographics_country_actions_identifier: "facebook_ads_demographics_country_actions_data"
   facebook_ads_demographics_region_identifier: "facebook_ads_demographics_region_data"
   facebook_ads_demographics_region_actions_identifier: "facebook_ads_demographics_region_actions_data"
+  facebook_ads_demographics_age_and_gender_identifier: "facebook_ads_demographics_age_and_gender_data"
+  facebook_ads_demographics_age_and_gender_actions_identifier: "facebook_ads_demographics_age_and_gender_actions_data"
 
   # Comment IN docs generate
   # facebook_ads__using_demographics_country: true # @docs-include
   # facebook_ads__using_demographics_region: true # @docs-include
+  # facebook_ads__using_demographics_age_and_gender: true # @docs-include
 
   # Comment OUT for docs generation
   facebook_ads__basic_ad_passthrough_metrics: # @docs-ignore
@@ -131,6 +134,17 @@ seeds:
         account_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         _fivetran_synced: "timestamp"
     facebook_ads_demographics_region_actions_data:
+      +column_types:
+        account_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: "timestamp"
+        value: "float"
+    facebook_ads_demographics_age_and_gender_data:
+      +column_types:
+        account_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: "timestamp"
+        age: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
+        gender: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar' }}"
+    facebook_ads_demographics_age_and_gender_actions_data:
       +column_types:
         account_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         _fivetran_synced: "timestamp"

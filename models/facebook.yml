@@ -587,3 +587,72 @@ models:
         description: '{{ doc("frequency") }}'
       - name: reach
         description: '{{ doc("reach") }}'
+
+  - name: facebook_ads__age_gender_report
+    description: Each record represents the daily performance of a Facebook account for one audience age range and gender.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: The date of the performance.
+      - name: account_id
+        description: The ID of the related account.
+      - name: account_name
+        description: The name of the related account.
+      - name: clicks
+        description: The number of clicks the ad had on the given day.
+      - name: impressions
+        description: The number of impressions the ad had on the given day.
+      - name: spend
+        description: The spend on the ad in the given day.
+      - name: conversions
+        description: >
+          Total number of conversions using the default attribution window on the given day. See the
+          [README](https://github.com/fivetran/dbt_facebook_ads?tab=readme-ov-file#configuring-conversion-action-types)
+          for details around conversion-eligible action types.
+      - name: onsite_conversion_purchase_conversions
+        description: >
+          Number of purchase conversions made within Meta technologies (such as Pages or Messenger) and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: onsite_conversion_lead_grouped_conversions
+        description: >
+          Number of leads submitted on Meta technologies (including forms and Messenger) and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_purchase_conversions
+        description: >
+          Number of purchase events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_lead_conversions
+        description: >
+          Number of lead events tracked by the pixel or Conversions API on your website and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: offsite_conversion_fb_pixel_custom_conversions
+        description: >
+          Number of custom pixel events defined by the advertiser and attributed to your ads, using the default attribution window.
+          Additional custom action types can be configured via the `facebook_ads__conversion_action_types` variable.
+      - name: account_business_country_code
+        description: Country code of business associated to account.
+      - name: account_business_state
+        description: State abbreviation for business address.
+      - name: account_currency
+        description: Currency associated with account.
+      - name: account_timezone
+        description: Timezone associated with account.
+      - name: account_timezone_offset_hours_utc
+        description: Time zone difference from UTC.
+      - name: account_min_daily_budget
+        description: The minimum daily budget for this Ad Account.
+      - name: age_gender_id
+        description: "{{ doc('age_gender_id') }}"
+      - name: age
+        description: "{{ doc('age') }}"
+      - name: min_age
+        description: "{{ doc('min_age') }}"
+      - name: max_age
+        description: "{{ doc('max_age') }}"
+      - name: gender
+        description: "{{ doc('gender') }}"
+      - name: frequency
+        description: '{{ doc("frequency") }}'
+      - name: reach
+        description: '{{ doc("reach") }}'

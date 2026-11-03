@@ -5,7 +5,7 @@ This dbt package transforms data from Fivetran's Facebook Ads connector into ana
 
 ## Resources
 
-- Number of materialized models¹: 34
+- Number of materialized models¹: 39
 - Connector documentation
   - [Facebook Ads connector documentation](https://fivetran.com/docs/connectors/applications/facebook-ads)
   - [Facebook Ads ERD](https://fivetran.com/docs/connectors/applications/facebook-ads#schemainformation)
@@ -41,6 +41,7 @@ By default, this package materializes the following final tables:
 | [`facebook_ads__ad_report`](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__ad_report) | Represents daily performance at the individual ad level, including `spend`, `clicks`, `impressions`, and `conversions`.<br><br>**Example Analytics Questions:**<ul><li>Which ad creatives are driving the lowest cost per click?</li><li>Do expanded text ads perform better than responsive search ads?</li><li>How do performance trends change after refreshing ad copy?</li></ul> |
 | [`facebook_ads__country_report`](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__country_report) | Represents daily performance aggregated at the account level by country, including `spend`, `clicks`, `impressions`, and `conversions`, enriched with geographic context.<br><br>**Example Analytics Questions:**<ul><li>Which countries are delivering the highest return on ad spend for each account?</li><li>Are there seasonal performance variations by geographic region?</li></ul> |
 | [`facebook_ads__region_report`](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__region_report) | Represents daily performance aggregated at the account level by region, including `spend`, `clicks`, `impressions`, and `conversions`, enriched with geographic context.<br><br>**Example Analytics Questions:**<ul><li>Which regions are driving the most efficient account performance?</li><li>How do regional performance trends correlate with local market conditions?</li></ul> |
+| [`facebook_ads__age_gender_report`](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__age_gender_report) | Represents daily performance aggregated at the account level for each audience age range and gender, including `spend`, `clicks`, `impressions`, and `conversions`. The model splits each age range into `min_age` and `max_age`.<br><br>**Example Analytics Questions:**<ul><li>Which age and gender segments convert at the lowest cost for each account?</li><li>Is spend shifting toward younger or older audiences over time?</li></ul> |
 | [`facebook_ads__url_report`](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__url_report) | Represents daily performance at the individual URL level, including `spend`, `clicks`, `impressions`, and `conversions`, enriched with ad context. By default, excludes ads with NULL `url` values.<br><br>**Example Analytics Questions:**<ul><li>Which landing pages are driving the highest conversion rates?</li><li>Are certain URLs performing better with specific ad creative combinations?</li></ul> |
 | [`facebook_ads__url_tags`](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__url_tags) | Represents unique combinations of creative_id and corresponding URL tag key-value pairs, providing UTM and custom parameter tracking. Excludes creatives without URL tags.<br><br>**Example Analytics Questions:**<ul><li>Which UTM campaigns are driving the most traffic across different creatives?</li><li>How do custom URL parameters correlate with conversion performance?</li></ul> |
 
@@ -64,7 +65,7 @@ To use this dbt package, you must have the following:
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, **Databricks**, or **DuckDB** destination.
 - You will need to configure your Facebook Ads connection to pull the `basic_ad` pre-built report and its child `basic_ad_actions` and `basic_ad_action_values` pre-built reports. These pre-built reports should be enabled in your connection by default. However, to confirm these reports are actively syncing you may perform the following steps:
     1. Navigate to the connection schema tab in Fivetran.
-    2. Search for `basic_ad`, `basic_ad_actions`, and `basic_ad_action_values` and confirm they are all selected/enabled. If you would like country and region-level transformations, do the same for `demographics_country`, `demographics_country_actions`, `demographics_region`, and `demographics_region_actions`.
+    2. Search for `basic_ad`, `basic_ad_actions`, and `basic_ad_action_values` and confirm they are all selected/enabled. If you would like country, region, or age and gender transformations, do the same for `demographics_country`, `demographics_country_actions`, `demographics_region`, `demographics_region_actions`, `demographics_age_and_gender`, and `demographics_age_and_gender_actions`.
     3. If not selected, do so and sync. If already selected you are ready to run the models!
 
 ## How do I use the dbt package?
@@ -81,7 +82,7 @@ Include the following facebook_ads package version in your `packages.yml` file:
 ```yml
 packages:
   - package: fivetran/facebook_ads
-    version: [">=1.5.0", "<1.6.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=1.6.0", "<1.7.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 
 > All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/facebook_ads_source` in your `packages.yml` since this package has been deprecated.
@@ -133,21 +134,22 @@ If you use [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/
 ### (Optional) Additional configurations
 <details open><summary>Expand/Collapse details</summary>
 
-#### Enable or Disable Country and Region Reports
-This package uses the `demographics_country`, `demographics_country_actions`, `demographics_region`, and `demographics_region_actions` [pre-built](https://fivetran.com/docs/connectors/applications/facebook-ads/prebuilt-reports) reports, but takes into consideration that not every user may use these tables.
+#### Enable or Disable Country, Region, and Age and Gender Reports
+This package uses the `demographics_country`, `demographics_country_actions`, `demographics_region`, `demographics_region_actions`, `demographics_age_and_gender`, and `demographics_age_and_gender_actions` [pre-built](https://fivetran.com/docs/connectors/applications/facebook-ads/prebuilt-reports) reports, but takes into consideration that not every user may use these tables.
 
 If you are running the Facebook Ads package via Fivetran Quickstart, transformations of the above tables will be dynamically enabled or disabled. Otherwise, transformations of these tables are **disabled** by default.
 
-To enable transformations of the above geo-focused reports, add the following variable configurations to your root `dbt_project.yml` file:
+To enable transformations of the above demographic reports, add the following variable configurations to your root `dbt_project.yml` file:
 
 ```yml
 vars:
   facebook_ads__using_demographics_country: True # False by default. Will enable/disable use of the `demographics_country` and `demographics_country_actions` reports
   facebook_ads__using_demographics_region: True # False by default. Will enable/disable use of the `demographics_region` and `demographics_region_actions` reports
+  facebook_ads__using_demographics_age_and_gender: True # False by default. Enables or disables the `demographics_age_and_gender` and `demographics_age_and_gender_actions` reports
 ```
 
 #### Passing Through Additional Metrics
-By default, this package will select `clicks`, `impressions`, `cost`, `conversion`, and conversion `value` (using the [default](https://fivetran.com/docs/connectors/applications/facebook-ads/custom-reports#attributionwindows) attribution window) from the source reporting tables to store into the output models. `reach` and `frequency` are also selected from `DEMOGRAPHICS_COUNTRY` and `DEMOGRAPHICS_REGION` (and passed to the `facebook_ads__country_report` and `facebook_ads__region_report` models) but not from `BASIC_AD`.
+By default, this package will select `clicks`, `impressions`, `cost`, `conversion`, and conversion `value` (using the [default](https://fivetran.com/docs/connectors/applications/facebook-ads/custom-reports#attributionwindows) attribution window) from the source reporting tables to store into the output models. `reach` and `frequency` are also selected from `DEMOGRAPHICS_COUNTRY`, `DEMOGRAPHICS_REGION`, and `DEMOGRAPHICS_AGE_AND_GENDER` (and passed to the `facebook_ads__country_report`, `facebook_ads__region_report`, and `facebook_ads__age_gender_report` models) but not from `BASIC_AD`.
 
 If you would like to pass through additional metrics to the output models, add the below configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and transformed (`transform_sql`) if desired, but not required. Only the `name` of each metric field is required. Use the below format for declaring the respective pass-through variables:
 
@@ -178,10 +180,15 @@ vars:
       - name: "cost_per_inline_link_click"
     facebook_ads__demographics_region_actions_passthrough_metrics: # Add conversion metrics from DEMOGRAPHICS_REGION_ACTIONS
       - name: "inline"
+    facebook_ads__demographics_age_and_gender_passthrough_metrics: # Add metrics from DEMOGRAPHICS_AGE_AND_GENDER
+      - name: "cost_per_inline_link_click"
+    facebook_ads__demographics_age_and_gender_actions_passthrough_metrics: # Add conversion metrics from DEMOGRAPHICS_AGE_AND_GENDER_ACTIONS
+      - name: "_7_d_click"
+        alias: "conversions_7d_click"
 ```
 
 ### Configuring Conversion Action Types
-By default, this package considers the following kinds of custom, purchase, and lead `action_types` to be conversions from the `basic_ad_actions`, `basic_ad_action_values`, `demographics_country_actions`, and `demographics_region_actions` source reports:
+By default, this package considers the following kinds of custom, purchase, and lead `action_types` to be conversions from the `basic_ad_actions`, `basic_ad_action_values`, `demographics_country_actions`, `demographics_region_actions`, and `demographics_age_and_gender_actions` source reports:
 
 | Action Type    | Action Description ([Meta docs](https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/)) |
 | -------- | ------- |
@@ -220,7 +227,7 @@ vars:
 
 #### Change the build schema
 
-By default, this package builds the Facebook Ads staging models (8 views, 8 tables) within a schema titled (`<target_schema>` + `_facebook_ads_source`) and your Facebook Ads modeling models (6 tables, 2 intermediate views) within a schema titled (`<target_schema>` + `_facebook_ads`) in your destination. If this is not where you would like your Facebook Ads data to be written to, add the following configuration to your root `dbt_project.yml` file:
+By default, this package builds the Facebook Ads staging models (8 views, 8 tables) within a schema titled (`<target_schema>` + `_facebook_ads_source`) and your Facebook Ads modeling models (6 tables, 2 intermediate views) within a schema titled (`<target_schema>` + `_facebook_ads`) in your destination. If you enable the country, region, and age and gender reports, the counts are 14 views and 14 tables for staging, and 9 tables and 2 intermediate views for modeling. If this is not where you would like your Facebook Ads data to be written to, add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
 models:

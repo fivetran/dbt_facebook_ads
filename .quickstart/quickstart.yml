@@ -10,6 +10,9 @@ table_variables:
   facebook_ads__using_demographics_region:
     - demographics_region
     - demographics_region_actions
+  facebook_ads__using_demographics_age_and_gender:
+    - demographics_age_and_gender
+    - demographics_age_and_gender_actions
 
   _fivetran_quickstart_basic_ad_actions:
     - basic_ad_actions
@@ -30,7 +33,8 @@ public_models: [
   "facebook_ads__ad_report",
   "facebook_ads__ad_set_report",
   "facebook_ads__country_report",
-  "facebook_ads__region_report"
+  "facebook_ads__region_report",
+  "facebook_ads__age_gender_report"
 ]
 
 supported_vars:
@@ -70,3 +74,12 @@ supported_vars:
     description: "Additional `DEMOGRAPHICS_REGION_ACTIONS` report columns to include in `facebook_ads__region_report`"
     display_name: "Additional `DEMOGRAPHICS_REGION_ACTIONS` Conversion Metrics"
 
+  facebook_ads__demographics_age_and_gender_passthrough_metrics:
+    type: dictionary
+    description: "Additional `DEMOGRAPHICS_AGE_AND_GENDER` report columns to include in `facebook_ads__age_gender_report`"
+    display_name: "Additional `DEMOGRAPHICS_AGE_AND_GENDER` Metrics"
+
+  facebook_ads__demographics_age_and_gender_actions_passthrough_metrics:
+    type: dictionary
+    description: "Additional `DEMOGRAPHICS_AGE_AND_GENDER_ACTIONS` report columns to include in `facebook_ads__age_gender_report`"
+    display_name: "Additional `DEMOGRAPHICS_AGE_AND_GENDER_ACTIONS` Conversion Metrics"

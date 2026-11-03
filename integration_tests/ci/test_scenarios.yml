@@ -32,6 +32,7 @@ test_scenarios:
       ad_reporting__url_report__using_null_filter: false
       facebook_ads__using_demographics_country: true
       facebook_ads__using_demographics_region: true
+      facebook_ads__using_demographics_age_and_gender: true
     include_incremental: false
 
   - name: "MDLS"
