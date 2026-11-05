@@ -370,3 +370,67 @@ sources:
             description: '{{ doc("_fivetran_synced") }}'
           - name: inline
             description: '{{ doc("inline") }}'
+
+      - name: demographics_age_and_gender
+        identifier: '{{ var("facebook_ads_demographics_age_and_gender_identifier", "demographics_age_and_gender") }}'
+        description: '{{ doc("demographics_age_and_gender") }}'
+        config:
+          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_age_and_gender', false) and var('facebook_ads_sources', []) == [] }}"
+        columns:
+          - name: account_id
+            description: '{{ doc("account_id") }}'
+          - name: date
+            description: '{{ doc("date") }}'
+          - name: _fivetran_id
+            description: '{{ doc("age_gender_id") }}'
+          - name: age
+            description: '{{ doc("age") }}'
+          - name: gender
+            description: '{{ doc("gender") }}'
+          - name: impressions
+            description: '{{ doc("impressions") }}'
+          - name: inline_link_clicks
+            description: '{{ doc("inline_link_clicks") }}'
+          - name: reach
+            description: '{{ doc("reach") }}'
+          - name: cost_per_inline_link_click
+            description: '{{ doc("cost_per_inline_link_click") }}'
+          - name: cpc
+            description: '{{ doc("cpc") }}'
+          - name: cpm
+            description: '{{ doc("cpm") }}'
+          - name: ctr
+            description: '{{ doc("ctr") }}'
+          - name: frequency
+            description: '{{ doc("frequency") }}'
+          - name: spend
+            description: '{{ doc("spend") }}'
+          - name: inline_link_click_ctr
+            description: '{{ doc("inline_link_click_ctr") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+
+      - name: demographics_age_and_gender_actions
+        identifier: '{{ var("facebook_ads_demographics_age_and_gender_actions_identifier", "demographics_age_and_gender_actions") }}'
+        description: '{{ doc("demographics_age_and_gender_actions") }}'
+        config:
+          enabled: "{{ var('ad_reporting__facebook_ads_enabled', true) and var('facebook_ads__using_demographics_age_and_gender', false) and var('facebook_ads_sources', []) == [] }}"
+        columns:
+          - name: account_id
+            description: '{{ doc("account_id") }}'
+          - name: date
+            description: '{{ doc("date") }}'
+          - name: _fivetran_id
+            description: '{{ doc("age_gender_id") }}'
+          - name: index
+            description: '{{ doc("index") }}'
+          - name: action_type
+            description: '{{ doc("action_type") }}'
+          - name: value
+            description: '{{ doc("conversions") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: _7_d_click
+            description: '{{ doc("_7_d_click") }}'
+          - name: _1_d_view
+            description: '{{ doc("_1_d_view") }}'

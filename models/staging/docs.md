@@ -88,3 +88,29 @@ Ads report segmented by geographic region.
 {% docs demographics_region_actions %}
 Each record represents daily conversion performance by geographic region. This is the prebuilt `demographics_region` report broken down by `action_type`.
 {% enddocs %}
+
+{% docs age_gender_id %} Fivetran-generated unique ID of the audience age range and gender combination. {% enddocs %}
+
+{% docs age %}
+Audience age range, such as `18-24`, `25-34`, `35-44`, `45-54`, `55-64`, `65+`, or `Unknown` when Facebook can't determine it.
+{% enddocs %}
+
+{% docs min_age %}
+Lower bound of the audience age range, parsed from `age`. For example, `18-24` and `65+` return 18 and 65. Null when age is unknown.
+{% enddocs %}
+
+{% docs max_age %}
+Upper bound of the audience age range, parsed from `age`. For example, `18-24` returns 24. An open-ended range such as `65+` returns 100. Null when age is unknown.
+{% enddocs %}
+
+{% docs gender %}
+Audience gender, such as `female`, `male`, or `unknown` when Facebook can't determine it.
+{% enddocs %}
+
+{% docs demographics_age_and_gender %}
+Ads report segmented by audience age range and gender.
+{% enddocs %}
+
+{% docs demographics_age_and_gender_actions %}
+Each record represents daily conversion performance by audience age range and gender. This is the prebuilt `demographics_age_and_gender` report broken down by `action_type`.
+{% enddocs %}

@@ -74,3 +74,4 @@ venv.bak/
 
 # Claude Code files
 CLAUDE.md
+.claude/

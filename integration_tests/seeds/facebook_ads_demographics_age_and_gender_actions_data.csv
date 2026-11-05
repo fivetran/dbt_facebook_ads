@@ -1,0 +1,10 @@
+_fivetran_id,_fivetran_synced,account_id,action_type,date,index,value
+ag01,2025-04-20 10:00:00,1700252260223815,offsite_conversion.fb_pixel_purchase,2025-04-10,0,3.0
+ag01,2025-04-20 10:00:00,1700252260223815,link_click,2025-04-10,1,40.0
+ag01,2025-04-20 10:00:00,1700252260223815,onsite_conversion.purchase,2025-04-11,0,2.0
+ag02,2025-04-20 10:00:00,1700252260223815,offsite_conversion.fb_pixel_lead,2025-04-10,0,5.0
+ag04,2025-04-20 10:00:00,1700252260223815,offsite_conversion.fb_pixel_custom,2025-04-10,0,1.0
+ag04,2025-04-20 10:00:00,1700252260223815,offsite_conversion.fb_pixel_purchase,2025-04-11,0,4.0
+ag04,2025-04-20 10:00:00,1700252260223815,offsite_conversion.fb_pixel_lead,2025-04-11,1,2.0
+ag07,2025-04-20 10:00:00,1700252260223815,onsite_conversion.lead_grouped,2025-04-11,0,1.0
+ag08,2025-04-20 10:00:00,1700252260223815,offsite_conversion.fb_pixel_purchase,2025-04-10,0,2.0

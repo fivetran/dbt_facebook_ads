@@ -1,3 +1,18 @@
+# dbt_facebook_ads v1.6.0
+
+## Schema/Data Change
+**2 total changes • 0 possible breaking changes**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ------------- | ----------- | --- | --- | ----- |
+| [facebook_ads__age_gender_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__age_gender_report) | New model |  |  | Daily account performance and conversions by audience age range and gender. Built from the `DEMOGRAPHICS_AGE_AND_GENDER` and `DEMOGRAPHICS_AGE_AND_GENDER_ACTIONS` source tables. Dynamically enabled in Quickstart; disabled by default otherwise. To enable in self-managed dbt projects, set the `facebook_ads__using_demographics_age_and_gender` variable to `true`. |
+| [stg_facebook_ads__demographics_age_and_gender](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.stg_facebook_ads__demographics_age_and_gender)<br>[stg_facebook_ads__demographics_age_and_gender_actions](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.stg_facebook_ads__demographics_age_and_gender_actions)<br>[stg_facebook_ads__demographics_age_and_gender_tmp](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.stg_facebook_ads__demographics_age_and_gender_tmp)<br>[stg_facebook_ads__demographics_age_and_gender_actions_tmp](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.stg_facebook_ads__demographics_age_and_gender_actions_tmp) | New staging models |  |  | Staging models to support age and gender reporting. |
+
+## Feature Update
+- **Age and gender reporting passthrough column variables**: Adds two new variables to pass additional or custom metrics through to the `facebook_ads__age_gender_report` model.
+  - `facebook_ads__demographics_age_and_gender_passthrough_metrics` passes additional `DEMOGRAPHICS_AGE_AND_GENDER` metrics through to `facebook_ads__age_gender_report`.
+  - `facebook_ads__demographics_age_and_gender_actions_passthrough_metrics` passes additional `DEMOGRAPHICS_AGE_AND_GENDER_ACTIONS` metrics through to `facebook_ads__age_gender_report`.
+
 # dbt_facebook_ads v1.5.1
 
 [PR #72](https://github.com/fivetran/dbt_facebook_ads/pull/72) includes the following updates:

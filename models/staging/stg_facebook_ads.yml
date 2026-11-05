@@ -338,3 +338,51 @@ models:
         description: '{{ doc("index") }}'
       - name: conversions
         description: "{{ doc('conversions') }}"
+
+  - name: stg_facebook_ads__demographics_age_and_gender
+    description: "{{ doc('demographics_age_and_gender') }}"
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: age_gender_id
+        description: "{{ doc('age_gender_id') }}"
+      - name: age
+        description: "{{ doc('age') }}"
+      - name: min_age
+        description: "{{ doc('min_age') }}"
+      - name: max_age
+        description: "{{ doc('max_age') }}"
+      - name: gender
+        description: "{{ doc('gender') }}"
+      - name: date_day
+        description: "{{ doc('date') }}"
+      - name: account_id
+        description: "{{ doc('account_id') }}"
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: clicks
+        description: "{{ doc('inline_link_clicks') }}"
+      - name: spend
+        description: "{{ doc('spend') }}"
+      - name: reach
+        description: "{{ doc('reach') }}"
+      - name: frequency
+        description: "{{ doc('frequency') }}"
+
+  - name: stg_facebook_ads__demographics_age_and_gender_actions
+    description: "{{ doc('demographics_age_and_gender_actions') }}"
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: age_gender_id
+        description: "{{ doc('age_gender_id') }}"
+      - name: action_type
+        description: "{{ doc('action_type') }}"
+      - name: account_id
+        description: "{{ doc('account_id') }}"
+      - name: date_day
+        description: "{{ doc('date') }}"
+      - name: index
+        description: '{{ doc("index") }}'
+      - name: conversions
+        description: "{{ doc('conversions') }}"
