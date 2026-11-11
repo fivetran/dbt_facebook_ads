@@ -1,4 +1,5 @@
 version: 1.6.1
+pr_number: 75
 under_the_hood:
 - description: Replaces the `facebook_ads_extract_url_parameter` macro with `dbt_utils.get_url_parameter` and
     removes `facebook_ads_extract_url_parameter`. `dbt_utils.get_url_parameter` now includes the
