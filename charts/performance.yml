@@ -1,0 +1,119 @@
+title: Facebook Ads Performance
+notes: Uses the official Facebook Ads campaign report and account report. Ratios are calculated from summed metrics. Reported conversions follow the package configuration and may include overlapping action types; they are not necessarily purchases.
+text: |
+  Follow campaign spend, traffic, and reported conversions.
+  Amounts stay separate by currency. Reported conversions are platform events, not a count of unique customers.
+  The date picker starts with all available history.
+
+variables:
+  period:
+    input: daterange
+
+queries:
+  campaigns:
+    dialect: duckdb
+    sql: |
+      SELECT campaigns.date_day, campaigns.source_relation,
+             campaigns.account_id, campaigns.account_name,
+             campaigns.campaign_id, campaigns.campaign_name, accounts.currency,
+             campaigns.spend, campaigns.clicks, campaigns.impressions,
+             campaigns.conversions
+      FROM {{ ref('facebook_ads__campaign_report') }} AS campaigns
+      LEFT JOIN {{ ref('facebook_ads__account_report') }} AS accounts
+        ON campaigns.source_relation = accounts.source_relation
+        AND campaigns.account_id = accounts.account_id
+        AND campaigns.date_day = accounts.date_day
+      WHERE {{ filter_date_range('campaigns.date_day', period) }}
+
+  summary:
+    dialect: duckdb
+    formats:
+      click_through_rate: percent
+    sql: |
+      SELECT currency, SUM(spend) AS spend, SUM(clicks) AS clicks,
+             SUM(impressions) AS impressions,
+             1.0 * SUM(clicks) / NULLIF(SUM(impressions), 0) AS click_through_rate,
+             SUM(spend) / NULLIF(SUM(clicks), 0) AS cost_per_click,
+             SUM(conversions) AS reported_conversions
+      FROM {{ queries.campaigns.cache }}
+      GROUP BY currency
+      ORDER BY currency
+
+  daily_spend:
+    dialect: duckdb
+    sql: |
+      SELECT date_day, currency, SUM(spend) AS spend
+      FROM {{ queries.campaigns.cache }}
+      GROUP BY date_day, currency
+      ORDER BY date_day, currency
+
+  daily_clicks:
+    dialect: duckdb
+    sql: |
+      SELECT date_day, SUM(clicks) AS clicks
+      FROM {{ queries.campaigns.cache }}
+      GROUP BY date_day
+      ORDER BY date_day
+
+  campaign_spend:
+    dialect: duckdb
+    sql: |
+      SELECT campaign_name, currency, SUM(spend) AS spend
+      FROM {{ queries.campaigns.cache }}
+      GROUP BY campaign_name, currency
+      ORDER BY spend DESC, campaign_name, currency
+      LIMIT 10
+
+  campaign_detail:
+    dialect: duckdb
+    formats:
+      click_through_rate: percent
+    sql: |
+      SELECT account_name, campaign_name, currency,
+             SUM(spend) AS spend, SUM(clicks) AS clicks,
+             1.0 * SUM(clicks) / NULLIF(SUM(impressions), 0) AS click_through_rate,
+             SUM(spend) / NULLIF(SUM(clicks), 0) AS cost_per_click,
+             SUM(conversions) AS reported_conversions
+      FROM {{ queries.campaigns.cache }}
+      GROUP BY source_relation, account_id, account_name,
+               campaign_id, campaign_name, currency
+      ORDER BY spend DESC, account_name, campaign_name, currency
+      LIMIT 20
+
+charts:
+  summary:
+    type: table
+    title: Performance by Currency
+    query: summary
+  daily_spend:
+    type: line
+    title: Daily Spend by Currency
+    query: daily_spend
+    x: date_day
+    color: currency
+    y: spend
+  daily_clicks:
+    type: line
+    title: Daily Clicks
+    query: daily_clicks
+    x: date_day
+    y: clicks
+  campaign_spend:
+    type: bar
+    title: Top Campaigns by Spend
+    query: campaign_spend
+    x: campaign_name
+    color: currency
+    y: spend
+  campaign_detail:
+    type: table
+    title: Campaign Performance
+    query: campaign_detail
+
+rows:
+  - summary
+  - cols:
+      - daily_spend
+      - daily_clicks
+  - campaign_spend
+  - campaign_detail
