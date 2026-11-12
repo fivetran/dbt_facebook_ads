@@ -3,6 +3,13 @@ version: 2
 models:
   - name: stg_facebook_ads__account_history
     description: Each record in this table reflects a Facebook ad account.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - account_id
+              - _fivetran_synced
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -37,6 +44,13 @@ models:
 
   - name: stg_facebook_ads__ad_history
     description: Each record in this table reflects a Facebook ad.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ad_id
+              - updated_at
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -65,6 +79,13 @@ models:
             
   - name: stg_facebook_ads__ad_set_history
     description: Each record in this table reflects a Facebook ad set.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ad_set_id
+              - updated_at
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -101,6 +122,13 @@ models:
 
   - name: stg_facebook_ads__campaign_history
     description: Each record in this table reflects a Facebook campaign.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - campaign_id
+              - updated_at
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -135,6 +163,12 @@ models:
 
   - name: stg_facebook_ads__creative_history
     description: Each record in this table reflects a Facebook creative.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - _fivetran_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -183,6 +217,14 @@ models:
 
   - name: stg_facebook_ads__basic_ad
     description: Each record represents the daily performance of an ad in Facebook.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - ad_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -215,6 +257,14 @@ models:
     description: >
       Each record represents the daily conversion performance of an ad in Facebook. This is the prebuilt `basic_ad` report broken down by `action_type`.
       Include more conversion value metrics by configuring the `facebook_ads__basic_ad_actions_passthrough_metrics` variable.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - ad_id
+              - action_type
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -237,6 +287,14 @@ models:
     description: >
       Each record represents the daily conversion values associated with an ad in Facebook. This is the prebuilt `basic_ad` report broken down by `action_type` and `action_values`
       Include more conversion value metrics by configuring the `facebook_ads__basic_ad_action_values_passthrough_metrics` variable.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - ad_id
+              - action_type
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -257,6 +315,14 @@ models:
   
   - name: stg_facebook_ads__demographics_country
     description: "{{ doc('demographics_country') }}"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - country_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -281,6 +347,15 @@ models:
 
   - name: stg_facebook_ads__demographics_country_actions
     description: "{{ doc('demographics_country_actions') }}"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - country_id
+              - action_type
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -299,6 +374,14 @@ models:
 
   - name: stg_facebook_ads__demographics_region
     description: "{{ doc('demographics_region') }}"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - region_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -323,6 +406,15 @@ models:
 
   - name: stg_facebook_ads__demographics_region_actions
     description: "{{ doc('demographics_region_actions') }}"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - region_id
+              - action_type
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -341,6 +433,14 @@ models:
 
   - name: stg_facebook_ads__demographics_age_and_gender
     description: "{{ doc('demographics_age_and_gender') }}"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - age_gender_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -371,6 +471,15 @@ models:
 
   - name: stg_facebook_ads__demographics_age_and_gender_actions
     description: "{{ doc('demographics_age_and_gender_actions') }}"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - age_gender_id
+              - action_type
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
