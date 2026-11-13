@@ -82,7 +82,7 @@ Include the following facebook_ads package version in your `packages.yml` file:
 ```yml
 packages:
   - package: fivetran/facebook_ads
-    version: [">=1.8.0", "<1.9.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=1.7.0", "<1.8.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 
 > All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/facebook_ads_source` in your `packages.yml` since this package has been deprecated.
