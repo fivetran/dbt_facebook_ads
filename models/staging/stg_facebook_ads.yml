@@ -15,7 +15,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: account_id
         description: The ID of the ad account.
-        tests:
+        data_tests:
           - not_null
       - name: account_name
         description: Name of the account.
@@ -23,7 +23,7 @@ models:
         description: "{{ doc('is_most_recent_record') }}"
       - name: _fivetran_synced
         description: "{{ doc('_fivetran_synced') }}"
-        tests:
+        data_tests:
           - not_null
       - name: account_status
         description: Current status of account.
@@ -56,7 +56,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: ad_id
         description: The ID of this ad.
-        tests:
+        data_tests:
           - not_null
       - name: account_id
         description: The ID of the ad account that this ad belongs to.
@@ -72,7 +72,7 @@ models:
         description: "{{ doc('is_most_recent_record') }}"
       - name: updated_at
         description: "{{ doc('updated_time') }}"
-        tests:
+        data_tests:
           - not_null
       - name: conversion_domain
         description: The domain you've configured the ad to convert to.
@@ -91,7 +91,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: ad_set_id
         description: The ID of the ad set.
-        tests:
+        data_tests:
           - not_null
       - name: account_id
         description: The ID of the ad account that this ad set belongs to.
@@ -103,7 +103,7 @@ models:
         description: "{{ doc('is_most_recent_record') }}"
       - name: updated_at
         description: "{{ doc('updated_time') }}"
-        tests:
+        data_tests:
           - not_null
       - name: start_at
         description: Timestamp of designated ad set start time.
@@ -134,7 +134,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: campaign_id
         description: The ID of the campaign.
-        tests:
+        data_tests:
           - not_null
       - name: account_id
         description: The ID of the ad account that this campaign belongs to.
@@ -144,7 +144,7 @@ models:
         description: "{{ doc('is_most_recent_record') }}"
       - name: updated_at
         description: "{{ doc('updated_time') }}"
-        tests:
+        data_tests:
           - not_null
       - name: created_at
         description: The time the campaign was created.
@@ -176,11 +176,11 @@ models:
         description: Unique record identifier
       - name: _fivetran_synced
         description: "{{ doc('_fivetran_synced') }}"
-        tests:
+        data_tests:
           - not_null
       - name: creative_id
         description: Unique ID for an ad creative.
-        tests:
+        data_tests:
           - not_null
       - name: account_id
         description: Ad account ID for the account this ad creative belongs to.
@@ -230,7 +230,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: ad_id
         description: The ID of the ad the report relates to.
-        tests:
+        data_tests:
           - not_null
       - name: ad_name
         description: Name of the ad the report relates to.
@@ -240,7 +240,7 @@ models:
         description: The date of the reported performance.
       - name: account_id
         description: The ID of the ad account that this ad belongs to.
-        tests:
+        data_tests:
           - not_null
       - name: impressions
         description: The number of impressions the ad had on the given day.

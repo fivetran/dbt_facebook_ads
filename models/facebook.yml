@@ -43,7 +43,7 @@ models:
         description: The name of the related creative.
       - name: base_url
         description: The base URL of the ad, extracted from the page_link and template_page_link.
-        tests:
+        data_tests:
           - not_null:
               config:
                 # Below is so we don't run this test if the user has allowed urls to have null entries
@@ -150,7 +150,7 @@ models:
         description: The name of the related ad set.
       - name: ad_id
         description: The ID of the related ad.
-        tests:
+        data_tests:
           - not_null
       - name: ad_name
         description: The name of the related ad.
@@ -239,7 +239,7 @@ models:
         description: The name of the related campaign.
       - name: ad_set_id
         description: The ID of the related ad set.
-        tests:
+        data_tests:
           - not_null
       - name: ad_set_name
         description: The name of the related ad set.
@@ -333,7 +333,7 @@ models:
         description: The name of the related account.
       - name: campaign_id
         description: The ID of the related campaign.
-        tests:
+        data_tests:
           - not_null
       - name: campaign_name
         description: The name of the related campaign.
@@ -422,7 +422,7 @@ models:
         description: The date of the performance.
       - name: account_id
         description: The ID of the related account.
-        tests:
+        data_tests:
           - not_null
       - name: account_name
         description: The name of the related account.
@@ -508,7 +508,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: _fivetran_id
         description: The unique fivetran ID for this record.
-        tests:
+        data_tests:
           - not_null
       - name: creative_id
         description: The associated creative_id for this record.
