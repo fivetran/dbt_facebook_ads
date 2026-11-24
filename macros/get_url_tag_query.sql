@@ -156,7 +156,7 @@ Database-specific implementations:
             source_relation,
             _fivetran_id,
             creative_id,
-            unnest(from_json(url_tags, '["JSON"]')) as url_tag_element
+            unnest(cast(from_json(url_tags, '["JSON"]') as json[])) as url_tag_element
         from required_fields
         where url_tags is not null
     ),

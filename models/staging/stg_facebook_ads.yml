@@ -3,12 +3,19 @@ version: 2
 models:
   - name: stg_facebook_ads__account_history
     description: Each record in this table reflects a Facebook ad account.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - account_id
+              - _fivetran_synced
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: account_id
         description: The ID of the ad account.
-        tests:
+        data_tests:
           - not_null
       - name: account_name
         description: Name of the account.
@@ -16,7 +23,7 @@ models:
         description: "{{ doc('is_most_recent_record') }}"
       - name: _fivetran_synced
         description: "{{ doc('_fivetran_synced') }}"
-        tests:
+        data_tests:
           - not_null
       - name: account_status
         description: Current status of account.
@@ -37,12 +44,19 @@ models:
 
   - name: stg_facebook_ads__ad_history
     description: Each record in this table reflects a Facebook ad.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ad_id
+              - updated_at
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: ad_id
         description: The ID of this ad.
-        tests:
+        data_tests:
           - not_null
       - name: account_id
         description: The ID of the ad account that this ad belongs to.
@@ -58,19 +72,26 @@ models:
         description: "{{ doc('is_most_recent_record') }}"
       - name: updated_at
         description: "{{ doc('updated_time') }}"
-        tests:
+        data_tests:
           - not_null
       - name: conversion_domain
         description: The domain you've configured the ad to convert to.
             
   - name: stg_facebook_ads__ad_set_history
     description: Each record in this table reflects a Facebook ad set.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ad_set_id
+              - updated_at
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: ad_set_id
         description: The ID of the ad set.
-        tests:
+        data_tests:
           - not_null
       - name: account_id
         description: The ID of the ad account that this ad set belongs to.
@@ -82,7 +103,7 @@ models:
         description: "{{ doc('is_most_recent_record') }}"
       - name: updated_at
         description: "{{ doc('updated_time') }}"
-        tests:
+        data_tests:
           - not_null
       - name: start_at
         description: Timestamp of designated ad set start time.
@@ -101,12 +122,19 @@ models:
 
   - name: stg_facebook_ads__campaign_history
     description: Each record in this table reflects a Facebook campaign.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - campaign_id
+              - updated_at
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: campaign_id
         description: The ID of the campaign.
-        tests:
+        data_tests:
           - not_null
       - name: account_id
         description: The ID of the ad account that this campaign belongs to.
@@ -116,7 +144,7 @@ models:
         description: "{{ doc('is_most_recent_record') }}"
       - name: updated_at
         description: "{{ doc('updated_time') }}"
-        tests:
+        data_tests:
           - not_null
       - name: created_at
         description: The time the campaign was created.
@@ -135,6 +163,12 @@ models:
 
   - name: stg_facebook_ads__creative_history
     description: Each record in this table reflects a Facebook creative.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - _fivetran_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -142,11 +176,11 @@ models:
         description: Unique record identifier
       - name: _fivetran_synced
         description: "{{ doc('_fivetran_synced') }}"
-        tests:
+        data_tests:
           - not_null
       - name: creative_id
         description: Unique ID for an ad creative.
-        tests:
+        data_tests:
           - not_null
       - name: account_id
         description: Ad account ID for the account this ad creative belongs to.
@@ -183,12 +217,20 @@ models:
 
   - name: stg_facebook_ads__basic_ad
     description: Each record represents the daily performance of an ad in Facebook.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - ad_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: ad_id
         description: The ID of the ad the report relates to.
-        tests:
+        data_tests:
           - not_null
       - name: ad_name
         description: Name of the ad the report relates to.
@@ -198,7 +240,7 @@ models:
         description: The date of the reported performance.
       - name: account_id
         description: The ID of the ad account that this ad belongs to.
-        tests:
+        data_tests:
           - not_null
       - name: impressions
         description: The number of impressions the ad had on the given day.
@@ -215,6 +257,14 @@ models:
     description: >
       Each record represents the daily conversion performance of an ad in Facebook. This is the prebuilt `basic_ad` report broken down by `action_type`.
       Include more conversion value metrics by configuring the `facebook_ads__basic_ad_actions_passthrough_metrics` variable.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - ad_id
+              - action_type
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -237,6 +287,14 @@ models:
     description: >
       Each record represents the daily conversion values associated with an ad in Facebook. This is the prebuilt `basic_ad` report broken down by `action_type` and `action_values`
       Include more conversion value metrics by configuring the `facebook_ads__basic_ad_action_values_passthrough_metrics` variable.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - ad_id
+              - action_type
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -257,6 +315,14 @@ models:
   
   - name: stg_facebook_ads__demographics_country
     description: "{{ doc('demographics_country') }}"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - country_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -281,6 +347,15 @@ models:
 
   - name: stg_facebook_ads__demographics_country_actions
     description: "{{ doc('demographics_country_actions') }}"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - country_id
+              - action_type
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -299,6 +374,14 @@ models:
 
   - name: stg_facebook_ads__demographics_region
     description: "{{ doc('demographics_region') }}"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - region_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -323,6 +406,15 @@ models:
 
   - name: stg_facebook_ads__demographics_region_actions
     description: "{{ doc('demographics_region_actions') }}"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - region_id
+              - action_type
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -341,6 +433,14 @@ models:
 
   - name: stg_facebook_ads__demographics_age_and_gender
     description: "{{ doc('demographics_age_and_gender') }}"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - age_gender_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -371,6 +471,15 @@ models:
 
   - name: stg_facebook_ads__demographics_age_and_gender_actions
     description: "{{ doc('demographics_age_and_gender_actions') }}"
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - account_id
+              - age_gender_id
+              - action_type
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
