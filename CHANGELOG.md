@@ -6,6 +6,9 @@
 - **Breaking change**: Raises the minimum dbt version to 1.10.0.
 - Adds `dbt_utils.unique_combination_of_columns` tests to staging and end models. If a test fails, please [open an issue](https://github.com/fivetran/dbt_facebook_ads/issues/new/choose).
 
+## Bug Fix
+- Casts the parsed `url_tags` to a JSON array in the DuckDB URL tag unnesting. This fixes a type mismatch that failed under dbt v2 strict static analysis.
+
 # dbt_facebook_ads v1.6.0
 
 ## Schema/Data Change
