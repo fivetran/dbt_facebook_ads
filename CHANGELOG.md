@@ -1,3 +1,17 @@
+# dbt_facebook_ads v1.8.0
+
+[PR #77](https://github.com/fivetran/dbt_facebook_ads/pull/77) includes the following updates:
+
+## Schema/Data Change
+**1 total change • 0 possible breaking changes**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ------------- | ----------- | --- | --- | ----- |
+| [facebook_ads__campaign_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__campaign_report)<br>[facebook_ads__ad_set_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__ad_set_report)<br>[facebook_ads__ad_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__ad_report)<br>[facebook_ads__url_report](https://fivetran.github.io/dbt_facebook_ads/#!/model/model.facebook_ads.facebook_ads__url_report) | New column |  |  | Adds `currency`, the account's currency code from `ACCOUNT_HISTORY`, matching the column already in `facebook_ads__account_report`. Spend and other monetary values in these models are reported in this currency. |
+
+## Under the Hood
+- Adds `currency` values to the `facebook_ads_account_history_data` seed.
+
 # dbt_facebook_ads v1.7.0
 
 [PR #76](https://github.com/fivetran/dbt_facebook_ads/pull/76) includes the following updates:

@@ -53,6 +53,7 @@ joined as (
         report.date_day,
         accounts.account_id,
         accounts.account_name,
+        accounts.currency,
         campaigns.campaign_id,
         campaigns.campaign_name,
         ad_sets.ad_set_id,
@@ -97,7 +98,7 @@ joined as (
     left join ad_sets
         on ads.ad_set_id = ad_sets.ad_set_id
         and ads.source_relation = ad_sets.source_relation
-    {{ dbt_utils.group_by(14) }}
+    {{ dbt_utils.group_by(15) }}
 )
 
 select *
