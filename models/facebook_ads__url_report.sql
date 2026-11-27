@@ -60,6 +60,7 @@ joined as (
         report.date_day,
         accounts.account_id,
         accounts.account_name,
+        accounts.currency,
         campaigns.campaign_id,
         campaigns.campaign_name,
         ad_sets.ad_set_id,
@@ -118,7 +119,7 @@ joined as (
         where creatives.url is not null
     {% endif %}
     
-    {{ dbt_utils.group_by(20) }}
+    {{ dbt_utils.group_by(21) }}
 )
 
 select *

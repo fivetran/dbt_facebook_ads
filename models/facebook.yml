@@ -25,6 +25,8 @@ models:
         description: The ID of the related account.
       - name: account_name
         description: The name of the related account.
+      - name: currency
+        description: Currency associated with account.
       - name: campaign_id
         description: The ID of the related campaign.
       - name: campaign_name
@@ -140,6 +142,8 @@ models:
         description: The ID of the related account.
       - name: account_name
         description: The name of the related account.
+      - name: currency
+        description: Currency associated with account.
       - name: campaign_id
         description: The ID of the related campaign.
       - name: campaign_name
@@ -233,6 +237,8 @@ models:
         description: The ID of the related account.
       - name: account_name
         description: The name of the related account.
+      - name: currency
+        description: Currency associated with account.
       - name: campaign_id
         description: The ID of the related campaign.
       - name: campaign_name
@@ -331,6 +337,8 @@ models:
         description: The ID of the related account.
       - name: account_name
         description: The name of the related account.
+      - name: currency
+        description: Currency associated with account.
       - name: campaign_id
         description: The ID of the related campaign.
         data_tests:
